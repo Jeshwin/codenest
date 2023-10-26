@@ -10,7 +10,7 @@
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Jeshwin/codenest)](https://github.com/Jeshwin/codenest)
 [![GitHub Repo stars](https://img.shields.io/github/stars/Jeshwin/codenest)](https://github.com/Jeshwin/codenest)
-[![GitHub issues](https://img.shields.io/github/issues/Jeshwin/codenest)](https://github.com/Jeshwin/codenest)
+[![GitHub issues](https://img.shields.io/github/issues/Jeshwin/codenest)](https://github.com/Jeshwin/codenest/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>
@@ -104,7 +104,7 @@ Add additional notes about how to deploy this on a live system.
 ## ✍️ Authors <a name = "authors"></a>
 
 -   [@Jeshwin](https://github.com/Jeshwin)
--   [@EthanKosaki](https://github.com/)
+-   [@ethank2222](https://github.com/ethank2222)
 -   [@Arnie](https://github.com/)
 
 See also the list of [contributors](https://github.com/Jeshwin/codenest/contributors) who participated in this project.
