@@ -23,6 +23,8 @@ export default function Page() {
 
 
   return (
-    <TreeView items={directoryData} />
+    <div className="h-[calc(100vh-64px)] w-72 border m-2">
+      <TreeView items={directoryData} />
+    </div>
   );
 }

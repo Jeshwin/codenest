@@ -16,7 +16,7 @@ export default function ThemePicker() {
 
     return (
         <div
-            className="w-8 h-8 p-2 flex item-center rounded-xl hover:bg-white dark:hover:bg-slate-900 active:scale-90 transition duration-150 cursor-pointer"
+            className="w-8 h-8 p-2 flex item-center rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 active:scale-90 transition duration-150 cursor-pointer"
             onClick={changeIcon}
         >
             {isLight ? (
