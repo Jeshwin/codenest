@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=256px height=256px src="codenest_logo.png" alt="Project logo"></a>
+ <img width=256px height=256px src="codenest_logo.svg" alt="Project logo"></a>
 </p>
 
 <h1 align="center">CodeNest</h1>
