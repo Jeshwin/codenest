@@ -26,11 +26,11 @@
 
 -   [About](#about)
 -   [Getting Started](#getting_started)
--   [Deployment](#deployment)
+-   [Installing](#installing)
+-   [Testing](#tests)
 -   [Usage](#usage)
+-   [Deployment](#deployment)
 -   [Built Using](#built_using)
--   [TODO](../TODO.md)
--   [Contributing](../CONTRIBUTING.md)
 -   [Authors](#authors)
 -   [Acknowledgments](#acknowledgement)
 
@@ -44,7 +44,7 @@ We initially started CodeNest to gain experience working on a large project as a
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Installing
+### Installing <a name = "installing"></a>
 
 Clone the repository
 
@@ -72,7 +72,7 @@ npm run dev
 
 The instance will be available on `localhost:3000`
 
-## 🔧 Running the tests <a name = "tests"></a>
+## 🔧 Testing <a name = "tests"></a>
 
 Run the tests using [Jest](https://jestjs.io/)
 
