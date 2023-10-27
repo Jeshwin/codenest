@@ -30,7 +30,7 @@ const TreeView = ({ items }) => {
             <ul
                 className={`${
                     directoryFlag
-                        ? "border-l ml-2 pl-4 border-black dark:border-white border-opacity-50"
+                        ? "border-l ml-1 pl-5 my-1 border-black dark:border-white border-opacity-50"
                         : ""
                 }`}
             >

@@ -9,7 +9,7 @@ export default function FileElement({ name, onClick }) {
     return (
         <div
             onClick={onClick}
-            className={`flex flex-row gap-1
+            className={`flex flex-row gap-1 my-1
             items-center select-none
             text-black dark:text-white 
             hover:opacity-50 cursor-pointer`}
