@@ -93,7 +93,11 @@ CodeNest is deployed using [AWS](https://aws.amazon.com/) and is publicly availa
 -   [Next.js](https://nextjs.org/) - Web Framework
 -   [React](https://react.dev/) - Component Library
 -   [TailwindCSS](https://tailwindcss.com/) - CSS Framework
+-   [Font Awesome](https://fontawesome.com/) - Icon Library
+-   [Boring Avatars](https://boringavatars.com/) - Profile Pic Generator
 -   [AWS](https://aws.amazon.com/) - Web Hosting and Compute
+-   [websocat](https://github.com/vi/websocat) - Serve shell through WebSockets
+-   [Xterm.js](https://xtermjs.org/) - Shell on the browser
 
 ## ✍️ Authors <a name = "authors"></a>
 
@@ -105,9 +109,8 @@ See also the list of [contributors](https://github.com/Jeshwin/codenest/contribu
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
--   Hat tip to anyone whose code was used
+-   🎩 Hat tip to anyone whose code was used
 -   Inspiration
     -   [Replit](https://repl.it)
     -   [StackBlitz](https://stackblitz.com/)
-    -   [Lapce](https://lapce.dev/)
 -   References
