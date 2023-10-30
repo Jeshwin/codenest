@@ -103,7 +103,7 @@ CodeNest is deployed using [AWS](https://aws.amazon.com/) and is publicly availa
 
 -   [@Jeshwin](https://github.com/Jeshwin)
 -   [@ethank2222](https://github.com/ethank2222)
--   [@Arnie](https://github.com/)
+-   [@feynmans-socks](https://github.com/feynmans-socks)
 
 See also the list of [contributors](https://github.com/Jeshwin/codenest/contributors) who participated in this project.
 
