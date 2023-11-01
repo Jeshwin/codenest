@@ -1,0 +1,8 @@
+[
+    {
+        "theme": "Light",
+        "start": "This\nis\nthe\nstarting\n    info",
+        "tab-length": 4,
+        "replace-tabs-with-spaces": true
+    }
+]

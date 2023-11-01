@@ -1,3 +1,22 @@
+/*
+fetch('./editorSettings.json')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log(error));
+*/
+var theme = "dark";
+var tabLength = 4;
+var start = "This\nis\nthe\nstarting\n    info";
+
+document.getElementById("mytextarea").value = start;
+var r = document.querySelector(':root');
+if (theme == "dark"){
+    r.style.setProperty('--text', '#f1f5f9');
+    r.style.setProperty('--bg2', '#0f172a');
+    r.style.setProperty('--bg1', '#020617');
+}
+
+
 function lineNumbers(numLines){
     var text = "";
     for (var i = 1; i <= numLines; i++){
@@ -12,17 +31,14 @@ function updateLineNumbers(){
     lineNumbers(count+1);
 }
 
-document.getElementById("mytextarea").addEventListener('input',updateLineNumbers(),false);
+document.getElementById("mytextarea").addEventListener('input',updateLineNumbers,false);
+document.getElementById("mytextarea").addEventListener("paste", updateLineNumbers, false);
 
 document.getElementById('mytextarea').addEventListener('keydown', function(e) {
-    updateLineNumbers();
     if (e.key == "'" || e.key == '"' || e.key == '{' || e.key == "(" || e.key == "[" || e.key == "Tab" || e.key == "Enter"){
         e.preventDefault();
         var start = this.selectionStart;
         var end = this.selectionEnd;
-    }
-    else{
-        return;
     }
     if (e.key == "'"){
         this.value = this.value.substring(0, start) + "''" + this.value.substring(end);
@@ -45,8 +61,12 @@ document.getElementById('mytextarea').addEventListener('keydown', function(e) {
         this.selectionStart = this.selectionEnd = start + 1;
     }
     else if (e.key == 'Tab') {
-        this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
-        this.selectionStart = this.selectionEnd = start + 4;
+        var spaces = '';
+        for (var i = 0; i < tabLength; i++){
+            spaces += ' ';
+        }
+        this.value = this.value.substring(0, start) + spaces + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + tabLength;
     }
     else if (e.key === "Enter") {
         var content = this.value;
@@ -62,8 +82,12 @@ document.getElementById('mytextarea').addEventListener('keydown', function(e) {
             spaces += ' ';
         }
         if (document.getElementById("mytextarea").value.charAt(document.getElementById("mytextarea").selectionStart-1) == "{" && document.getElementById("mytextarea").value.charAt(document.getElementById("mytextarea").selectionStart) == "}"){
-            spaces += '    \n' + spaces;
-            numSpaces += 4;
+            var spaces2 = '';
+            for (var i = 0; i < tabLength; i++){
+                spaces2 += ' ';
+            }
+            spaces += spaces2 + '\n' + spaces;
+            numSpaces += tabLength;
         }
         this.value = this.value.substring(0, start) + "\n" + spaces + this.value.substring(end);
         this.selectionStart = this.selectionEnd = start + numSpaces + 1;
@@ -74,6 +98,7 @@ document.getElementById('mytextarea').addEventListener('keydown', function(e) {
         this.blur();
         this.focus();
     }
+    updateLineNumbers();
 });
 
 
