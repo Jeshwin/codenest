@@ -1,16 +1,18 @@
 <html>
- <head>
-    <title>Code Editor</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script defer type="text/javascript" src="main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.0.0/split.min.js" integrity="sha512-tTsZnBXEzNdEaqUO9Ok8fUofS73xieiBa54pD/sxOSvayIgItM9MmEM0CnUjA13LDnJT22sfwmjf20+Bo2174g==" crossorigin="anonymous"></script>
- </head>
- <body>
-    <div id="wrapper">
-         <textarea id="line-numbers" cols="80" rows="10" readonly>a</textarea>
-         <textarea id="mytextarea" cols="80" rows="10" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+   <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+      <title>Code Editor</title>
+      <link rel="stylesheet" type="text/css" href="styles.css">
+      <script defer type="text/javascript" src="main.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.0.0/split.min.js" integrity="sha512-tTsZnBXEzNdEaqUO9Ok8fUofS73xieiBa54pD/sxOSvayIgItM9MmEM0CnUjA13LDnJT22sfwmjf20+Bo2174g==" crossorigin="anonymous"></script>
+   </head>
+   <body>
+      <div id="wrapper">
+         <textarea id="line-numbers" cols="80" rows="10" readonly></textarea>
+         <textarea id="mytextarea"></textarea>
       </div>
-      
-</body>
- </html>
+   </body>
+</html>

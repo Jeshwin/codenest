@@ -1,9 +1,3 @@
-/*
-fetch('./editorSettings.json')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
-*/
 var theme = "dark";
 var tabLength = 4;
 var start = "This\nis\nthe\nstarting\n    info";
@@ -35,6 +29,8 @@ document.getElementById("mytextarea").addEventListener('input',updateLineNumbers
 document.getElementById("mytextarea").addEventListener("paste", updateLineNumbers, false);
 
 document.getElementById('mytextarea').addEventListener('keydown', function(e) {
+    var el = document.getElementById('mytextarea');
+
     if (e.key == "'" || e.key == '"' || e.key == '{' || e.key == "(" || e.key == "[" || e.key == "Tab" || e.key == "Enter"){
         e.preventDefault();
         var start = this.selectionStart;
