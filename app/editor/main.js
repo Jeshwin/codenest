@@ -15,6 +15,7 @@ function updateLineNumbers(){
 document.getElementById("mytextarea").addEventListener('input',updateLineNumbers(),false);
 
 document.getElementById('mytextarea').addEventListener('keydown', function(e) {
+    updateLineNumbers();
     if (e.key == "'" || e.key == '"' || e.key == '{' || e.key == "(" || e.key == "[" || e.key == "Tab" || e.key == "Enter"){
         e.preventDefault();
         var start = this.selectionStart;
@@ -78,6 +79,7 @@ document.getElementById('mytextarea').addEventListener('keydown', function(e) {
 
 document.getElementById("mytextarea").onscroll = function(){
     document.getElementById("line-numbers").scrollTo(0,document.getElementById("mytextarea").scrollTop);
+    updateLineNumbers();
 };
 
 updateLineNumbers();
