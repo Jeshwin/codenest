@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <>
       <html lang="en">
-        <body className={` h-screen bg-slate-200 dark:bg-slate-900 ${inter.variable} ${jetbrains_mono.variable}`}>
+        <body className={` h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)] ${inter.variable} ${jetbrains_mono.variable}`}>
           <Navbar />
           {children}
         </body>
