@@ -39,7 +39,7 @@ const TreeView = ({ items }) => {
             <ul
                 className={`${
                     directoryFlag
-                        ? "border-l ml-1 pl-3 my-1 border-slate-600 dark:border-slate-30 border-opacity-75"
+                        ? "border-l ml-1 pl-3 my-1 border-[var(--light-fg-2)] dark:border-[var(--dark-fg-1)] border-opacity-75"
                         : ""
                 }`}
             >
@@ -75,19 +75,19 @@ const TreeView = ({ items }) => {
             {/* Search Bar */}
             <FileSearchBar />
             {/* Add Files or Folders */}
-            <div className="h-4 my-2 pl-3 flex flex-row items-center text-slate-900 dark:text-slate-50">
+            <div className="h-4 my-2 pl-3 flex flex-row items-center text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
                 <span className="font-bold">Files</span>
                 <span className="flex-grow"></span>
-                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-90 transition-transform duration-150 cursor-pointer">
+                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-[var(--light-bg-2)] dark:hover:bg-[var(--dark-bg-2)] active:scale-90 transition-transform duration-150 cursor-pointer">
                     <FontAwesomeIcon
                         icon={faFileCirclePlus}
                         className="h-4 w-4"
                     />
                 </div>
-                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-90 transition-transform duration-150 cursor-pointer">
+                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-[var(--light-bg-2)] dark:hover:bg-[var(--dark-bg-2)] active:scale-90 transition-transform duration-150 cursor-pointer">
                     <FontAwesomeIcon icon={faFolderPlus} className="h-4 w-4" />
                 </div>
-                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-90 transition-transform duration-150 cursor-pointer">
+                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-[var(--light-bg-2)] dark:hover:bg-[var(--dark-bg-2)] active:scale-90 transition-transform duration-150 cursor-pointer">
                     <FontAwesomeIcon icon={faEllipsis} className="h-4 w-4" />
                 </div>
             </div>

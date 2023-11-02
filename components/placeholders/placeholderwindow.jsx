@@ -1,6 +1,6 @@
 export default function PlaceholderWindow({ placeholderName }) {
     return (
-        <div className="w-full h-full relative flex-grow grid place-content-center align-middle font-mono text-slate-900 dark:text-slate-50">
+        <div className="w-full h-full relative flex-grow grid place-content-center align-middle font-mono text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
             {/* Resize Handles */}
             <div className="absolute top-0 w-[calc(100%-32px)] h-2 mx-4 hover:cursor-row-resize"></div>
             <div className="absolute bottom-0 w-[calc(100%-32px)] h-2 mx-4 hover:cursor-row-resize"></div>
