@@ -25,7 +25,7 @@ export const metadata = {
 export default function RootLayout({ children }) {  
   return (
     <>
-      <html lang="en">
+      <html lang="en" className=' overflow-hidden'>
         <body className={` h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)] ${inter.variable} ${jetbrains_mono.variable}`}>
           <Navbar />
           {children}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import TreeView from "@/components/directorytree/treeview";
 import PlaceholderWindow from '@/components/placeholders/placeholderwindow';
+import ExampleCloudShell from '@/components/cloudshell/examplecloudshell';
 
 export default function Page() {
   const [directoryData, setDirectoryData] = useState(null)
@@ -17,7 +18,6 @@ export default function Page() {
         throw new Error('Network response was not ok.');
       })
       .then((data) => {
-        console.debug(data)
         setDirectoryData(data)
       })
       .catch((error) => {
@@ -28,19 +28,14 @@ export default function Page() {
 
   return (
     <div className='h-[calc(100vh-56px)] m-1 flex'>
-      <div className="w-[320px] flex-none m-1 rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
+      <div className="m-1 w-1/5 flex-none rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
         <TreeView items={directoryData} />
       </div>
-      <div className='m-1 flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:tebgxt-[var(--dark-bg-1)]'>
+      <div className='m-1 w-2/5 flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]'>
         <PlaceholderWindow placeholderName={"Code Editor"} />
       </div>
-      <div className='flex-1 flex flex-col h-full'>
-        <div className='m-1 h-4/5 rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]'>
-          <PlaceholderWindow placeholderName={"Output"} />
-        </div>
-        <div className='m-1 h-1/5 rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]'>
-          <PlaceholderWindow placeholderName={"Shell"} />
-        </div>
+      <div className='m-1 w-2/5 flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]'>
+        <ExampleCloudShell />
       </div>
     </div>
   );

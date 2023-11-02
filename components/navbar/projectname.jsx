@@ -6,7 +6,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function ProjectName() {
-    const [projectName, setProjectName] = useState("")
+    const [projectName, setProjectName] = useState("ProjectName")
 
     useEffect(() => {
         // Fetch the JSON data from the 'directory.json' file in the 'public' directory
@@ -18,7 +18,6 @@ export default function ProjectName() {
                 throw new Error("Network response was not ok.")
             })
             .then((data) => {
-                console.debug(data)
                 setProjectName(data)
             })
             .catch((error) => {
