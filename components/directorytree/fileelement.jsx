@@ -20,7 +20,7 @@ export default function FileElement({ name, onClick }) {
                 icon={faFile}
                 className="h-5 w-5 text-[var(--light-fg-2)] dark:text-[var(--dark-fg-2)]"
             />
-            <span className="ml-0.5">{name}</span>
+            <span className="ml-0.5 overflow-hidden">{name}</span>
         </div>
     )
 }

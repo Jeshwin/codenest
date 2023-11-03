@@ -75,7 +75,7 @@ const TreeView = ({ items }) => {
             {/* Search Bar */}
             <FileSearchBar />
             {/* Add Files or Folders */}
-            <div className="h-4 my-2 pl-3 flex flex-row items-center text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
+            <div className="h-4 my-2 pl-3 min-w-fit flex flex-row items-center text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
                 <span className="font-bold">Files</span>
                 <span className="flex-grow"></span>
                 <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-[var(--light-bg-2)] dark:hover:bg-[var(--dark-bg-2)] active:scale-90 transition-transform duration-150 cursor-pointer">

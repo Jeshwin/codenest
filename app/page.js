@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import TreeView from "@/components/directorytree/treeview";
 import PlaceholderWindow from '@/components/placeholders/placeholderwindow';
 import ExampleCloudShell from '@/components/cloudshell/examplecloudshell';
+import Editor from '@/components/editor/editor';
 
 export default function Page() {
   const [directoryData, setDirectoryData] = useState(null)
@@ -32,9 +33,9 @@ export default function Page() {
         <TreeView items={directoryData} />
       </div>
       <div className='m-1 w-2/5 flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]'>
-        <PlaceholderWindow placeholderName={"Code Editor"} />
+        <Editor />
       </div>
-      <div className='m-1 w-2/5 flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]'>
+      <div className='m-1 w-2/5 h-auto flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]'>
         <ExampleCloudShell />
       </div>
     </div>

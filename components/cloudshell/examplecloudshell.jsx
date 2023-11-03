@@ -65,13 +65,25 @@ export default function ExampleCloudShell() {
 
     useEffect(() => {
         const initTerminal = async () => {
+            // Check window dimensions
+            const containerHeight =
+                document.getElementById("custom-terminal-container")
+                    .clientHeight - 8 // -8 for margin
+            const defaultTextHeight = 16 + 4 // in pixels, +4 for spacing
+            var terminalRows = Math.floor(
+                containerHeight / defaultTextHeight - 1
+            )
+            console.debug(
+                `${containerHeight} / ${defaultTextHeight} - 3 = ${terminalRows}`
+            )
+
             // Initialize Xterm.js and addons
             const { Terminal } = await import("xterm")
             const { FitAddon } = await import("xterm-addon-fit")
             const terminal = new Terminal({
                 cursorBlink: true,
                 cols: 25,
-                rows: 45,
+                rows: terminalRows,
                 fontFamily: "var(--font-jetbrains-mono)",
                 theme: {
                     background: "#000000",
@@ -91,6 +103,13 @@ export default function ExampleCloudShell() {
 
             // Open the terminal in the 'terminal-container' div
             terminal.open(termRef.current)
+            console.debug(
+                "New Dimensions: { cols: " +
+                    fitAddon.proposeDimensions().cols +
+                    ", rows: " +
+                    fitAddon.proposeDimensions().rows +
+                    "}"
+            )
             fitAddon.fit()
 
             // Listen for the custom 'themechange' event
@@ -109,9 +128,18 @@ export default function ExampleCloudShell() {
             setTerminalTheme(currentTheme, terminal)
 
             // Resize window in resize
-            window.addEventListener("resize", () => {
+            const handleResize = () => {
+                console.debug("Resize detected!")
+                console.debug(
+                    "New Dimensions: { cols: " +
+                        fitAddon.proposeDimensions().cols +
+                        ", rows: " +
+                        fitAddon.proposeDimensions().rows +
+                        "}"
+                )
                 fitAddon.fit()
-            })
+            }
+            window.addEventListener("resize", handleResize)
 
             // Attach the WebSocket to Xterm.js
             terminal.onData((data) => {
@@ -126,9 +154,7 @@ export default function ExampleCloudShell() {
 
             // Clean up the terminal and close the WebSocket on component unmount
             return () => {
-                window.removeEventListener("resize", () => {
-                    fitAddon.fit()
-                })
+                window.removeEventListener("resize", handleResize)
                 window.removeEventListener(
                     "themechange",
                     themeChangeRef.current
@@ -140,7 +166,10 @@ export default function ExampleCloudShell() {
     }, [])
 
     return (
-        <div className="p-3 flex flex-col w-full h-full">
+        <div
+            className="p-3 flex flex-col w-full h-full"
+            id="custom-terminal-container"
+        >
             <div ref={termRef}></div>
         </div>
     )
