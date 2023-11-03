@@ -1,6 +1,20 @@
-var theme = "dark";
+var tabs = {
+    1:{
+        "filename": "Tab1.css",
+        "content": "This is some css content."
+    },
+    2:{
+        "filename": "Tab2.html",
+        "content": "This is some html content."
+    },
+    3:{
+        "filename": "tab3.js",
+        "content": "This is some JS content."
+    }
+}
+let currentTab = 1;
+var theme = "light";
 var tabLength = 4;
-var start = "This\nis\nthe\nstarting\n    info";
 
 function setTheme(){
     var r = document.querySelector(':root');
@@ -8,11 +22,15 @@ function setTheme(){
         r.style.setProperty('--text', '#f1f5f9');
         r.style.setProperty('--bg2', '#0f172a');
         r.style.setProperty('--bg1', '#020617');
+        r.style.setProperty('--bg3', '#1e293b');
+        r.style.setProperty('--red', 'red');
     }
     else{
         r.style.setProperty('--text', '#0f172a');
         r.style.setProperty('--bg1', '#f8fafc');
         r.style.setProperty('--bg2', '#e2e8f0');
+        r.style.setProperty('--bg3', '#e2e8f0');
+        r.style.setProperty('--red', '#FF6464');
     }
 }
 function lineNumbers(numLines){
@@ -31,7 +49,6 @@ function updateLineNumbers(){
 
 document.getElementById("mytextarea").addEventListener('input',updateLineNumbers,false);
 document.getElementById("mytextarea").addEventListener("paste", updateLineNumbers, false);
-
 document.getElementById('mytextarea').addEventListener('keydown', function(e) {
     var el = document.getElementById('mytextarea');
 
@@ -108,5 +125,29 @@ document.getElementById("mytextarea").onscroll = function(){
 };
 
 setTheme();
-document.getElementById("mytextarea").value = start;
 updateLineNumbers();
+
+for (var i = 1; i <= Object.keys(tabs).length; i++){
+    var tab = document.createElement('div');
+    tab.innerHTML = `<text>Tab1.css</text><span class="close-tab">&#66338;</span>`;
+    tab.setAttribute('name',i);
+    tab.firstChild.setAttribute('name',i);
+    tab.children[1].setAttribute('name',i);
+    tab.firstChild.innerHTML = tabs[i].filename;
+    document.getElementById("menubar").appendChild(tab);
+    tab.className = "tab";
+    tab.addEventListener('click', function(e){
+        if (currentTab != e.target.getAttribute('name')){
+            tabs[currentTab].content = document.getElementById("mytextarea").value;
+            document.getElementById("mytextarea").value = tabs[e.target.getAttribute('name')]["content"];
+            currentTab = e.target.getAttribute('name');
+            var allTabs = document.getElementsByClassName('tab');
+            for (var i = 0; i < allTabs.length; i++){
+                allTabs[i].classList.remove("selected-tab");
+            }
+            allTabs[currentTab-1].classList.add("selected-tab");
+        }
+    });
+}
+document.getElementById("menubar").firstChild.classList.add("selected-tab");
+document.getElementById("mytextarea").value = tabs[1]["content"];
