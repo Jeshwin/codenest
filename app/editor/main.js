@@ -1,19 +1,51 @@
 var tabs = {
     1:{
         "filename": "Tab1.css",
-        "content": "This is some css content."
+        "content": "This is some css content.",
+        "cursorStart": 0,
+        "cursorEnd": 0
     },
     2:{
         "filename": "Tab2.html",
-        "content": "This is some html content."
+        "content": "This is some html content.",
+        "cursorStart": 0,
+        "cursorEnd": 0
     },
     3:{
-        "filename": "tab3.js",
-        "content": "This is some JS content."
+        "filename": "Tab2.html",
+        "content": "This is some html content.",
+        "cursorStart": 0,
+        "cursorEnd": 0
+    },
+    4:{
+        "filename": "python.py",
+        "content": "This is some Python content.",
+        "cursorStart": 0,
+        "cursorEnd": 0
+    },
+    5:{
+        "filename": "stuffsssssssssssss.java",
+        "content": "This is some Java content.",
+        "cursorStart": 0,
+        "cursorEnd": 0
+    },
+    6:{
+        "filename": "othersssssssssssssssssssssssssssssssssss.c",
+        "content": "This is some C content.",
+        "cursorStart": 0,
+        "cursorEnd": 0
+    },
+    7:{
+        "filename": "mainnnnnnnnnnnnnnnnnnnn.cpp",
+        "content": "This is some C++ content.",
+        "cursorStart": 0,
+        "cursorEnd": 0
     }
 }
+var lastFilename = null;
+var lastContent = null;
 let currentTab = 1;
-var theme = "light";
+var theme = "dark";
 var tabLength = 4;
 
 function setTheme(){
@@ -138,15 +170,31 @@ for (var i = 1; i <= Object.keys(tabs).length; i++){
     tab.className = "tab";
     tab.addEventListener('click', function(e){
         if (currentTab != e.target.getAttribute('name')){
+            tabs[currentTab].cursorStart = document.getElementById("mytextarea").selectionStart;
+            tabs[currentTab].cursorEnd = document.getElementById("mytextarea").selectionEnd;
             tabs[currentTab].content = document.getElementById("mytextarea").value;
+
             document.getElementById("mytextarea").value = tabs[e.target.getAttribute('name')]["content"];
+            document.getElementById("mytextarea").blur();
+            document.getElementById("mytextarea").focus();
+            document.getElementById("mytextarea").selectionEnd = document.getElementById("mytextarea").selectionStart = 2;//here
             currentTab = e.target.getAttribute('name');
             var allTabs = document.getElementsByClassName('tab');
             for (var i = 0; i < allTabs.length; i++){
                 allTabs[i].classList.remove("selected-tab");
             }
-            allTabs[currentTab-1].classList.add("selected-tab");
+            if (e.target.parentNode.className.includes("tab")){
+                e.target.parentNode.classList.add("selected-tab");
+            }
+            else {
+                e.target.classList.add("selected-tab");
+            }
+            
         }
+    });
+    tab.children[1].addEventListener('click', function(e){
+        e.target.parentNode.firstChild.value;
+        e.target.parentNode.remove();
     });
 }
 document.getElementById("menubar").firstChild.classList.add("selected-tab");

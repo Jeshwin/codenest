@@ -72,6 +72,9 @@ textarea{
 #menubar{
     display: flex;
     background-color: var(--bg3);
+    height: 36px;
+    width: max-content;
+    overflow-x: scroll;
 }
 #menubar > div {
     padding: 6px 20px;
@@ -79,9 +82,12 @@ textarea{
     color: var(--text);
     cursor: pointer;
     height: min-content;
-    filter:invert(.1)
+    filter:invert(.1);
+    width: max-content;
 }
-
+#menubar::-webkit-scrollbar{
+    display: none;
+}
 #menubar > div:hover{
     filter:brightness(1);
 }
@@ -99,4 +105,7 @@ textarea{
 }
 .close-tab:hover{
     background-color: var(--red);
+}
+body{
+    overflow:hidden;
 }
