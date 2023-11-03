@@ -6,11 +6,11 @@ export default function FileSearchBar() {
         <div className="relative">
             <input
                 placeholder="Search"
-                className="h-10 p-3 w-full placeholder-slate-900 dark:placeholder-slate-50 text-slate-900 dark:text-slate-50 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-900 rounded-xl"
+                className="h-10 p-3 w-full placeholder-[var(--light-fg-1)] dark:placeholder-[var(--dark-fg-1)] text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)] bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] hover:bg-[var(--light-bg-3)] dark:hover:bg-[var(--dark-bg-3)] rounded-xl"
             />
             <FontAwesomeIcon
                 icon={faMagnifyingGlass}
-                className="absolute inset-y-3 right-3 h-4 w-4 text-slate-900 dark:text-slate-50"
+                className="absolute inset-y-3 right-3 h-4 w-4 text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]"
             />
         </div>
     )

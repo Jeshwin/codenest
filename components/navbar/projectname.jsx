@@ -29,7 +29,7 @@ export default function ProjectName() {
     return (
         <button
             className="h-8 p-2 flex items-center rounded-lg
-                    bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-900
+                    bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] hover:bg-[var(--light-bg-3)] dark:hover:bg-[var(--dark-bg-3)]
                       active:scale-90 transition-transform duration-150"
         >
             {projectName}
