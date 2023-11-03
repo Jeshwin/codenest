@@ -177,7 +177,8 @@ for (var i = 1; i <= Object.keys(tabs).length; i++){
             document.getElementById("mytextarea").value = tabs[e.target.getAttribute('name')]["content"];
             document.getElementById("mytextarea").blur();
             document.getElementById("mytextarea").focus();
-            document.getElementById("mytextarea").selectionEnd = document.getElementById("mytextarea").selectionStart = 2;//here
+            document.getElementById("mytextarea").selectionStart = tabs[e.target.getAttribute('name')]["cursorStart"];;
+            document.getElementById("mytextarea").selectionEnd = tabs[e.target.getAttribute('name')]["cursorEnd"];;
             currentTab = e.target.getAttribute('name');
             var allTabs = document.getElementsByClassName('tab');
             for (var i = 0; i < allTabs.length; i++){

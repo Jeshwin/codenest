@@ -73,7 +73,6 @@ textarea{
     display: flex;
     background-color: var(--bg3);
     height: 36px;
-    width: max-content;
     overflow-x: scroll;
 }
 #menubar > div {
@@ -83,7 +82,7 @@ textarea{
     cursor: pointer;
     height: min-content;
     filter:invert(.1);
-    width: max-content;
+    display:flex;
 }
 #menubar::-webkit-scrollbar{
     display: none;
