@@ -2,15 +2,19 @@ var theme = "dark";
 var tabLength = 4;
 var start = "This\nis\nthe\nstarting\n    info";
 
-document.getElementById("mytextarea").value = start;
-var r = document.querySelector(':root');
-if (theme == "dark"){
-    r.style.setProperty('--text', '#f1f5f9');
-    r.style.setProperty('--bg2', '#0f172a');
-    r.style.setProperty('--bg1', '#020617');
+function setTheme(){
+    var r = document.querySelector(':root');
+    if (theme == "dark"){
+        r.style.setProperty('--text', '#f1f5f9');
+        r.style.setProperty('--bg2', '#0f172a');
+        r.style.setProperty('--bg1', '#020617');
+    }
+    else{
+        r.style.setProperty('--text', '#0f172a');
+        r.style.setProperty('--bg1', '#f8fafc');
+        r.style.setProperty('--bg2', '#e2e8f0');
+    }
 }
-
-
 function lineNumbers(numLines){
     var text = "";
     for (var i = 1; i <= numLines; i++){
@@ -22,7 +26,7 @@ function updateLineNumbers(){
     var text = $("#mytextarea").val();   
     var lines = text.split(/\r|\r\n|\n/);
     var count = lines.length;
-    lineNumbers(count+1);
+    lineNumbers(count);
 }
 
 document.getElementById("mytextarea").addEventListener('input',updateLineNumbers,false);
@@ -90,7 +94,7 @@ document.getElementById('mytextarea').addEventListener('keydown', function(e) {
         var text = $("#mytextarea").val();   
         var lines = text.split(/\r|\r\n|\n/);
         var count = lines.length;
-        lineNumbers(count+1);
+        lineNumbers(count);
         this.blur();
         this.focus();
     }
@@ -103,4 +107,6 @@ document.getElementById("mytextarea").onscroll = function(){
     updateLineNumbers();
 };
 
+setTheme();
+document.getElementById("mytextarea").value = start;
 updateLineNumbers();

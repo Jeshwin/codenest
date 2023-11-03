@@ -28,6 +28,7 @@
     overflow-x: scroll;
     background-color: var(--bg1);
     color: var(--text);
+    cursor: auto;
 }
 #line-numbers{
     width: calc(48px);
@@ -36,11 +37,14 @@
     background-color: var(--bg2);
     color: var(--text);
     overflow: hidden;
+    cursor: auto;
 }
 
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
+    cursor: default;
+
 }
 
 /* Track */
