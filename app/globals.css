@@ -17,6 +17,8 @@
     --dark-fg-1: #f8fafc; /* slate-50 */
     --dark-fg-2: #cbd5e1; /* slate-500 */
     --dark-accent: #38bdf8; /* sky-400 */
+    /* Constant colors */
+    --bg-error: #ef4444;
 }
 
 /**
