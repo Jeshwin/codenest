@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 
 function setTerminalTheme(colorscheme, terminal) {
     if (colorscheme == "dark") {
@@ -30,7 +30,7 @@ function setTerminalTheme(colorscheme, terminal) {
     }
 }
 
-export default function ExampleCloudShell() {
+export default function CloudShell() {
     const termRef = useRef(null)
     const themeChangeRef = useRef(null)
 

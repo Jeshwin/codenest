@@ -9,8 +9,8 @@ export default function ProjectName() {
     const [projectName, setProjectName] = useState("ProjectName")
 
     useEffect(() => {
-        // Fetch the JSON data from the 'directory.json' file in the 'public' directory
-        fetch("http://localhost:3030/projectname")
+        // Fetch the JSON data from the 'projectname.json' file in the 'public' directory
+        fetch("http://localhost:3000/projectname.json")
             .then((response) => {
                 if (response.ok) {
                     return response.json()
