@@ -25,15 +25,15 @@ export default function Editor() {
         updateLineNumbers()
 
         return () => {
-            document
-                .getElementById("mytextarea")
-                .removeEventListener("input", updateLineNumbers)
-            document
-                .getElementById("mytextarea")
-                .removeEventListener("paste", updateLineNumbers)
-            document
-                .getElementById("mytextarea")
-                .removeEventListener("keydown", (e) => readKey(e))
+            // document
+            //     .getElementById("mytextarea")
+            //     .removeEventListener("input", updateLineNumbers)
+            // document
+            //     .getElementById("mytextarea")
+            //     .removeEventListener("paste", updateLineNumbers)
+            // document
+            //     .getElementById("mytextarea")
+            //     .removeEventListener("keydown", (e) => readKey(e))
         }
     }, [])
 

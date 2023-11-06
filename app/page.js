@@ -29,7 +29,7 @@ export default function Page() {
     return (
         <div className="h-[calc(100vh-56px)] m-1 flex">
             <div className="m-1 w-1/5 flex-none rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
-                <TreeView items={directoryData} />
+                <TreeView directoryData={directoryData} />
             </div>
             <div className="m-1 w-2/5 flex-1 flex flex-col rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
                 <Editor />
