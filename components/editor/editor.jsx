@@ -74,13 +74,28 @@ export default function Editor() {
                 for (var i = 0; i < allTabs.length; i++) {
                     // allTabs[i].classList.remove("selected-tab")
                     allTabs[i].classList.remove("brightness-150")
+                    allTabs[i].classList.remove("border-b-2")
+                    allTabs[i].classList.remove("border-[var(--light-fg-1)]")
+                    allTabs[i].classList.remove(
+                        "dark:border-[var(--dark-fg-1)]"
+                    )
                 }
                 if (e.target.parentNode.className.includes("tab")) {
                     // e.target.parentNode.classList.add("selected-tab")
                     e.target.parentNode.classList.add("brightness-150")
+                    e.target.parentNode.classList.add("border-b-2")
+                    e.target.parentNode.classList.add(
+                        "border-[var(--light-fg-1)]"
+                    )
+                    e.target.parentNode.classList.add(
+                        "dark:border-[var(--dark-fg-1)]"
+                    )
                 } else {
                     // e.target.classList.add("selected-tab")
                     e.target.classList.add("brightness-150")
+                    e.target.classList.add("border-b-2")
+                    e.target.classList.add("border-[var(--light-fg-1)]")
+                    e.target.classList.add("dark:border-[var(--dark-fg-1)]")
                 }
             })
 
@@ -92,6 +107,15 @@ export default function Editor() {
         document
             .getElementById("menubar")
             .firstChild.classList.add("brightness-150")
+        document
+            .getElementById("menubar")
+            .firstChild.classList.add("border-b-2")
+        document
+            .getElementById("menubar")
+            .firstChild.classList.add("border-[var(--light-fg-1)]")
+        document
+            .getElementById("menubar")
+            .firstChild.classList.add("dark:border-[var(--dark-fg-1)]")
         editorTextArea.value = tabs.current[currentTab.current].content
     }, [])
 
@@ -106,7 +130,8 @@ export default function Editor() {
         <>
             <div
                 id="menubar"
-                className="h-9 flex font-mono text-sm bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] overflow-x-scroll"
+                style={{ scrollbarWidth: "none" }}
+                className="h-10 flex overflow-y-hidden font-mono text-sm bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] overflow-x-scroll"
             ></div>
             <div id="wrapper" className="w-full h-full flex font-mono">
                 <textarea
