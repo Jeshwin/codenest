@@ -1,19 +1,16 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
 import DirectoryElement from "./directoryelement"
 import FileElement from "./fileelement"
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-    faEllipsis,
-    faFileCirclePlus,
-    faFolderPlus,
-    faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons"
 import FileSearchBar from "./filesearchbar"
+import FileToolBar from "./filetoolbar"
 
-const TreeView = ({ items }) => {
+export default function TreeView({ directoryData }) {
+    // Edge case if directoryData is null
+    if (directoryData == null) return
+
     const [collapsed, setCollapsed] = useState({})
+    const [directoryDataState, setDirectoryDataState] = useState(directoryData)
 
     const toggleCollapse = (name) => {
         setCollapsed((prevCollapsed) => {
@@ -31,19 +28,17 @@ const TreeView = ({ items }) => {
         window.parent.postMessage({ type: "filenameChanged", filename }, "*")
     }
 
-    // Edge case if items is null
-    if (items == null) return
-
-    const renderTree = (items, parentPath = "", directoryFlag = false) => {
+    const renderTree = (data, parentPath = "", directoryFlag = false) => {
+        if (data == null) return
         return (
             <ul
                 className={`${
                     directoryFlag
-                        ? "border-l ml-1 pl-3 my-1 border-slate-600 dark:border-slate-30 border-opacity-75"
+                        ? "border-l ml-1 pl-3 my-1 border-[var(--light-fg-2)] dark:border-[var(--dark-fg-1)] border-opacity-75"
                         : ""
                 }`}
             >
-                {items.map((item, index) => {
+                {data.map((item, index) => {
                     const subPath = parentPath + "/" + item.name
                     return (
                         <li key={index}>
@@ -73,28 +68,14 @@ const TreeView = ({ items }) => {
     return (
         <div className="px-3 py-2 flex flex-col font-sans">
             {/* Search Bar */}
-            <FileSearchBar />
+            <FileSearchBar directoryData={directoryDataState} />
             {/* Add Files or Folders */}
-            <div className="h-4 my-2 pl-3 flex flex-row items-center text-slate-900 dark:text-slate-50">
-                <span className="font-bold">Files</span>
-                <span className="flex-grow"></span>
-                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-90 transition-transform duration-150 cursor-pointer">
-                    <FontAwesomeIcon
-                        icon={faFileCirclePlus}
-                        className="h-4 w-4"
-                    />
-                </div>
-                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-90 transition-transform duration-150 cursor-pointer">
-                    <FontAwesomeIcon icon={faFolderPlus} className="h-4 w-4" />
-                </div>
-                <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-90 transition-transform duration-150 cursor-pointer">
-                    <FontAwesomeIcon icon={faEllipsis} className="h-4 w-4" />
-                </div>
-            </div>
+            <FileToolBar
+                directoryData={directoryDataState}
+                setDirectoryDate={setDirectoryDataState}
+            />
             {/* Tree View */}
-            <div className="px-3">{renderTree(items)}</div>
+            <div className="px-3">{renderTree(directoryDataState)}</div>
         </div>
     )
 }
-
-export default TreeView

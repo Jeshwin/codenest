@@ -6,11 +6,11 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function ProjectName() {
-    const [projectName, setProjectName] = useState("")
+    const [projectName, setProjectName] = useState("ProjectName")
 
     useEffect(() => {
-        // Fetch the JSON data from the 'directory.json' file in the 'public' directory
-        fetch("http://localhost:3030/projectname")
+        // Fetch the JSON data from the 'projectname.json' file in the 'public' directory
+        fetch("http://localhost:3000/projectname.json")
             .then((response) => {
                 if (response.ok) {
                     return response.json()
@@ -18,7 +18,6 @@ export default function ProjectName() {
                 throw new Error("Network response was not ok.")
             })
             .then((data) => {
-                console.debug(data)
                 setProjectName(data)
             })
             .catch((error) => {
@@ -29,7 +28,7 @@ export default function ProjectName() {
     return (
         <button
             className="h-8 p-2 flex items-center rounded-lg
-                    bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-900
+                    bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] hover:bg-[var(--light-bg-3)] dark:hover:bg-[var(--dark-bg-3)]
                       active:scale-90 transition-transform duration-150"
         >
             {projectName}

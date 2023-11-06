@@ -28,7 +28,7 @@ export default function ThemePicker() {
                 onClick={toggleTheme}
             >
                 <div
-                    className={`w-6 h-6 p-1 flex item-center rounded-full bg-slate-100 dark:bg-slate-800 ${
+                    className={`w-6 h-6 p-1 flex item-center rounded-full bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] ${
                         theme == "light" ? "translate-x-0" : " translate-x-6"
                     } transition duration-300`}
                 >

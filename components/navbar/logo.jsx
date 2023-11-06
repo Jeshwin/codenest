@@ -2,7 +2,7 @@ export default function Logo() {
     return (
         <div>
             <svg
-                className={`w-8 h-8 fill-slate-900 dark:fill-slate-50`}
+                className={`w-8 h-8 fill-[var(--light-fg-1)] dark:fill-[var(--dark-fg-1)]`}
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
             >
