@@ -103,7 +103,7 @@ export default function CloudShell() {
 
             // Open the terminal in the 'terminal-container' div
             terminal.open(termRef.current)
-            console.debug(
+            console.log(
                 "New Dimensions: { cols: " +
                     fitAddon.proposeDimensions().cols +
                     ", rows: " +
@@ -129,8 +129,7 @@ export default function CloudShell() {
 
             // Resize window in resize
             const handleResize = () => {
-                console.debug("Resize detected!")
-                console.debug(
+                console.log(
                     "New Dimensions: { cols: " +
                         fitAddon.proposeDimensions().cols +
                         ", rows: " +
@@ -170,7 +169,7 @@ export default function CloudShell() {
             className="p-3 flex flex-col w-full h-full"
             id="custom-terminal-container"
         >
-            <div ref={termRef}></div>
+            <div className="min-h-full" ref={termRef}></div>
         </div>
     )
 }
