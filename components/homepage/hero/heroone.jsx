@@ -60,7 +60,7 @@ if __name__ == "__main__":
                         >
                             <span>script.py</span>
                             <span
-                                class="close-tab block w-5 h-5 ml-2 p-0
+                                className="close-tab block w-5 h-5 ml-2 p-0
                             rounded-md text-center hover:bg-[var(--bg-error)]"
                             >
                                 &#66338;
@@ -72,7 +72,7 @@ if __name__ == "__main__":
                         >
                             <span>test.py</span>
                             <span
-                                class="close-tab block w-5 h-5 ml-2 p-0
+                                className="close-tab block w-5 h-5 ml-2 p-0
                             rounded-md text-center hover:bg-[var(--bg-error)]"
                             >
                                 &#66338;
@@ -80,7 +80,7 @@ if __name__ == "__main__":
                         </div>
                     </div>
                     <div className="w-full h-full flex flex-row font-mono">
-                        <div
+                        <textarea
                             id="line-numbers"
                             className="min-w-[5ch] max-w-[9ch] text-right flex-none
                             pr-[1ch] border-none outline-none rounded-bl-lg
@@ -90,7 +90,7 @@ if __name__ == "__main__":
                             cols="1"
                             rows="10"
                             readOnly
-                        ></div>
+                        ></textarea>
                         <textarea
                             id="mytextarea"
                             autoComplete="off"
