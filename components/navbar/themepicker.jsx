@@ -22,9 +22,9 @@ export default function ThemePicker() {
     return (
         <>
             <div
-                className={`w-12 h-6 rounded-full flex ${
-                    theme == "light" ? "bg-yellow-300" : "bg-sky-400"
-                } transition duration-300 cursor-pointer shadow-inner`}
+                className="w-12 h-6 rounded-full flex
+                bg-[var(--light-accent)] dark:bg-[var(--dark-accent)]
+                transition duration-300 cursor-pointer shadow-inner"
                 onClick={toggleTheme}
             >
                 <div

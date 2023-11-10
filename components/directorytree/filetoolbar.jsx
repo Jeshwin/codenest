@@ -80,7 +80,7 @@ export default function FileToolBar({ directoryData, setDirectoryDate }) {
                     ></input>
                     <button
                         onClick={() => addElementToDirectoryData()}
-                        className="w-fit h-auto mx-2 px-2 rounded-lg bg-green-500
+                        className="w-fit h-auto mx-2 px-2 rounded-lg bg-[var(--bg-success)]
                     text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)] text-center"
                     >
                         Add

@@ -23,18 +23,6 @@ export default function Editor() {
             .addEventListener("keydown", (e) => readKey(e))
 
         updateLineNumbers()
-
-        return () => {
-            // document
-            //     .getElementById("mytextarea")
-            //     .removeEventListener("input", updateLineNumbers)
-            // document
-            //     .getElementById("mytextarea")
-            //     .removeEventListener("paste", updateLineNumbers)
-            // document
-            //     .getElementById("mytextarea")
-            //     .removeEventListener("keydown", (e) => readKey(e))
-        }
     }, [])
 
     useEffect(() => {
@@ -136,7 +124,11 @@ export default function Editor() {
             <div id="wrapper" className="w-full h-full flex font-mono">
                 <textarea
                     id="line-numbers"
-                    className=" min-w-[5ch] max-w-[9ch] text-right flex-none pr-[1ch] border-none outline-none rounded-bl-lg overflow-hidden resize-none bg-[var(--light-bg-2)] text-[var(--light-fg-1)] dark:bg-[var(--dark-bg-2)] dark:text-[var(--dark-fg-1)]"
+                    className="min-w-[5ch] max-w-[9ch] text-right
+                    flex-none pr-[1ch] border-none outline-none
+                    rounded-bl-lg overflow-hidden resize-none
+                    bg-[var(--light-bg-2)] text-[var(--light-fg-1)]
+                    dark:bg-[var(--dark-bg-2)] dark:text-[var(--dark-fg-1)]"
                     cols="1"
                     rows="10"
                     readOnly
@@ -147,7 +139,10 @@ export default function Editor() {
                     autoComplete="off"
                     autoCorrect="off"
                     spellCheck="false"
-                    className="w-full pl-2 border-none outline-none whitespace-pre rounded-br-lg overflow-wrap-normal overflow-x-scroll resize-none bg-[var(--light-bg-1)] text-[var(--light-fg-1)] dark:bg-[var(--dark-bg-1)] dark:text-[var(--dark-fg-1)]"
+                    className="w-full pl-2 border-none outline-none
+                    whitespace-pre rounded-br-lg overflow-wrap-normal
+                    overflow-x-scroll resize-none bg-[var(--light-bg-1)]
+                    text-[var(--light-fg-1)] dark:bg-[var(--dark-bg-1)] dark:text-[var(--dark-fg-1)]"
                 ></textarea>
             </div>
         </>
