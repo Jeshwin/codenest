@@ -28,19 +28,21 @@ export default function Page() {
     }, [])
 
     return (
-        <div className="w-screen">
-            <Navbar />
-            <div className="h-[calc(100vh-56px)] m-1 flex">
-                <div className="m-1 w-1/5 flex-none rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
-                    <TreeView directoryData={directoryData} />
-                </div>
-                <div className="m-1 w-2/5 flex-1 flex flex-col rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
-                    <Editor />
-                </div>
-                <div className="m-1 w-2/5 h-auto flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
-                    <CloudShell />
+        <body className="overflow-hidden h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]">
+            <div className="w-screen">
+                <Navbar />
+                <div className="h-[calc(100vh-56px)] m-1 flex">
+                    <div className="m-1 w-1/5 flex-none rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
+                        <TreeView directoryData={directoryData} />
+                    </div>
+                    <div className="m-1 w-2/5 flex-1 flex flex-col rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
+                        <Editor />
+                    </div>
+                    <div className="m-1 w-2/5 h-auto flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
+                        <CloudShell />
+                    </div>
                 </div>
             </div>
-        </div>
+        </body>
     )
 }

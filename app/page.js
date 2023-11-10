@@ -8,12 +8,14 @@ import TopBar from "@/components/homepage/topbar"
 
 export default function HomePage() {
     return (
-        <div className=" overflow-scroll">
-            <TopBar />
-            <IntroHero />
-            <HeroOne />
-            <HeroTwo />
-            <Footer />
-        </div>
+        <body className="h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]">
+            <div className=" overflow-scroll">
+                <TopBar />
+                <IntroHero />
+                <HeroOne />
+                <HeroTwo />
+                <Footer />
+            </div>
+        </body>
     )
 }

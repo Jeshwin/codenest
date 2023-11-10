@@ -31,9 +31,7 @@ export default function RootLayout({ children }) {
                 <head>
                     <link rel="icon" href="/favicon.ico" sizes="any" />
                 </head>
-                <body className="h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]">
-                    {children}
-                </body>
+                {children}
             </html>
         </>
     )
