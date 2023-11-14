@@ -31,7 +31,7 @@ export default function Page() {
             <div className="w-screen">
                 <Navbar />
                 <div className="h-[calc(100vh-56px)] m-1 flex">
-                    <div className="m-1 w-1/5 flex-none rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
+                    <div className="m-1 min-w-fit max-w-lg flex-none rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
                         <TreeView directoryData={directoryData} />
                     </div>
                     <div className="m-1 w-2/5 flex-1 flex flex-col rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">

@@ -15,7 +15,7 @@ export default function HeroOne() {
                     A fully featured, web based coding environment
                 </div>
                 <div
-                    className="w-1/2 h-80 rounded-lg
+                    className="w-1/2 h-full rounded-lg
                 bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]
                 flex flex-col"
                 >

@@ -1,9 +1,4 @@
 export default function HeroTwo() {
-    const exampleShell = `def main():
-    print("Hello, CodeNest!")
-
-if __name__ == "__main__":
-    main()`
     return (
         <div
             className="h-screen flex place-items-center
@@ -15,7 +10,7 @@ if __name__ == "__main__":
                 justify-center items-center place-items-center"
             >
                 <ul
-                    className="w-1/2 h-80 p-4 font-mono rounded-lg
+                    className="w-1/2 h-full p-4 font-mono rounded-lg
                 bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
                 flex flex-col"
                 >

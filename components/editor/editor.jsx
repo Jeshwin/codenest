@@ -141,7 +141,7 @@ export default function Editor() {
                     spellCheck="false"
                     className="w-full pl-2 border-none outline-none
                     whitespace-pre rounded-br-lg overflow-wrap-normal
-                    overflow-x-scroll resize-none bg-[var(--light-bg-1)]
+                    resize-none bg-[var(--light-bg-1)]
                     text-[var(--light-fg-1)] dark:bg-[var(--dark-bg-1)] dark:text-[var(--dark-fg-1)]"
                 ></textarea>
             </div>
