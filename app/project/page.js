@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import Navbar from "@/components/navbar/navbar"
 import TreeView from "@/components/directorytree/treeview"
-import PlaceholderWindow from "@/components/placeholders/placeholderwindow"
 import Editor from "@/components/editor/editor"
 import CloudShell from "@/components/cloudshell/cloudshell"
 

@@ -25,7 +25,7 @@ export default function TopBar() {
                 </button>
                 <span className="flex-grow"></span>
                 <ThemePicker />
-                <button className="bg-[var(--light-accent)] dark:bg-[var(--dark-accent)] hover:brightness-110 rounded-lg px-2 py-1 mx-1">
+                <button className="bg-[var(--primary)] hover:bg-[var(--primary-light)] hover:dark:bg-[var(--primary-dark)] rounded-lg px-2 py-1 mx-1">
                     Sign Up
                 </button>
                 <button className="bg-[var(--light-bg-3)] hover:bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-3)] hover:dark:bg-[var(--dark-bg-2)] rounded-lg px-2 py-1 mx-1">
