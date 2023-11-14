@@ -10,7 +10,6 @@ export default function FeatureDropdown() {
                 className="hover:bg-[var(--light-bg-2)] hover:dark:bg-[var(--dark-bg-2)]
             rounded-lg flex items-center px-2 py-1 mx-1"
                 onClick={() => setIsClicked(!isClicked)}
-                onMouseLeave={() => setIsClicked(false)}
             >
                 Features
                 <FontAwesomeIcon
@@ -18,27 +17,21 @@ export default function FeatureDropdown() {
                     className="w-2 h-2 pl-1"
                 />
             </button>
-            <div
-                className="pt-2 absolute bg-transparent"
-                onMouseLeave={() => setIsClicked(false)}
-                onMouseEnter={() => setIsClicked(true)}
-            >
-                <ul
-                    className={`ml-1 rounded-lg
+            <ul
+                className={`mt-4 absolute ml-1 rounded-lg
                 bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
                 ${!isClicked ? "hidden" : ""}`}
-                >
-                    <li className="py-1 px-2 rounded-t-lg hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
-                        Code Editor
-                    </li>
-                    <li className="py-1 px-2 hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
-                        CloudShell
-                    </li>
-                    <li className="py-1 px-2 rounded-b-lg hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
-                        Environments
-                    </li>
-                </ul>
-            </div>
+            >
+                <li className="py-1 px-2 rounded-t-lg hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                    Code Editor
+                </li>
+                <li className="py-1 px-2 hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                    CloudShell
+                </li>
+                <li className="py-1 px-2 rounded-b-lg hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                    Environments
+                </li>
+            </ul>
         </div>
     )
 }
