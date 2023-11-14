@@ -2,6 +2,25 @@
 
 import { useEffect, useRef } from "react"
 
+const baseTheme = {
+    black: "#64748b",
+    red: "#ec4899",
+    green: "#84cc16",
+    yellow: "#eab308",
+    blue: "#3b82f6",
+    magenta: "#d946ef",
+    cyan: "#06b6d4",
+    white: "#f8fafc",
+    brightBlack: "#64748b",
+    brightRed: "#ec4899",
+    brightGreen: "#84cc16",
+    brightYellow: "#eab308",
+    brightBlue: "#3b82f6",
+    brightMagenta: "#d946ef",
+    brightCyan: "#06b6d4",
+    brightWhite: "#f8fafc",
+}
+
 function setTerminalTheme(colorscheme, terminal) {
     if (colorscheme == "dark") {
         const darkBg = getComputedStyle(
@@ -11,6 +30,7 @@ function setTerminalTheme(colorscheme, terminal) {
             document.documentElement
         ).getPropertyValue("--dark-fg-1")
         terminal.options.theme = {
+            ...baseTheme,
             background: darkBg,
             foreground: darkFg,
             cursor: darkFg,
@@ -23,6 +43,7 @@ function setTerminalTheme(colorscheme, terminal) {
             document.documentElement
         ).getPropertyValue("--light-fg-1")
         terminal.options.theme = {
+            ...baseTheme,
             background: lightBg,
             foreground: lightFg,
             cursor: lightFg,
@@ -86,6 +107,7 @@ export default function CloudShell() {
                 rows: terminalRows,
                 fontFamily: "var(--font-jetbrains-mono)",
                 theme: {
+                    ...baseTheme,
                     background: "#000000",
                     foreground: "#ffffff",
                     cursor: "#ffffff",
