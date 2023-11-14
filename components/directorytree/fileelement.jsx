@@ -1,15 +1,24 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFile } from "@fortawesome/free-regular-svg-icons"
 
-export default function FileElement({ name, onClick }) {
-    // const fileExtension = name.split(".").pop()
+export default function FileElement({
+    displayName,
+    fullName,
+    onClick,
+    onDragStart,
+}) {
+    const handleDragStart = (e) => {
+        e.dataTransfer.setData("text/plain", fullName)
+        if (onDragStart) {
+            onDragStart()
+        }
+    }
 
-    // let { icon } = FileIcons[fileExtension]
-    //     ? FileIcons[fileExtension]
-    //     : FileIcons.default
     return (
         <div
             onClick={onClick}
+            draggable={true}
+            onDragStart={handleDragStart}
             className={`flex flex-row my-1
             items-center select-none
             text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)] 
@@ -20,7 +29,7 @@ export default function FileElement({ name, onClick }) {
                 icon={faFile}
                 className="h-5 w-5 text-[var(--light-fg-2)] dark:text-[var(--dark-fg-2)]"
             />
-            <span className="ml-0.5 overflow-hidden">{name}</span>
+            <span className="ml-0.5 overflow-hidden">{displayName}</span>
         </div>
     )
 }
