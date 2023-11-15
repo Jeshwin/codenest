@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
 
-export default function FileToolBar({ directoryData, setDirectoryDate }) {
+export default function FileToolBar({ directoryData, setDirectoryData }) {
     const [elementName, setElementName] = useState("")
     const [addFile, setAddFile] = useState(false)
     const [addFolder, setAddFolder] = useState(false)
@@ -31,7 +31,7 @@ export default function FileToolBar({ directoryData, setDirectoryDate }) {
         if (addFolder) elementToAdd.items = []
         console.log("Adding this to directoryData")
         console.debug(elementToAdd)
-        setDirectoryDate([...directoryData, elementToAdd])
+        setDirectoryData([...directoryData, elementToAdd])
     }
 
     return (
@@ -76,11 +76,11 @@ export default function FileToolBar({ directoryData, setDirectoryDate }) {
                     bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
                     hover:bg-[var(--light-bg-3)] dark:hover:bg-[var(--dark-bg-3)]
                     focus:ring-0 focus:outline-none focus:border-2
-                    focus:border-[var(--light-accent)] focus:dark:border-[var(--dark-accent)]"
+                    focus:border-[var(--light-mode)] focus:dark:border-[var(--dark-mode)]"
                     ></input>
                     <button
                         onClick={() => addElementToDirectoryData()}
-                        className="w-fit h-auto mx-2 px-2 rounded-lg bg-green-500
+                        className="w-fit h-auto mx-2 px-2 rounded-lg bg-[var(--bg-success)]
                     text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)] text-center"
                     >
                         Add

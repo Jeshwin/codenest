@@ -2,6 +2,25 @@
 
 import { useEffect, useRef } from "react"
 
+const baseTheme = {
+    black: "#64748b",
+    red: "#ec4899",
+    green: "#84cc16",
+    yellow: "#eab308",
+    blue: "#3b82f6",
+    magenta: "#d946ef",
+    cyan: "#06b6d4",
+    white: "#f8fafc",
+    brightBlack: "#64748b",
+    brightRed: "#ec4899",
+    brightGreen: "#84cc16",
+    brightYellow: "#eab308",
+    brightBlue: "#3b82f6",
+    brightMagenta: "#d946ef",
+    brightCyan: "#06b6d4",
+    brightWhite: "#f8fafc",
+}
+
 function setTerminalTheme(colorscheme, terminal) {
     if (colorscheme == "dark") {
         const darkBg = getComputedStyle(
@@ -11,6 +30,7 @@ function setTerminalTheme(colorscheme, terminal) {
             document.documentElement
         ).getPropertyValue("--dark-fg-1")
         terminal.options.theme = {
+            ...baseTheme,
             background: darkBg,
             foreground: darkFg,
             cursor: darkFg,
@@ -23,6 +43,7 @@ function setTerminalTheme(colorscheme, terminal) {
             document.documentElement
         ).getPropertyValue("--light-fg-1")
         terminal.options.theme = {
+            ...baseTheme,
             background: lightBg,
             foreground: lightFg,
             cursor: lightFg,
@@ -86,6 +107,7 @@ export default function CloudShell() {
                 rows: terminalRows,
                 fontFamily: "var(--font-jetbrains-mono)",
                 theme: {
+                    ...baseTheme,
                     background: "#000000",
                     foreground: "#ffffff",
                     cursor: "#ffffff",
@@ -95,15 +117,14 @@ export default function CloudShell() {
             terminal.loadAddon(fitAddon)
 
             // Create a WebSocket connection to your EC2 instance
-            // const ec2Instance =
-            //     "ec2-13-52-80-90.us-west-1.compute.amazonaws.com"
-            // const port = "8765"
-            // const socket = new WebSocket(`ws://${ec2Instance}:${port}`)
-            const socket = new WebSocket(`ws://localhost:6060`)
+            const ec2Ip = "ec2-13-52-80-90.us-west-1.compute.amazonaws.com"
+            const port = "6060"
+            const socket = new WebSocket(`ws://${ec2Ip}:${port}`)
+            // const socket = new WebSocket(`ws://localhost:6060`)
 
             // Open the terminal in the 'terminal-container' div
             terminal.open(termRef.current)
-            console.debug(
+            console.log(
                 "New Dimensions: { cols: " +
                     fitAddon.proposeDimensions().cols +
                     ", rows: " +
@@ -129,8 +150,7 @@ export default function CloudShell() {
 
             // Resize window in resize
             const handleResize = () => {
-                console.debug("Resize detected!")
-                console.debug(
+                console.log(
                     "New Dimensions: { cols: " +
                         fitAddon.proposeDimensions().cols +
                         ", rows: " +
@@ -170,7 +190,7 @@ export default function CloudShell() {
             className="p-3 flex flex-col w-full h-full"
             id="custom-terminal-container"
         >
-            <div ref={termRef}></div>
+            <div className="min-h-full" ref={termRef}></div>
         </div>
     )
 }

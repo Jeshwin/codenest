@@ -1,16 +1,19 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from "react"
 
 import DirectoryElement from "./directoryelement"
 import FileElement from "./fileelement"
 import FileSearchBar from "./filesearchbar"
 import FileToolBar from "./filetoolbar"
+import { moveItem } from "./utils"
 
 export default function TreeView({ directoryData }) {
-    // Edge case if directoryData is null
+    // Edge case: directoryData is null
     if (directoryData == null) return
 
     const [collapsed, setCollapsed] = useState({})
     const [directoryDataState, setDirectoryDataState] = useState(directoryData)
+    const [dragOverFolder, setDragOverFolder] = useState(null)
 
     const toggleCollapse = (name) => {
         setCollapsed((prevCollapsed) => {
@@ -28,13 +31,49 @@ export default function TreeView({ directoryData }) {
         window.parent.postMessage({ type: "filenameChanged", filename }, "*")
     }
 
-    const renderTree = (data, parentPath = "", directoryFlag = false) => {
+    const handleDrop = (e, targetPath) => {
+        e.preventDefault()
+        setDragOverFolder(null)
+        const draggedFileName = e.dataTransfer.getData("text/plain")
+        console.log(`Moving file ${draggedFileName} to ${targetPath}`)
+
+        // Avoid dropping onto itself
+        if (draggedFileName === targetPath) {
+            return
+        }
+
+        const updatedDirectoryData = moveItem(
+            directoryDataState,
+            draggedFileName,
+            targetPath
+        )
+        setDirectoryDataState(updatedDirectoryData)
+
+        // Prevent drop from propagating to parent folders
+        e.stopPropagation()
+    }
+
+    const handleDragStart = (filename) => {
+        console.log("Dragging started for file: " + filename)
+    }
+
+    const handleDragOver = (e, folderPath) => {
+        e.preventDefault()
+        setDragOverFolder(folderPath)
+        e.stopPropagation()
+    }
+
+    const handleDragLeave = () => {
+        setDragOverFolder(null)
+    }
+
+    const renderTree = (data, parentPath = ".", directoryFlag = false) => {
         if (data == null) return
         return (
             <ul
                 className={`${
                     directoryFlag
-                        ? "border-l ml-1 pl-3 my-1 border-[var(--light-fg-2)] dark:border-[var(--dark-fg-1)] border-opacity-75"
+                        ? `border-l ml-1 pl-3 my-1 border-[var(--light-fg-2)] dark:border-[var(--dark-fg-1)] border-opacity-75 `
                         : ""
                 }`}
             >
@@ -43,7 +82,18 @@ export default function TreeView({ directoryData }) {
                     return (
                         <li key={index}>
                             {item.type === "directory" ? (
-                                <div className="bg-[--my-bg]">
+                                <div
+                                    className={`rounded-lg ${
+                                        dragOverFolder === subPath
+                                            ? "bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]"
+                                            : ""
+                                    }`}
+                                    onDragOver={(e) =>
+                                        handleDragOver(e, subPath)
+                                    }
+                                    onDragLeave={handleDragLeave}
+                                    onDrop={(e) => handleDrop(e, subPath)}
+                                >
                                     <DirectoryElement
                                         name={item.name}
                                         isCollapsed={collapsed[subPath]}
@@ -54,8 +104,10 @@ export default function TreeView({ directoryData }) {
                                 </div>
                             ) : (
                                 <FileElement
-                                    name={item.name}
-                                    onClick={() => selectFile("." + subPath)}
+                                    displayName={item.name}
+                                    fullName={subPath}
+                                    onClick={() => selectFile(subPath)}
+                                    onDragStart={() => handleDragStart(subPath)}
                                 />
                             )}
                         </li>
@@ -66,7 +118,7 @@ export default function TreeView({ directoryData }) {
     }
 
     return (
-        <div className="px-3 py-2 flex flex-col font-sans">
+        <div className="h-full px-3 py-2 flex flex-col font-sans">
             {/* Search Bar */}
             <FileSearchBar directoryData={directoryDataState} />
             {/* Add Files or Folders */}
@@ -75,7 +127,19 @@ export default function TreeView({ directoryData }) {
                 setDirectoryDate={setDirectoryDataState}
             />
             {/* Tree View */}
-            <div className="px-3">{renderTree(directoryDataState)}</div>
+            <div
+                className={`h-full px-3 rounded-lg
+                ${
+                    dragOverFolder === "."
+                        ? "bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]"
+                        : ""
+                }`}
+                onDragOver={(e) => handleDragOver(e, ".")}
+                onDragLeave={handleDragLeave}
+                onDrop={(e) => handleDrop(e, ".")}
+            >
+                {renderTree(directoryDataState)}
+            </div>
         </div>
     )
 }

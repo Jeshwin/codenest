@@ -23,18 +23,6 @@ export default function Editor() {
             .addEventListener("keydown", (e) => readKey(e))
 
         updateLineNumbers()
-
-        return () => {
-            // document
-            //     .getElementById("mytextarea")
-            //     .removeEventListener("input", updateLineNumbers)
-            // document
-            //     .getElementById("mytextarea")
-            //     .removeEventListener("paste", updateLineNumbers)
-            // document
-            //     .getElementById("mytextarea")
-            //     .removeEventListener("keydown", (e) => readKey(e))
-        }
     }, [])
 
     useEffect(() => {
@@ -74,13 +62,28 @@ export default function Editor() {
                 for (var i = 0; i < allTabs.length; i++) {
                     // allTabs[i].classList.remove("selected-tab")
                     allTabs[i].classList.remove("brightness-150")
+                    allTabs[i].classList.remove("border-b-2")
+                    allTabs[i].classList.remove("border-[var(--light-fg-1)]")
+                    allTabs[i].classList.remove(
+                        "dark:border-[var(--dark-fg-1)]"
+                    )
                 }
                 if (e.target.parentNode.className.includes("tab")) {
                     // e.target.parentNode.classList.add("selected-tab")
                     e.target.parentNode.classList.add("brightness-150")
+                    e.target.parentNode.classList.add("border-b-2")
+                    e.target.parentNode.classList.add(
+                        "border-[var(--light-fg-1)]"
+                    )
+                    e.target.parentNode.classList.add(
+                        "dark:border-[var(--dark-fg-1)]"
+                    )
                 } else {
                     // e.target.classList.add("selected-tab")
                     e.target.classList.add("brightness-150")
+                    e.target.classList.add("border-b-2")
+                    e.target.classList.add("border-[var(--light-fg-1)]")
+                    e.target.classList.add("dark:border-[var(--dark-fg-1)]")
                 }
             })
 
@@ -92,6 +95,15 @@ export default function Editor() {
         document
             .getElementById("menubar")
             .firstChild.classList.add("brightness-150")
+        document
+            .getElementById("menubar")
+            .firstChild.classList.add("border-b-2")
+        document
+            .getElementById("menubar")
+            .firstChild.classList.add("border-[var(--light-fg-1)]")
+        document
+            .getElementById("menubar")
+            .firstChild.classList.add("dark:border-[var(--dark-fg-1)]")
         editorTextArea.value = tabs.current[currentTab.current].content
     }, [])
 
@@ -106,12 +118,17 @@ export default function Editor() {
         <>
             <div
                 id="menubar"
-                className="h-9 flex font-mono text-sm bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] overflow-x-scroll"
+                style={{ scrollbarWidth: "none" }}
+                className="h-10 flex overflow-y-hidden font-mono text-sm bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] overflow-x-scroll"
             ></div>
             <div id="wrapper" className="w-full h-full flex font-mono">
                 <textarea
                     id="line-numbers"
-                    className=" min-w-[5ch] max-w-[9ch] text-right flex-none pr-[1ch] border-none outline-none rounded-bl-lg overflow-hidden resize-none bg-[var(--light-bg-2)] text-[var(--light-fg-1)] dark:bg-[var(--dark-bg-2)] dark:text-[var(--dark-fg-1)]"
+                    className="min-w-[5ch] max-w-[9ch] text-right
+                    flex-none pr-[1ch] border-none outline-none
+                    rounded-bl-lg overflow-hidden resize-none
+                    bg-[var(--light-bg-2)] text-[var(--light-fg-1)]
+                    dark:bg-[var(--dark-bg-2)] dark:text-[var(--dark-fg-1)]"
                     cols="1"
                     rows="10"
                     readOnly
@@ -122,7 +139,10 @@ export default function Editor() {
                     autoComplete="off"
                     autoCorrect="off"
                     spellCheck="false"
-                    className="w-full pl-2 border-none outline-none whitespace-pre rounded-br-lg overflow-wrap-normal overflow-x-scroll resize-none bg-[var(--light-bg-1)] text-[var(--light-fg-1)] dark:bg-[var(--dark-bg-1)] dark:text-[var(--dark-fg-1)]"
+                    className="w-full pl-2 border-none outline-none
+                    whitespace-pre rounded-br-lg overflow-wrap-normal
+                    resize-none bg-[var(--light-bg-1)]
+                    text-[var(--light-fg-1)] dark:bg-[var(--dark-bg-1)] dark:text-[var(--dark-fg-1)]"
                 ></textarea>
             </div>
         </>

@@ -1,42 +1,23 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import TreeView from "@/components/directorytree/treeview"
-import PlaceholderWindow from "@/components/placeholders/placeholderwindow"
-import Editor from "@/components/editor/editor"
-import CloudShell from "@/components/cloudshell/cloudshell"
+import Footer from "@/components/homepage/footer"
+import GetStartedHero from "@/components/homepage/hero/getstartedhero"
+import HeroOne from "@/components/homepage/hero/heroone"
+import HeroThree from "@/components/homepage/hero/herothree"
+import HeroTwo from "@/components/homepage/hero/herotwo"
+import IntroHero from "@/components/homepage/hero/introhero"
+import TopBar from "@/components/homepage/topbar"
 
-export default function Page() {
-    const [directoryData, setDirectoryData] = useState(null)
-
-    useEffect(() => {
-        // Fetch the JSON data from the 'directory.json' file in the 'public' directory
-        fetch("http://localhost:3000/directory.json")
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                }
-                throw new Error("Network response was not ok.")
-            })
-            .then((data) => {
-                setDirectoryData(data)
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error)
-            })
-    }, [])
-
+export default function HomePage() {
     return (
-        <div className="h-[calc(100vh-56px)] m-1 flex">
-            <div className="m-1 w-1/5 flex-none rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
-                <TreeView directoryData={directoryData} />
-            </div>
-            <div className="m-1 w-2/5 flex-1 flex flex-col rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
-                <Editor />
-            </div>
-            <div className="m-1 w-2/5 h-auto flex-1 flex rounded-lg bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
-                <CloudShell />
-            </div>
-        </div>
+        <body className="h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]">
+            <TopBar />
+            <IntroHero />
+            <HeroOne />
+            <HeroTwo />
+            <HeroThree />
+            <GetStartedHero />
+            <Footer />
+        </body>
     )
 }
