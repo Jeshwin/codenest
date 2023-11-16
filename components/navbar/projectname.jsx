@@ -10,7 +10,7 @@ export default function ProjectName() {
 
     useEffect(() => {
         // Fetch the JSON data from the 'projectname.json' file in the 'public' directory
-        fetch("http://localhost:3000/projectname.json")
+        fetch("/projectname.json")
             .then((response) => {
                 if (response.ok) {
                     return response.json()
