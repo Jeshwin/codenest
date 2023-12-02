@@ -8,7 +8,7 @@ export default function FeatureDropdown() {
         <div>
             <button
                 className="hover:bg-[var(--light-bg-2)] hover:dark:bg-[var(--dark-bg-2)]
-            rounded-lg flex items-center px-2 py-1 mx-1"
+            rounded-lg flex items-center px-2 py-1 mx-1 active:scale-90 duration-200"
                 onClick={() => setIsClicked(!isClicked)}
             >
                 Features
