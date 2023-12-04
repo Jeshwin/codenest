@@ -13,7 +13,9 @@ export default function TopBar() {
         text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]
         top-0 fixed z-50"
             >
-                <Logo />
+                <Link href="/">
+                    <Logo width={8} height={8} />
+                </Link>
                 <button
                     className="hover:bg-[var(--light-bg-2)] hover:dark:bg-[var(--dark-bg-2)]
                 rounded-lg px-2 py-1 mx-1 active:scale-90 duration-200"
