@@ -1,0 +1,71 @@
+"use client"
+
+import { useUser } from "@auth0/nextjs-auth0/client"
+
+import Image from "next/image"
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import UserInfoCard from "./userinfocard"
+import { useState } from "react"
+
+export default function UserInfo() {
+    const [isClicked, setIsClicked] = useState(false)
+    const { user, error, isLoading } = useUser()
+
+    if (isLoading)
+        return (
+            <div
+                className="bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]
+                rounded-lg px-2 py-1 mx-1 w-8 h-6 animate-pulse"
+            ></div>
+        )
+    if (error)
+        return (
+            <>
+                <div className="bg-[var(--bg-error)] rounded-lg px-2 py-1 mx-1 animate-pulse">
+                    {error.message}
+                </div>
+            </>
+        )
+
+    return (
+        <>
+            {!user ? (
+                <a href="/api/auth/login">
+                    <button
+                        className="bg-[var(--primary)] hover:bg-[var(--primary-light)]
+                        hover:dark:bg-[var(--primary-dark)]
+                        rounded-lg px-2 py-1 mx-1 active:scale-90 duration-200"
+                    >
+                        Log In
+                    </button>
+                </a>
+            ) : (
+                <div className="relative">
+                    <button
+                        className="hover:bg-[var(--light-bg-2)] hover:dark:bg-[var(--dark-bg-2)]
+                        rounded-lg flex items-center px-2 py-1 mx-1 active:scale-90 duration-200"
+                        onClick={() => setIsClicked(!isClicked)}
+                    >
+                        <Image
+                            src={user.picture}
+                            alt={user.name}
+                            width={24}
+                            height={24}
+                            className="rounded-full"
+                        />
+                        <FontAwesomeIcon
+                            icon={faChevronDown}
+                            className="w-2 h-2 pl-1"
+                        />
+                    </button>
+                    {isClicked && (
+                        <div className="absolute right-0 mt-4 mr-1">
+                            <UserInfoCard />
+                        </div>
+                    )}
+                </div>
+            )}
+        </>
+    )
+}

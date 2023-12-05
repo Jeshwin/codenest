@@ -3,6 +3,7 @@ import Logo from "../navbar/logo"
 
 import ThemePicker from "../navbar/themepicker"
 import FeatureDropdown from "./featuredropdown"
+import UserInfo from "./userinfo"
 
 export default function TopBar() {
     return (
@@ -37,24 +38,7 @@ export default function TopBar() {
                 </button>
                 <span className="flex-grow"></span>
                 <ThemePicker />
-                <Link href="/signup">
-                    <button
-                        className="bg-[var(--primary)] hover:bg-[var(--primary-light)]
-                hover:dark:bg-[var(--primary-dark)]
-                rounded-lg px-2 py-1 mx-1 active:scale-90 duration-200"
-                    >
-                        Sign Up
-                    </button>
-                </Link>
-                <Link href="/login">
-                    <button
-                        className="bg-[var(--light-bg-3)] hover:bg-[var(--light-bg-2)]
-                dark:bg-[var(--dark-bg-3)] hover:dark:bg-[var(--dark-bg-2)]
-                rounded-lg px-2 py-1 mx-1 active:scale-90 duration-200"
-                    >
-                        Log In
-                    </button>
-                </Link>
+                <UserInfo />
             </header>
         </div>
     )
