@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Navbar from "@/components/navbar/navbar"
-import TreeView from "@/components/directorytree/treeview"
-import Editor from "@/components/editor/editor"
-import CloudShell from "@/components/cloudshell/cloudshell"
+import Navbar from "@/components/codespace/navbar/navbar"
+import TreeView from "@/components/codespace/directorytree/treeview"
+import Editor from "@/components/codespace/editor/editor"
+import CloudShell from "@/components/codespace/cloudshell/cloudshell"
 
 export default function Page() {
     const [directoryData, setDirectoryData] = useState(null)

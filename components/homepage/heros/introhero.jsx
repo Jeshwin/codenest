@@ -1,4 +1,4 @@
-import TypewriterText from "./typewritertext"
+import TypewriterText from "../../common/typewritertext"
 
 export default function IntroHero() {
     return (

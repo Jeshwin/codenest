@@ -13,7 +13,7 @@ export default function GetStartedHero() {
                 justify-center items-center place-items-center"
             >
                 <span className="text-5xl mb-10">Get Started Today!</span>
-                <Link href="/project">
+                <Link href="/codespace">
                     <button
                         className="px-4 py-3 font-mono text-xl
                     bg-[var(--secondary)] rounded-xl duration-300

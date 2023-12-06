@@ -1,4 +1,4 @@
-import ThemePicker from "./themepicker"
+import ThemePicker from "../../common/themepicker"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
     faGear,
@@ -6,7 +6,7 @@ import {
     faServer,
     faUserAstronaut,
 } from "@fortawesome/free-solid-svg-icons"
-import Logo from "./logo"
+import Logo from "../../common/logo"
 import ProjectName from "./projectname"
 import Link from "next/link"
 

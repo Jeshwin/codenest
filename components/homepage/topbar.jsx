@@ -1,9 +1,9 @@
 import Link from "next/link"
-import Logo from "../navbar/logo"
+import Logo from "../common/logo"
 
-import ThemePicker from "../navbar/themepicker"
+import ThemePicker from "../common/themepicker"
 import FeatureDropdown from "./featuredropdown"
-import UserInfo from "./userinfo"
+import UserInfo from "../common/userinfo"
 
 export default function TopBar() {
     return (

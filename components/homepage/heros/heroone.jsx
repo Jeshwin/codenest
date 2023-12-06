@@ -1,4 +1,4 @@
-import Editor from "@/components/editor/editor"
+import Editor from "@/components/codespace/editor/editor"
 
 export default function HeroOne() {
     return (
