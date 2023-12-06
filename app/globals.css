@@ -73,6 +73,54 @@
     animation: blink 1s infinite steps(1) !important;
 }
 
+/* Loading Blocks Animation */
+.loading-block {
+    animation: loading_block 2.4s linear infinite;
+}
+
+.block-offset-0 {
+    animation-delay: -2.4s;
+}
+
+.block-offset-1 {
+    animation-delay: -1.6s;
+}
+
+.block-offset-2 {
+    animation-delay: -0.8s;
+}
+
+@keyframes loading_block {
+    8.33% {
+        x: 13px;
+        y: 1px;
+    }
+    25% {
+        x: 13px;
+        y: 1px;
+    }
+    33.3% {
+        x: 13px;
+        y: 13px;
+    }
+    50% {
+        x: 13px;
+        y: 13px;
+    }
+    58.33% {
+        x: 1px;
+        y: 13px;
+    }
+    75% {
+        x: 1px;
+        y: 13px;
+    }
+    83.33% {
+        x: 1px;
+        y: 1px;
+    }
+}
+
 /**
  * Copyright (c) 2014 The xterm.js authors. All rights reserved.
  * Copyright (c) 2012-2013, Christopher Jeffrey (MIT License)
