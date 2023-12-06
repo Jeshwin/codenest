@@ -40,7 +40,7 @@ export default function UserInfoCard() {
                         icon={faGears}
                         className="h-4 w-4 text-[var(--light-fg-2)] dark:text-[var(--dark-fg-2)]"
                     />
-                    <span className="ml-4">Account Settings</span>
+                    <span className="ml-4">User Profile</span>
                 </Link>
                 <a
                     href="/api/auth/logout"
