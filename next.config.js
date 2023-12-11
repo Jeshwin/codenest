@@ -5,19 +5,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "s.gravatar.com",
-                port: "",
-                pathname: "/avatar/**",
-            },
-            {
-                protocol: "https",
-                hostname: "lh3.googleusercontent.com",
-                port: "",
-                pathname: "/**",
-            },
-            {
-                protocol: "https",
-                hostname: "avatars.githubusercontent.com",
+                hostname: "api.toucanny.net",
                 port: "",
                 pathname: "/**",
             },

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import { useUser } from "@auth0/nextjs-auth0/client"
 import Image from "next/image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -6,11 +7,33 @@ import {
     faGears,
 } from "@fortawesome/free-solid-svg-icons"
 import Link from "next/link"
+import LoadingSpinner from "./loadingspinner"
 
 export default function UserInfoCard() {
     const { user, error, isLoading } = useUser()
 
-    if (isLoading) return <div>Loading...</div>
+    const [userData, setUserData] = useState(null)
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            try {
+                const response = await fetch("/api/profile")
+                const userData = await response.json()
+                console.debug(userData)
+                setUserData(userData)
+            } catch (error) {
+                console.error("Error fetching user profile:", error.message)
+            }
+        }
+        fetchUserProfile()
+    }, [])
+
+    if (isLoading || !userData)
+        return (
+            <div className="w-max p-8 rounded-lg shadow-lg bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]">
+                <LoadingSpinner width={32} height={32} />
+            </div>
+        )
     if (error) return <div>{error.message}</div>
 
     return (
@@ -18,7 +41,7 @@ export default function UserInfoCard() {
             <div className="grid grid-cols-1 pt-4">
                 <div className="flex flex-row px-4">
                     <Image
-                        src={user.picture}
+                        src={userData.profilePicture}
                         alt={user.name}
                         width={48}
                         height={48}
@@ -28,7 +51,7 @@ export default function UserInfoCard() {
                         <span className="text-lg font-semibold">
                             {user.name}
                         </span>
-                        <span>{user.email}</span>
+                        <span>@{userData.username}</span>
                     </div>
                 </div>
                 <Link

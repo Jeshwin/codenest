@@ -3,14 +3,30 @@
 import { useUser } from "@auth0/nextjs-auth0/client"
 
 import Image from "next/image"
+import { useEffect, useState } from "react"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import UserInfoCard from "./userinfocard"
-import { useState } from "react"
 
 export default function UserInfo() {
     const [isClicked, setIsClicked] = useState(false)
     const { user, error, isLoading } = useUser()
+
+    const [userData, setUserData] = useState(null)
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            try {
+                const response = await fetch("/api/profile")
+                const userData = await response.json()
+                console.debug(userData)
+                setUserData(userData)
+            } catch (error) {
+                console.error("Error fetching user profile:", error.message)
+            }
+        }
+        fetchUserProfile()
+    }, [])
 
     if (isLoading)
         return (
@@ -30,11 +46,11 @@ export default function UserInfo() {
 
     return (
         <>
-            {!user ? (
+            {!user || !userData ? (
                 <a href="/api/auth/login">
                     <button
-                        className="bg-[var(--primary)] hover:bg-[var(--primary-light)]
-                        hover:dark:bg-[var(--primary-dark)]
+                        className="bg-[var(--primary-light)] dark:bg-[var(--primary-dark)]
+                        hover:bg-[var(--primary)] dark:hover:brightness-150
                         rounded-lg px-2 py-1 mx-1 active:scale-90 duration-200"
                     >
                         Log In
@@ -48,7 +64,7 @@ export default function UserInfo() {
                         onClick={() => setIsClicked(!isClicked)}
                     >
                         <Image
-                            src={user.picture}
+                            src={userData.profilePicture}
                             alt={user.name}
                             width={24}
                             height={24}
