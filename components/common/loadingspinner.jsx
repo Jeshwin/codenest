@@ -8,7 +8,7 @@ export default function LoadingSpinner({ width, height }) {
             xmlns="http://www.w3.org/2000/svg"
         >
             <rect
-                class="loading-block block-offset-0"
+                className="loading-block block-offset-0"
                 x="1"
                 y="1"
                 rx="1"
@@ -16,7 +16,7 @@ export default function LoadingSpinner({ width, height }) {
                 height="10"
             />
             <rect
-                class="loading-block block-offset-1"
+                className="loading-block block-offset-1"
                 x="1"
                 y="1"
                 rx="1"
@@ -24,7 +24,7 @@ export default function LoadingSpinner({ width, height }) {
                 height="10"
             />
             <rect
-                class="loading-block block-offset-2"
+                className="loading-block block-offset-2"
                 x="1"
                 y="1"
                 rx="1"
