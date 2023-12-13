@@ -4,7 +4,6 @@ import "dotenv/config"
 import { NextResponse } from "next/server"
 
 export async function GET(_request) {
-    console.log("AUTH0_SECRET = ", process.env.AUTH0_SECRET)
     const { user } = await getSession()
 
     if (!user) {
