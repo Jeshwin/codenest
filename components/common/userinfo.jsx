@@ -69,6 +69,7 @@ export default function UserInfo() {
                             width={24}
                             height={24}
                             className="rounded-full"
+                            unoptimized
                         />
                         <FontAwesomeIcon
                             icon={faChevronDown}

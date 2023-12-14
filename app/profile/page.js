@@ -73,6 +73,7 @@ export default function Page() {
                                 width={256}
                                 height={256}
                                 className="rounded-2xl lg:rounded-full w-64 h-64 lg:w-24 lg:h-24"
+                                unoptimized
                             />
                             <div className="flex flex-col ml-4 gap-y-2">
                                 <span className="text-3xl">

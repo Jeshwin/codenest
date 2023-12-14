@@ -46,6 +46,7 @@ export default function UserInfoCard() {
                         width={48}
                         height={48}
                         className="rounded-full"
+                        unoptimized
                     />
                     <div className="grid grid-cols-1 ml-5">
                         <span className="text-lg font-semibold">
