@@ -1,5 +1,15 @@
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
+"use client"
+
+import {
+    faChevronDown,
+    faCloud,
+    faCode,
+    faSeedling,
+    faShekel,
+    faTerminal,
+} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Link from "next/link"
 import { useState } from "react"
 
 export default function FeatureDropdown() {
@@ -8,7 +18,7 @@ export default function FeatureDropdown() {
         <div>
             <button
                 className="hover:bg-[var(--light-bg-2)] hover:dark:bg-[var(--dark-bg-2)]
-            rounded-lg flex items-center px-2 py-1 mx-1"
+            rounded-lg flex items-center px-2 py-1 mx-1 active:scale-90 duration-200"
                 onClick={() => setIsClicked(!isClicked)}
             >
                 Features
@@ -17,21 +27,40 @@ export default function FeatureDropdown() {
                     className="w-2 h-2 pl-1"
                 />
             </button>
-            <ul
-                className={`mt-4 absolute ml-1 rounded-lg
-                bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
-                ${!isClicked ? "hidden" : ""}`}
-            >
-                <li className="py-1 px-2 rounded-t-lg hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
-                    Code Editor
-                </li>
-                <li className="py-1 px-2 hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
-                    CloudShell
-                </li>
-                <li className="py-1 px-2 rounded-b-lg hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
-                    Environments
-                </li>
-            </ul>
+            {isClicked && (
+                <ul
+                    className="mt-1.5 absolute ml-1 rounded-lg border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]
+                bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]"
+                >
+                    <Link href="/code-editor">
+                        <li className="py-3 px-4 rounded-t-lg transition duration-200 hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                            <FontAwesomeIcon
+                                icon={faCode}
+                                className="w-4 h-4 pr-2"
+                            />
+                            Code Editor
+                        </li>
+                    </Link>
+                    <Link href="/cloudshell">
+                        <li className="py-3 px-4 transition duration-200 hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                            <FontAwesomeIcon
+                                icon={faTerminal}
+                                className="w-4 h-4 pr-2"
+                            />
+                            CloudShell
+                        </li>
+                    </Link>
+                    <Link href="/environments">
+                        <li className="py-3 px-4 transition duration-200 rounded-b-lg hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                            <FontAwesomeIcon
+                                icon={faSeedling}
+                                className="w-4 h-4 pr-2"
+                            />
+                            Environments
+                        </li>
+                    </Link>
+                </ul>
+            )}
         </div>
     )
 }

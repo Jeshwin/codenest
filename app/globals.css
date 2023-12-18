@@ -9,13 +9,15 @@
     --light-bg-3: #e2e8f0; /* slate-200 */
     --light-fg-1: #020617; /* slate-950 */
     --light-fg-2: #475569; /* slate-600 */
+    --light-fg-3: #94a3b8; /* slate-400 */
     --light-mode: #fb923c; /* orange-400 */
     /* Dark Theme */
     --dark-bg-1: #334155; /* slate-700 */
     --dark-bg-2: #1e293b; /* slate-800 */
     --dark-bg-3: #0f172a; /* slate-900 */
     --dark-fg-1: #f8fafc; /* slate-50 */
-    --dark-fg-2: #cbd5e1; /* slate-500 */
+    --dark-fg-2: #cbd5e1; /* slate-300 */
+    --dark-fg-3: #64748b; /* slate-500 */
     --dark-mode: #38bdf8; /* sky-400 */
     /* Theme Colors */
     /* Primary */
@@ -71,6 +73,54 @@
 
 .animate-blink {
     animation: blink 1s infinite steps(1) !important;
+}
+
+/* Loading Blocks Animation */
+.loading-block {
+    animation: loading_block 2.4s linear infinite;
+}
+
+.block-offset-0 {
+    animation-delay: -2.4s;
+}
+
+.block-offset-1 {
+    animation-delay: -1.6s;
+}
+
+.block-offset-2 {
+    animation-delay: -0.8s;
+}
+
+@keyframes loading_block {
+    8.33% {
+        x: 13px;
+        y: 1px;
+    }
+    25% {
+        x: 13px;
+        y: 1px;
+    }
+    33.3% {
+        x: 13px;
+        y: 13px;
+    }
+    50% {
+        x: 13px;
+        y: 13px;
+    }
+    58.33% {
+        x: 1px;
+        y: 13px;
+    }
+    75% {
+        x: 1px;
+        y: 13px;
+    }
+    83.33% {
+        x: 1px;
+        y: 1px;
+    }
 }
 
 /**

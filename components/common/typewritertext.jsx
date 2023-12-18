@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react"
 
 export default function TypewriterText({ text }) {
@@ -9,7 +11,7 @@ export default function TypewriterText({ text }) {
             const intervalId = setInterval(() => {
                 setDisplayText((prevText) => prevText + text[index])
                 setIndex((prevIndex) => prevIndex + 1)
-            }, 100) // Adjust the speed of typing
+            }, 70) // Adjust the speed of typing
 
             return () => clearInterval(intervalId)
         }

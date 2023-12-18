@@ -26,16 +26,15 @@ export default function HeroThree() {
                 <div className="w-1/2 text-5xl text-center font-mono font-light">
                     Supports the most popular languages and frameworks
                 </div>
-                <div className="w-1/2 h-full rounded-lg grid grid-cols-3 gap-4">
+                <div className="w-1/2 h-full grid grid-cols-3 place-content-center gap-4">
                     {supportedLanguages.map((language, index) => (
                         <button
                             key={index}
-                            className="p-4 flex-grow group
-                            grid grid-cols-1 gap-4 place-content-center justify-items-center"
+                            className="grid gap-4 group
+                             place-content-center justify-items-center"
                         >
                             {language !== "And More!" && (
-                                <div className="relative grid place-content-center w-fit aspect-square">
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <div className="relative w-fit aspect-square">
                                     <Image
                                         width={120}
                                         height={120}
@@ -45,11 +44,6 @@ export default function HeroThree() {
                                         duration-300 group-hover:scale-110
                                         filter group-hover:filter-none"
                                     />
-                                    {/* <div
-                                        className="absolute inset-0
-                                    bg-emerald-500 bg-opacity-30 mix-blend-multiply
-                                    transition-opacity duration-300 opacity-100 group-hover:opacity-0"
-                                    ></div> */}
                                 </div>
                             )}
                             <span
