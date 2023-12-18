@@ -30,14 +30,31 @@ export default function UserInfoCard() {
 
     if (isLoading || !userData)
         return (
-            <div className="w-max p-8 rounded-lg shadow-lg bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]">
+            <div
+                className="w-max p-8 rounded-lg shadow-lg
+                bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
+                border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]"
+            >
                 <LoadingSpinner width={32} height={32} />
             </div>
         )
-    if (error) return <div>{error.message}</div>
+    if (error)
+        return (
+            <div
+                className="w-max p-8 rounded-lg shadow-lg
+                bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
+                border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]"
+            >
+                <div>{error.message}</div>
+            </div>
+        )
 
     return (
-        <div className="w-max rounded-lg shadow-lg bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]">
+        <div
+            className="w-max rounded-lg shadow-lg
+            bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
+            border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]"
+        >
             <div className="grid grid-cols-1 pt-4">
                 <div className="flex flex-row px-4">
                     <Image

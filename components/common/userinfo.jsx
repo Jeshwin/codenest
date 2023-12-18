@@ -50,7 +50,7 @@ export default function UserInfo() {
                 <a href="/api/auth/login">
                     <button
                         className="bg-[var(--primary-light)] dark:bg-[var(--primary-dark)]
-                        hover:bg-[var(--primary)] dark:hover:brightness-150
+                        hover:bg-[var(--primary)] dark:hover:bg-[var(--primary)]
                         rounded-lg px-2 py-1 mx-1 active:scale-90 duration-200"
                     >
                         Log In
@@ -77,7 +77,7 @@ export default function UserInfo() {
                         />
                     </button>
                     {isClicked && (
-                        <div className="absolute right-0 mt-4 mr-1">
+                        <div className="absolute right-0 mt-1.5 mr-1">
                             <UserInfoCard />
                         </div>
                     )}
