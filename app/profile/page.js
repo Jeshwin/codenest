@@ -9,7 +9,7 @@ import {
     faEdit,
     faTrashCan,
 } from "@fortawesome/free-regular-svg-icons"
-import { faDiagramProject, faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import Image from "next/image"
