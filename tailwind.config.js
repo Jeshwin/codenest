@@ -10,7 +10,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["var(--font-montserrat)", "Helvetica"],
+                sans: ["var(--font-inter)", "Helvetica"],
                 mono: ["var(--font-jetbrains-mono)", "ui-monospace"],
             },
         },

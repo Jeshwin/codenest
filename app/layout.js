@@ -1,4 +1,4 @@
-import { Montserrat, JetBrains_Mono } from "next/font/google"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import "@/app/globals.css"
 
 // FontAwesome Config
@@ -6,9 +6,9 @@ import { config } from "@fortawesome/fontawesome-svg-core"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 config.autoAddCss = false
 
-const montserrat = Montserrat({
+const inter = Inter({
     subsets: ["latin"],
-    variable: "--font-montserrat",
+    variable: "--font-inter",
 })
 
 const jetbrains_mono = JetBrains_Mono({
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         <>
             <html
                 lang="en"
-                className={`${montserrat.variable} ${jetbrains_mono.variable}`}
+                className={`${inter.variable} ${jetbrains_mono.variable}`}
             >
                 <head>
                     <link rel="icon" href="/favicon.ico" sizes="any" />
