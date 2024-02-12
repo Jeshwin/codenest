@@ -6,12 +6,12 @@ import FeatureDropdown from "./featuredropdown"
 import UserInfo from "../common/userinfo"
 
 export default function TopBar() {
+    //  bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]
     return (
         <header
             className="w-full flex flex-row items-center px-3 py-2 font-sans
-            bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]
             text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]
-            top-0 fixed z-50"
+            top-0 fixed z-50 bg-transparent backdrop-blur"
         >
             <Link href="/">
                 <Logo width={8} height={8} />

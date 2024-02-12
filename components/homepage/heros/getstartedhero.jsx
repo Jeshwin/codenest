@@ -16,8 +16,8 @@ export default function GetStartedHero() {
                 <Link href="/codespace">
                     <button
                         className="px-4 py-3 font-mono text-xl
-                    bg-[var(--secondary)] rounded-xl duration-300
-                    hover:bg-[var(--secondary-light)] hover:dark:bg-[var(--secondary-dark)]
+                    bg-[var(--accent-light)] dark:bg-[var(--accent-dark)] rounded-xl duration-300
+                    hover:bg-[var(--accent-dark)] hover:dark:bg-[var(--accent-light)]
                     hover:scale-110 focus:scale-90"
                     >
                         Enter CodeNest

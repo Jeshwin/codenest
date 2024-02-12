@@ -29,7 +29,7 @@ export default function FeatureDropdown() {
             </button>
             {isClicked && (
                 <ul
-                    className="mt-1.5 absolute ml-1 rounded-lg border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]
+                    className="mt-1 absolute ml-1 rounded-lg border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]
                 bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]"
                 >
                     <Link href="/code-editor">

@@ -31,7 +31,7 @@ export default function UserInfoCard() {
     if (isLoading || !userData)
         return (
             <div
-                className="w-max p-8 rounded-lg shadow-lg
+                className="w-max p-8 rounded-lg
                 bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
                 border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]"
             >
@@ -41,7 +41,7 @@ export default function UserInfoCard() {
     if (error)
         return (
             <div
-                className="w-max p-8 rounded-lg shadow-lg
+                className="w-max p-8 rounded-lg
                 bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
                 border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]"
             >
@@ -51,7 +51,7 @@ export default function UserInfoCard() {
 
     return (
         <div
-            className="w-max rounded-lg shadow-lg
+            className="w-max rounded-lg
             bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
             border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]"
         >

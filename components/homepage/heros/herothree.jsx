@@ -50,7 +50,7 @@ export default function HeroThree() {
                                 className={`text-2xl text-center duration-300 ${
                                     language !== "And More!"
                                         ? "scale-0 group-hover:scale-100"
-                                        : "group-hover:scale-110 group-hover:text-[var(--primary)]"
+                                        : "group-hover:scale-110 group-hover:text-[var(--primary-light)] group-hover:dark:text-[var(--primary-dark)]"
                                 }`}
                             >
                                 {language === "CSharp" ? "C#" : language}

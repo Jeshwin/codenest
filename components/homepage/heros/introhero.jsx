@@ -1,14 +1,13 @@
-import Logo from "@/components/common/logo"
 import TypewriterText from "../../common/typewritertext"
-import BoidBackground from "../boids/boidbackground"
 import Link from "next/link"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons"
+import StyleCanvas from "../boids/stylecanvas"
 
 export default function IntroHero() {
     return (
         <div className="bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)] text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
-            <div className="absolute w-screen h-screen grid grid-cols-1 gap-y-8 place-content-center">
+            <div className="z-10 absolute w-screen h-screen grid grid-cols-1 gap-y-8 place-content-center">
                 <div
                     className="w-2/3 mx-auto pt-10 flex flex-row
                     justify-center items-end place-items-center"
@@ -26,7 +25,7 @@ export default function IntroHero() {
                     <button
                         className="text-3xl rounded-2xl px-8 py-5
                         bg-[var(--primary-light)] dark:bg-[var(--primary-dark)]
-                        hover:bg-[var(--primary)] hover:dark:bg-[var(--primary)]
+                        hover:bg-[var(--secondary-light)] hover:dark:bg-[var(--secondary-dark)]
                         active:scale-90 duration-200"
                     >
                         Get Started!
@@ -39,7 +38,7 @@ export default function IntroHero() {
                     />
                 </div>
             </div>
-            <BoidBackground />
+            <StyleCanvas />
         </div>
     )
 }
