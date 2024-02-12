@@ -1,91 +1,91 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from "react"
+import {useState} from "react";
 
-import DirectoryElement from "./directoryelement"
-import FileElement from "./fileelement"
-import FileSearchBar from "./filesearchbar"
-import FileToolBar from "./filetoolbar"
-import { moveItem } from "./utils"
+import DirectoryElement from "./directoryelement";
+import FileElement from "./fileelement";
+import FileSearchBar from "./filesearchbar";
+import FileToolBar from "./filetoolbar";
+import {moveItem} from "./utils";
 
-export default function TreeView({ directoryData }) {
+export default function TreeView({directoryData}) {
     // Edge case: directoryData is null
-    if (directoryData == null) return
+    if (directoryData == null) return;
 
-    const [collapsed, setCollapsed] = useState({})
-    const [directoryDataState, setDirectoryDataState] = useState(directoryData)
-    const [dragOverFolder, setDragOverFolder] = useState(null)
+    const [collapsed, setCollapsed] = useState({});
+    const [directoryDataState, setDirectoryDataState] = useState(directoryData);
+    const [dragOverFolder, setDragOverFolder] = useState(null);
 
     const toggleCollapse = (name) => {
         setCollapsed((prevCollapsed) => {
-            const updatedCollapsed = { ...prevCollapsed }
-            updatedCollapsed[name] = !updatedCollapsed[name]
-            return updatedCollapsed
-        })
-    }
+            const updatedCollapsed = {...prevCollapsed};
+            updatedCollapsed[name] = !updatedCollapsed[name];
+            return updatedCollapsed;
+        });
+    };
 
     const selectFile = (filename) => {
-        console.log("Selected file " + filename)
+        console.log("Selected file " + filename);
         // Add select file to local storage
-        localStorage.setItem("filename", filename)
+        localStorage.setItem("filename", filename);
         // Message other documents that filename is updated
-        window.parent.postMessage({ type: "filenameChanged", filename }, "*")
-    }
+        window.parent.postMessage({type: "filenameChanged", filename}, "*");
+    };
 
     const handleDrop = (e, targetPath) => {
-        e.preventDefault()
-        setDragOverFolder(null)
-        const draggedFileName = e.dataTransfer.getData("text/plain")
-        console.log(`Moving file ${draggedFileName} to ${targetPath}`)
+        e.preventDefault();
+        setDragOverFolder(null);
+        const draggedFileName = e.dataTransfer.getData("text/plain");
+        console.log(`Moving file ${draggedFileName} to ${targetPath}`);
 
         // Avoid dropping onto itself
         if (draggedFileName === targetPath) {
-            return
+            return;
         }
 
         const updatedDirectoryData = moveItem(
             directoryDataState,
             draggedFileName,
             targetPath
-        )
-        setDirectoryDataState(updatedDirectoryData)
+        );
+        setDirectoryDataState(updatedDirectoryData);
 
         // Prevent drop from propagating to parent folders
-        e.stopPropagation()
-    }
+        e.stopPropagation();
+    };
 
     const handleDragStart = (filename) => {
-        console.log("Dragging started for file: " + filename)
-    }
+        console.log("Dragging started for file: " + filename);
+    };
 
     const handleDragOver = (e, folderPath) => {
-        e.preventDefault()
-        setDragOverFolder(folderPath)
-        e.stopPropagation()
-    }
+        e.preventDefault();
+        setDragOverFolder(folderPath);
+        e.stopPropagation();
+    };
 
     const handleDragLeave = () => {
-        setDragOverFolder(null)
-    }
+        setDragOverFolder(null);
+    };
 
     const renderTree = (data, parentPath = ".", directoryFlag = false) => {
-        if (data == null) return
+        if (data == null) return;
         return (
             <ul
                 className={`${
                     directoryFlag
-                        ? `border-l ml-1 pl-3 my-1 border-[var(--light-fg-2)] dark:border-[var(--dark-fg-1)] border-opacity-75 `
+                        ? `border-l ml-1 pl-3 my-1 border-[var(--fg-2)] border-opacity-75 `
                         : ""
                 }`}
             >
                 {data.map((item, index) => {
-                    const subPath = parentPath + "/" + item.name
+                    const subPath = parentPath + "/" + item.name;
                     return (
                         <li key={index}>
                             {item.type === "directory" ? (
                                 <div
                                     className={`rounded-lg ${
                                         dragOverFolder === subPath
-                                            ? "bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]"
+                                            ? "bg-[var(--bg-3)]"
                                             : ""
                                     }`}
                                     onDragOver={(e) =>
@@ -111,11 +111,11 @@ export default function TreeView({ directoryData }) {
                                 />
                             )}
                         </li>
-                    )
+                    );
                 })}
             </ul>
-        )
-    }
+        );
+    };
 
     return (
         <div className="h-full px-3 py-2 flex flex-col font-sans">
@@ -129,11 +129,7 @@ export default function TreeView({ directoryData }) {
             {/* Tree View */}
             <div
                 className={`h-full px-3 rounded-lg
-                ${
-                    dragOverFolder === "."
-                        ? "bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]"
-                        : ""
-                }`}
+                ${dragOverFolder === "." ? "bg-[var(--bg-2)]" : ""}`}
                 onDragOver={(e) => handleDragOver(e, ".")}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, ".")}
@@ -141,5 +137,5 @@ export default function TreeView({ directoryData }) {
                 {renderTree(directoryDataState)}
             </div>
         </div>
-    )
+    );
 }

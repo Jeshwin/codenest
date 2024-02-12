@@ -1,53 +1,53 @@
-"use client"
+"use client";
 
-import LoadingSpinner from "@/components/common/loadingspinner"
-import Footer from "@/components/homepage/footer"
-import TopBar from "@/components/homepage/topbar"
-import { useUser } from "@auth0/nextjs-auth0/client"
+import LoadingSpinner from "@/components/common/loadingspinner";
+import Footer from "@/components/homepage/footer";
+import TopBar from "@/components/homepage/topbar";
+import {useUser} from "@auth0/nextjs-auth0/client";
 import {
     faCheckCircle,
     faEdit,
     faTrashCan,
-} from "@fortawesome/free-regular-svg-icons"
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
+} from "@fortawesome/free-regular-svg-icons";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useEffect, useState} from "react";
+import Image from "next/image";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
-    const { user, error, isLoading } = useUser()
-    const router = useRouter()
+    const {user, error, isLoading} = useUser();
+    const router = useRouter();
 
-    const [userData, setUserData] = useState(null)
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await fetch("/api/profile")
-                const userData = await response.json()
-                console.debug(userData)
-                setUserData(userData)
+                const response = await fetch("/api/profile");
+                const userData = await response.json();
+                console.debug(userData);
+                setUserData(userData);
             } catch (error) {
-                console.error("Error fetching user profile:", error.message)
+                console.error("Error fetching user profile:", error.message);
             }
-        }
-        fetchUserProfile()
-    }, [])
+        };
+        fetchUserProfile();
+    }, []);
 
     if (isLoading || !userData)
         return (
-            <body className="h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)] text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
+            <body className="h-screen bg-[var(--bg-3)] text-[var(--fg-1)]">
                 <TopBar />
                 <div className="w-screen h-screen grid place-content-center">
                     <LoadingSpinner width={100} height={100} />
                 </div>
                 <Footer />
             </body>
-        )
+        );
     if (error)
         return (
-            <body className="h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)] text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
+            <body className="h-screen bg-[var(--bg-3)] text-[var(--fg-1)]">
                 <TopBar />
                 <div className="w-screen h-screen grid place-content-center">
                     <span className="text-5xl text-[var(--bg-error)]">
@@ -56,16 +56,16 @@ export default function Page() {
                 </div>
                 <Footer />
             </body>
-        )
+        );
 
-    if (!user) router.push("/")
+    if (!user) router.push("/");
 
     return (
-        <body className="h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)] text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
+        <body className="h-screen bg-[var(--bg-3)] text-[var(--fg-1)]">
             <TopBar />
             <div className="w-screen h-screen flex flex-col gap-y-8 mt-24">
                 <div className="w-2/3 min-w-[24rem] mx-auto flex">
-                    <div className="grow p-8 rounded-2xl bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
+                    <div className="grow p-8 rounded-2xl bg-[var(--bg-1)]">
                         <div className="flex flex-col lg:flex-row gap-4 items-center">
                             <Image
                                 src={userData.profilePicture}
@@ -88,17 +88,17 @@ export default function Page() {
                                                 className="hidden group-hover:block w-max
                                                 absolute top-4 left-8 p-2
                                                 rounded-lg shadow-lg
-                                                bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] text-base"
+                                                bg-[var(--bg-2)] text-base"
                                             >
                                                 Verified User
                                             </div>
                                         </div>
                                     )}
                                 </span>
-                                <span className="text-xl text-[var(--light-fg-2)] dark:text-[var(--dark-fg-2)]">
+                                <span className="text-xl text-[var(--fg-2)]">
                                     @{userData.username}
                                 </span>
-                                <span className="text-[var(--light-fg-2)] dark:text-[var(--dark-fg-2)]">
+                                <span className="text-[var(--fg-2)]">
                                     Joined{" "}
                                     {new Date(
                                         userData.createdAt
@@ -110,7 +110,7 @@ export default function Page() {
                                 </span>
                             </div>
                             <div className="grow flex flex-row-reverse gap-x-4">
-                                <button className="text-lg px-3 py-2 rounded-lg bg-[var(--primary-light)] dark:bg-[var(--primary-dark)]">
+                                <button className="text-lg px-3 py-2 rounded-lg bg-[var(--primary)]">
                                     <span className="flex items-center gap-x-1">
                                         <FontAwesomeIcon icon={faEdit} />
                                         Edit
@@ -127,23 +127,23 @@ export default function Page() {
                     </div>
                 </div>
                 <div className="w-2/3 min-w-[24rem] mx-auto flex">
-                    <div className="grow p-8 rounded-2xl bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
+                    <div className="grow p-8 rounded-2xl bg-[var(--bg-1)]">
                         <div className="flex flex-row items-center mx-4">
                             <span className="text-2xl flex items-center gap-x-2">
                                 Nests
                             </span>
                         </div>
                         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                            <div className="w-auto m-4 rounded-2xl shadow-lg aspect-square grid place-content-center bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]">
+                            <div className="w-auto m-4 rounded-2xl shadow-lg aspect-square grid place-content-center bg-[var(--bg-2)]">
                                 <FontAwesomeIcon
                                     icon={faPlus}
-                                    className="w-8 h-8 text-[var(--light-fg-2)] dark:text-[var(--dark-fg-2)]"
+                                    className="w-8 h-8 text-[var(--fg-2)]"
                                 />
                             </div>
-                            <div className="w-auto m-4 rounded-2xl shadow-lg aspect-square grid place-content-center bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]">
+                            <div className="w-auto m-4 rounded-2xl shadow-lg aspect-square grid place-content-center bg-[var(--bg-2)]">
                                 <FontAwesomeIcon
                                     icon={faPlus}
-                                    className="w-8 h-8 text-[var(--light-fg-2)] dark:text-[var(--dark-fg-2)]"
+                                    className="w-8 h-8 text-[var(--fg-2)]"
                                 />
                             </div>
                         </div>
@@ -152,5 +152,5 @@ export default function Page() {
             </div>
             <Footer />
         </body>
-    )
+    );
 }

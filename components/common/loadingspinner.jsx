@@ -1,9 +1,9 @@
-export default function LoadingSpinner({ width, height }) {
+export default function LoadingSpinner({width, height}) {
     return (
         <svg
             width={`${width}`}
             height={`${height}`}
-            className="fill-[var(--primary-dark)] dark:fill-[var(--primary-light)]"
+            className="fill-[var(--primary)]"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
         >
@@ -32,5 +32,5 @@ export default function LoadingSpinner({ width, height }) {
                 height="10"
             />
         </svg>
-    )
+    );
 }

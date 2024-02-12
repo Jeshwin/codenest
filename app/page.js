@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import Footer from "@/components/homepage/footer"
-import GetStartedHero from "@/components/homepage/heros/getstartedhero"
-import HeroOne from "@/components/homepage/heros/heroone"
-import HeroThree from "@/components/homepage/heros/herothree"
-import HeroTwo from "@/components/homepage/heros/herotwo"
-import IntroHero from "@/components/homepage/heros/introhero"
-import TopBar from "@/components/homepage/topbar"
+import Footer from "@/components/homepage/footer";
+import GetStartedHero from "@/components/homepage/heros/getstartedhero";
+import HeroOne from "@/components/homepage/heros/heroone";
+import HeroThree from "@/components/homepage/heros/herothree";
+import HeroTwo from "@/components/homepage/heros/herotwo";
+import IntroHero from "@/components/homepage/heros/introhero";
+import TopBar from "@/components/homepage/topbar";
 
 export default function HomePage() {
     return (
-        <body className="h-screen bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]">
+        <body className="h-screen bg-[var(--bg-3)]">
             <TopBar />
             <IntroHero />
             <HeroOne />
@@ -19,5 +19,5 @@ export default function HomePage() {
             <GetStartedHero />
             <Footer />
         </body>
-    )
+    );
 }

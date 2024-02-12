@@ -1,19 +1,8 @@
 export default function HeroTwo() {
     return (
-        <div
-            className="h-screen flex place-items-center
-        bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]
-        text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]"
-        >
-            <div
-                className="w-2/3 h-1/2 mx-auto flex flex-row gap-4
-                justify-center items-center place-items-center"
-            >
-                <ul
-                    className="w-1/2 h-full p-4 font-mono rounded-lg
-                bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]
-                flex flex-col"
-                >
+        <div className="h-screen flex place-items-center bg-[var(--bg-1)] text-[var(--fg-1)]">
+            <div className="w-2/3 h-1/2 mx-auto flex flex-row gap-4 justify-center items-center place-items-center">
+                <ul className="w-1/2 h-full p-4 font-mono rounded-lg bg-[var(--bg-2)] flex flex-col">
                     <li>
                         <span className="text-[var(--term-green)]">
                             codenest@codenest
@@ -53,5 +42,5 @@ export default function HeroTwo() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

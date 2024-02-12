@@ -1,19 +1,19 @@
-import TypewriterText from "../../common/typewritertext"
-import Link from "next/link"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons"
-import StyleCanvas from "../style/stylecanvas"
+import TypewriterText from "../../common/typewritertext";
+import Link from "next/link";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
+import StyleCanvas from "../style/stylecanvas";
 
 export default function IntroHero() {
     return (
-        <div className="bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)] text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]">
+        <div className="bg-[var(--bg-1)] text-[var(--fg-1)]">
             <div className="z-10 absolute w-screen h-screen grid grid-cols-1 gap-y-8 place-content-center">
                 <div
                     className="w-2/3 mx-auto pt-10 flex flex-row
                     justify-center items-end place-items-center"
                 >
                     <svg
-                        className="w-32 h-32 fill-[var(--light-fg-1)] dark:fill-[var(--dark-fg-1)]"
+                        className="w-32 h-32 fill-[var(--fg-1)]"
                         viewBox="0 0 512 512"
                         xmlns="http://www.w3.org/2000/svg"
                     >
@@ -22,12 +22,7 @@ export default function IntroHero() {
                     <TypewriterText text={"CodeNest"} />
                 </div>
                 <Link href="/codespace" className="w-fit mx-auto">
-                    <button
-                        className="text-3xl rounded-2xl px-8 py-5
-                        bg-[var(--primary-light)] dark:bg-[var(--primary-dark)]
-                        hover:bg-[var(--secondary-light)] hover:dark:bg-[var(--secondary-dark)]
-                        active:scale-90 duration-200"
-                    >
+                    <button className="text-3xl rounded-2xl px-8 py-5 bg-[var(--primary)] hover:bg-[var(--secondary)] active:scale-90 duration-200">
                         Get Started!
                     </button>
                 </Link>
@@ -40,5 +35,5 @@ export default function IntroHero() {
             </div>
             <StyleCanvas />
         </div>
-    )
+    );
 }
