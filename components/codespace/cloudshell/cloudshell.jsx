@@ -117,8 +117,7 @@ export default function CloudShell() {
             terminal.loadAddon(fitAddon)
 
             // Create a WebSocket connection to your EC2 instance
-            const ec2Ip = "ec2-13-52-80-90.us-west-1.compute.amazonaws.com"
-            // const ec2Ip = "ec2-54-193-67-122.us-west-1.compute.amazonaws.com"
+            const ec2Ip = "ec2-13-57-246-174.us-west-1.compute.amazonaws.com"
             const port = "6060"
             const socket = new WebSocket(`ws://${ec2Ip}:${port}`)
 
