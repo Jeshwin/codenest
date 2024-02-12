@@ -2,7 +2,7 @@ import TypewriterText from "../../common/typewritertext"
 import Link from "next/link"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons"
-import StyleCanvas from "../boids/stylecanvas"
+import StyleCanvas from "../style/stylecanvas"
 
 export default function IntroHero() {
     return (
