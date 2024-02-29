@@ -4,6 +4,9 @@ const StyleCanvas = () => {
     const canvasRef = useRef(null);
     const numCircles = 10;
     const [canvasSize, setCanvasSize] = useState({width: 1920, height: 1080});
+    const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -110,6 +113,7 @@ const StyleCanvas = () => {
 
         // Function to update circle positions
         const update = () => {
+            if (prefersReducedMotion) return; // Cut animation if prefers-reduced-motion is enabled
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             circles.forEach((circle) => {
                 circle.angle += circle.speed;
@@ -124,7 +128,7 @@ const StyleCanvas = () => {
 
         // Cleanup function
         return () => cancelAnimationFrame(update);
-    }, []);
+    }, [prefersReducedMotion]);
 
     // Function to update canvas size based on parent container size
     const updateCanvasSize = () => {
