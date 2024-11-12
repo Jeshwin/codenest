@@ -1,6 +1,7 @@
 "use client";
 
 import {useEffect, useRef} from "react";
+import {io} from "socket.io-client";
 
 const baseTheme = {
     black: "#64748b",
@@ -116,11 +117,6 @@ export default function CloudShell() {
             const fitAddon = new FitAddon();
             terminal.loadAddon(fitAddon);
 
-            // Create a WebSocket connection to your EC2 instance
-            const ec2Ip = "ec2-13-57-246-174.us-west-1.compute.amazonaws.com";
-            const port = "6060";
-            const socket = new WebSocket(`ws://${ec2Ip}:${port}`);
-
             // Open the terminal in the 'terminal-container' div
             terminal.open(termRef.current);
             console.log(
@@ -160,16 +156,49 @@ export default function CloudShell() {
             };
             window.addEventListener("resize", handleResize);
 
-            // Attach the WebSocket to Xterm.js
-            terminal.onData((data) => {
-                fitAddon.fit();
-                socket.send(data);
+            // Create a WebSocket connection to your EC2 instance
+            // const ec2Ip = "ec2-13-57-246-174.us-west-1.compute.amazonaws.com";
+            // const port = "6060";
+            // const socket = new WebSocket(`ws://${ec2Ip}:${port}`);
+
+            // // Attach the WebSocket to Xterm.js
+            // terminal.onData((data) => {
+            //     fitAddon.fit();
+            //     socket.send(data);
+            // });
+
+            // // Handle WebSocket messages
+            // socket.onmessage = (event) => {
+            //     terminal.write(event.data);
+            // };
+
+            // Create a Socket.IO connection with the username and project as query params
+            const socket = io("http://localhost:5000", {
+                query: {
+                    username: "johnny",
+                    project: "appleseed",
+                },
             });
 
-            // Handle WebSocket messages
-            socket.onmessage = (event) => {
-                terminal.write(event.data);
-            };
+            // Send keystrokes to the server, handling Enter as exec
+            terminal.onData((data) => {
+                // Send keystrokes otherwise
+                socket.emit("keystroke", data);
+            });
+
+            // Send empty char to start to show terminal
+            socket.on("connect", () => {
+                socket.emit("keystroke", "");
+            });
+            // Send empty char to show revived terminal
+            socket.on("revived", () => {
+                socket.emit("keystroke", "");
+            });
+
+            // Display incoming server data on the terminal
+            socket.on("output", (data) => {
+                terminal.write(data.output);
+            });
 
             // Clean up the terminal and close the WebSocket on component unmount
             return () => {
@@ -178,7 +207,8 @@ export default function CloudShell() {
                     "themechange",
                     themeChangeRef.current
                 );
-                socket.close();
+                // socket.close();
+                socket.disconnect();
             };
         };
         initTerminal();
