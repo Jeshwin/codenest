@@ -5,6 +5,7 @@ import Navbar from "@/components/codespace/navbar/navbar";
 import TreeView from "@/components/codespace/directorytree/treeview";
 import Editor from "@/components/codespace/editor/editor";
 import CloudShell from "@/components/codespace/cloudshell/cloudshell";
+import CodeEditor from "@/components/codespace/codemirror/mirror";
 
 export default function Page() {
     const [directoryData, setDirectoryData] = useState(null);
@@ -34,8 +35,9 @@ export default function Page() {
                     <div className="m-1 min-w-fit max-w-lg flex-none rounded-lg bg-[var(--bg-1)]">
                         <TreeView directoryData={directoryData} />
                     </div>
-                    <div className="m-1 w-2/5 flex-1 flex flex-col rounded-lg bg-[var(--bg-1)]">
-                        <Editor />
+                    <div className="m-1 w-2/5 text-base flex-1 flex flex-col rounded-lg bg-[var(--bg-1)] overflow-scroll">
+                        {/* <Editor /> */}
+                        <CodeEditor />
                     </div>
                     <div className="m-1 w-2/5 h-auto flex-1 flex rounded-lg bg-[var(--bg-1)]">
                         <CloudShell />
