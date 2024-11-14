@@ -2,22 +2,18 @@ import {
     faDiscord,
     faGithub,
     faTwitter,
-} from "@fortawesome/free-brands-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+} from "@fortawesome/free-brands-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function Footer() {
     return (
-        <div className="w-full bg-[var(--light-bg-1)] dark:bg-[var(--dark-bg-1)]">
-            <div
-                className="w-5/6 mx-auto h-fit py-10
-        font-sans text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]
-        grid grid-cols-3 gap-x-4"
-            >
+        <div className="w-full bg-[var(--bg-1)]">
+            <div className="w-5/6 mx-auto h-fit py-10 font-sans text-[var(--fg-1)] grid grid-cols-3 gap-x-4">
                 <div className="w-full h-fit grid grid-cols-1 gap-y-4">
-                    <div className="h-fit bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] rounded-lg p-4">
+                    <div className="h-fit bg-[var(--bg-2)] rounded-lg p-4">
                         <div className="h-8 flex flex-row items-end">
                             <svg
-                                className={`w-8 h-8 fill-[var(--light-fg-1)] dark:fill-[var(--dark-fg-1)]`}
+                                className={`w-8 h-8 fill-[var(--fg-1)]`}
                                 viewBox="0 0 512 512"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
@@ -31,7 +27,7 @@ export default function Footer() {
                             Copyright © 2023 CodeNest. All rights reserved.
                         </span>
                     </div>
-                    <div className="w-full h-full bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] rounded-lg p-4">
+                    <div className="w-full h-full bg-[var(--bg-2)] rounded-lg p-4">
                         <span className="text-lg font-semibold">
                             Social Media
                         </span>
@@ -66,7 +62,7 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="w-full h-fit bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] rounded-lg p-4">
+                <div className="w-full h-fit bg-[var(--bg-2)] rounded-lg p-4">
                     <span className="text-lg font-semibold">Links</span>
                     <ul className="pl-4 flex flex-col gap-y-1">
                         <li>About Us</li>
@@ -77,7 +73,7 @@ export default function Footer() {
                         <li>Acknowledgements</li>
                     </ul>
                 </div>
-                <div className="w-full h-fit bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)] rounded-lg p-4">
+                <div className="w-full h-fit bg-[var(--bg-2)] rounded-lg p-4">
                     <span className="text-lg font-semibold">Features</span>
                     <ul className="pl-4 flex flex-col gap-y-1">
                         <li>Code Editor</li>
@@ -87,5 +83,5 @@ export default function Footer() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

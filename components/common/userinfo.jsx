@@ -1,40 +1,37 @@
-"use client"
+"use client";
 
-import { useUser } from "@auth0/nextjs-auth0/client"
+import {useUser} from "@auth0/nextjs-auth0/client";
 
-import Image from "next/image"
-import { useEffect, useState } from "react"
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import UserInfoCard from "./userinfocard"
+import Image from "next/image";
+import {useEffect, useState} from "react";
+import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import UserInfoCard from "./userinfocard";
 
 export default function UserInfo() {
-    const [isClicked, setIsClicked] = useState(false)
-    const { user, error, isLoading } = useUser()
+    const [isClicked, setIsClicked] = useState(false);
+    const {user, error, isLoading} = useUser();
 
-    const [userData, setUserData] = useState(null)
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await fetch("/api/profile")
-                const userData = await response.json()
-                console.debug(userData)
-                setUserData(userData)
+                const response = await fetch("/api/profile");
+                const userData = await response.json();
+                console.debug(userData);
+                setUserData(userData);
             } catch (error) {
-                console.error("Error fetching user profile:", error.message)
+                console.error("Error fetching user profile:", error.message);
             }
-        }
-        fetchUserProfile()
-    }, [])
+        };
+        fetchUserProfile();
+    }, []);
 
     if (isLoading)
         return (
-            <div
-                className="bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]
-                rounded-lg px-2 py-1 mx-1 w-8 h-6 animate-pulse"
-            ></div>
-        )
+            <div className="bg-[var(--bg-3)] rounded-lg px-2 py-1 mx-1 w-8 h-6 animate-pulse"></div>
+        );
     if (error)
         return (
             <>
@@ -42,25 +39,20 @@ export default function UserInfo() {
                     {error.message}
                 </div>
             </>
-        )
+        );
 
     return (
         <>
             {!user || !userData ? (
                 <a href="/api/auth/login">
-                    <button
-                        className="bg-[var(--primary-light)] dark:bg-[var(--primary-dark)]
-                        hover:bg-[var(--primary)] dark:hover:bg-[var(--primary)]
-                        rounded-lg px-2 py-1 mx-1 active:scale-90 duration-200"
-                    >
+                    <button className="bg-[var(--primary)] hover:bg-[var(--secondary)] rounded-lg px-2 py-1 mx-1 active:scale-90 duration-200">
                         Log In
                     </button>
                 </a>
             ) : (
                 <div className="relative">
                     <button
-                        className="hover:bg-[var(--light-bg-2)] hover:dark:bg-[var(--dark-bg-2)]
-                        rounded-lg flex items-center px-2 py-1 mx-1 active:scale-90 duration-200"
+                        className="hover:bg-[var(--bg-2)] rounded-lg flex items-center px-2 py-1 mx-1 active:scale-90 duration-200"
                         onClick={() => setIsClicked(!isClicked)}
                     >
                         <Image
@@ -77,12 +69,12 @@ export default function UserInfo() {
                         />
                     </button>
                     {isClicked && (
-                        <div className="absolute right-0 mt-1.5 mr-1">
+                        <div className="absolute right-0 mt-1 mr-1">
                             <UserInfoCard />
                         </div>
                     )}
                 </div>
             )}
         </>
-    )
+    );
 }

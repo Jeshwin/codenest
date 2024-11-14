@@ -1,64 +1,64 @@
 [
-  {
-    "type": "directory",
-    "name": "src",
-    "items": [
-      {
-        "type": "file",
-        "name": "main.cpp"
-      },
-      {
+    {
         "type": "directory",
-        "name": "lib",
+        "name": "src",
         "items": [
-          {
-            "type": "file",
-            "name": "helper.cpp"
-          },
-          {
-            "type": "file",
-            "name": "helper.hpp"
-          }
+            {
+                "type": "file",
+                "name": "main.cpp"
+            },
+            {
+                "type": "directory",
+                "name": "lib",
+                "items": [
+                    {
+                        "type": "file",
+                        "name": "helper.cpp"
+                    },
+                    {
+                        "type": "file",
+                        "name": "helper.hpp"
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "name": "include",
-    "items": [
-      {
-        "type": "file",
-        "name": "config.h"
-      },
-      {
+    },
+    {
         "type": "directory",
-        "name": "util",
+        "name": "include",
         "items": [
-          {
-            "type": "file",
-            "name": "utility.template"
-          }
+            {
+                "type": "file",
+                "name": "config.h"
+            },
+            {
+                "type": "directory",
+                "name": "util",
+                "items": [
+                    {
+                        "type": "file",
+                        "name": "utility.template"
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "name": "docs",
-    "items": [
-      {
+    },
+    {
+        "type": "directory",
+        "name": "docs",
+        "items": [
+            {
+                "type": "file",
+                "name": "readme.txt"
+            },
+            {
+                "type": "file",
+                "name": "license.txt"
+            }
+        ]
+    },
+    {
         "type": "file",
-        "name": "readme.txt"
-      },
-      {
-        "type": "file",
-        "name": "license.txt"
-      }
-    ]
-  },
-  {
-    "type": "file",
-    "name": "test.sh"
-  }
+        "name": "test.sh"
+    }
 ]

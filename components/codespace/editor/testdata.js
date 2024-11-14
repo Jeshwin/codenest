@@ -41,4 +41,4 @@ export const TabData = [
         cursorStart: 0,
         cursorEnd: 0,
     },
-]
+];

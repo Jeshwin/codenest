@@ -1,24 +1,21 @@
-"use client"
+"use client";
 
 import {
     faChevronDown,
-    faCloud,
     faCode,
     faSeedling,
-    faShekel,
     faTerminal,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Link from "next/link"
-import { useState } from "react"
+} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import {useState} from "react";
 
 export default function FeatureDropdown() {
-    const [isClicked, setIsClicked] = useState(false)
+    const [isClicked, setIsClicked] = useState(false);
     return (
         <div>
             <button
-                className="hover:bg-[var(--light-bg-2)] hover:dark:bg-[var(--dark-bg-2)]
-            rounded-lg flex items-center px-2 py-1 mx-1 active:scale-90 duration-200"
+                className="hover:bg-[var(--bg-2)] rounded-lg flex items-center px-2 py-1 mx-1 active:scale-90 duration-200"
                 onClick={() => setIsClicked(!isClicked)}
             >
                 Features
@@ -28,12 +25,9 @@ export default function FeatureDropdown() {
                 />
             </button>
             {isClicked && (
-                <ul
-                    className="mt-1.5 absolute ml-1 rounded-lg border border-[var(--light-fg-3)] dark:border-[var(--dark-fg-3)]
-                bg-[var(--light-bg-2)] dark:bg-[var(--dark-bg-2)]"
-                >
+                <ul className="mt-1 absolute ml-1 rounded-lg border border-[var(--fg-3)] bg-[var(--bg-2)]">
                     <Link href="/code-editor">
-                        <li className="py-3 px-4 rounded-t-lg transition duration-200 hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                        <li className="py-3 px-4 rounded-t-lg transition duration-200 hover:bg-[var(--bg-3)]">
                             <FontAwesomeIcon
                                 icon={faCode}
                                 className="w-4 h-4 pr-2"
@@ -42,7 +36,7 @@ export default function FeatureDropdown() {
                         </li>
                     </Link>
                     <Link href="/cloudshell">
-                        <li className="py-3 px-4 transition duration-200 hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                        <li className="py-3 px-4 transition duration-200 hover:bg-[var(--bg-3)]">
                             <FontAwesomeIcon
                                 icon={faTerminal}
                                 className="w-4 h-4 pr-2"
@@ -51,7 +45,7 @@ export default function FeatureDropdown() {
                         </li>
                     </Link>
                     <Link href="/environments">
-                        <li className="py-3 px-4 transition duration-200 rounded-b-lg hover:bg-[var(--light-bg-3)] hover:dark:bg-[var(--dark-bg-3)]">
+                        <li className="py-3 px-4 transition duration-200 rounded-b-lg hover:bg-[var(--bg-3)]">
                             <FontAwesomeIcon
                                 icon={faSeedling}
                                 className="w-4 h-4 pr-2"
@@ -62,5 +56,5 @@ export default function FeatureDropdown() {
                 </ul>
             )}
         </div>
-    )
+    );
 }

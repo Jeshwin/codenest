@@ -1,29 +1,26 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import {useState, useEffect} from "react";
 
-export default function TypewriterText({ text }) {
-    const [displayText, setDisplayText] = useState("")
-    const [index, setIndex] = useState(0)
+export default function TypewriterText({text}) {
+    const [displayText, setDisplayText] = useState("");
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
         if (index < text.length) {
             const intervalId = setInterval(() => {
-                setDisplayText((prevText) => prevText + text[index])
-                setIndex((prevIndex) => prevIndex + 1)
-            }, 70) // Adjust the speed of typing
+                setDisplayText((prevText) => prevText + text[index]);
+                setIndex((prevIndex) => prevIndex + 1);
+            }, 70); // Adjust the speed of typing
 
-            return () => clearInterval(intervalId)
+            return () => clearInterval(intervalId);
         }
-    }, [index, text])
+    }, [index, text]);
 
     return (
-        <div
-            className="text-8xl font-mono font-light
-        text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]"
-        >
+        <div className="text-8xl font-mono font-light text-[var(--fg-1)]">
             <span>{displayText}</span>
             <span className="animate-blink">_</span>
         </div>
-    )
+    );
 }

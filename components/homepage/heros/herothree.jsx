@@ -1,5 +1,4 @@
-import { Langar } from "next/font/google"
-import Image from "next/image"
+import Image from "next/image";
 
 export default function HeroThree() {
     const supportedLanguages = [
@@ -12,17 +11,10 @@ export default function HeroThree() {
         "CSharp",
         "Bash",
         "And More!",
-    ]
+    ];
     return (
-        <div
-            className="h-screen flex place-items-center
-        bg-[var(--light-bg-3)] dark:bg-[var(--dark-bg-3)]
-        text-[var(--light-fg-1)] dark:text-[var(--dark-fg-1)]"
-        >
-            <div
-                className="w-2/3 h-1/2 mx-auto flex flex-row gap-4
-                justify-center items-center place-items-center"
-            >
+        <div className="h-screen flex place-items-center bg-[var(--bg-3)] text-[var(--fg-1)]">
+            <div className="w-2/3 h-1/2 mx-auto flex flex-row gap-4 justify-center items-center place-items-center">
                 <div className="w-1/2 text-5xl text-center font-mono font-light">
                     Supports the most popular languages and frameworks
                 </div>
@@ -30,8 +22,7 @@ export default function HeroThree() {
                     {supportedLanguages.map((language, index) => (
                         <button
                             key={index}
-                            className="grid gap-4 group
-                             place-content-center justify-items-center"
+                            className="grid gap-4 group place-content-center justify-items-center"
                         >
                             {language !== "And More!" && (
                                 <div className="relative w-fit aspect-square">
@@ -40,9 +31,7 @@ export default function HeroThree() {
                                         height={120}
                                         src={`/languages/${language}_logo.png`}
                                         alt={language}
-                                        className="grayscale transition transform-gpu
-                                        duration-300 group-hover:scale-110
-                                        filter group-hover:filter-none"
+                                        className="grayscale transition transform-gpu duration-300 group-hover:scale-110 filter group-hover:filter-none"
                                     />
                                 </div>
                             )}
@@ -60,5 +49,5 @@ export default function HeroThree() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

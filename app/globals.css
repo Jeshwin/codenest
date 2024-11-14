@@ -3,35 +3,6 @@
 @tailwind utilities;
 
 :root {
-    /* Light Theme */
-    --light-bg-1: #f8fafc; /* slate-50 */
-    --light-bg-2: #f1f5f9; /* slate-100 */
-    --light-bg-3: #e2e8f0; /* slate-200 */
-    --light-fg-1: #020617; /* slate-950 */
-    --light-fg-2: #475569; /* slate-600 */
-    --light-fg-3: #94a3b8; /* slate-400 */
-    --light-mode: #fb923c; /* orange-400 */
-    /* Dark Theme */
-    --dark-bg-1: #334155; /* slate-700 */
-    --dark-bg-2: #1e293b; /* slate-800 */
-    --dark-bg-3: #0f172a; /* slate-900 */
-    --dark-fg-1: #f8fafc; /* slate-50 */
-    --dark-fg-2: #cbd5e1; /* slate-300 */
-    --dark-fg-3: #64748b; /* slate-500 */
-    --dark-mode: #38bdf8; /* sky-400 */
-    /* Theme Colors */
-    /* Primary */
-    --primary-light: #c4b5fd; /* violet-300 */
-    --primary: #8b5cf6; /* violet-500 */
-    --primary-dark: #6d28d9; /* violet-700 */
-    /* Secondary */
-    --secondary-light: #5eead4; /* teal-300 */
-    --secondary: #14b8a6; /* teal-300 */
-    --secondary-dark: #0f766e; /* teal-300 */
-    /* Accent */
-    --accent-light: #fcd34d; /* amber-300 */
-    --accent: #f59e0b; /* amber-300 */
-    --accent-dark: #b45309; /* amber-300 */
     /* Status Colors */
     --bg-success: #22c55e; /* green-500 */
     --bg-warning: #eab308; /* yellow-500 */
@@ -44,6 +15,32 @@
     --term-blue: #3b82f6; /* blue-500 */
     --term-magenta: #d946ef; /* fuschia-500 */
     --term-cyan: #06b6d4; /* cyan-500 */
+}
+
+:root[data-theme="light"] {
+    --bg-1: #fbfdfe;
+    --bg-2: #f2f2f2;
+    --bg-3: #dfe0e7;
+    --fg-1: #050505;
+    --fg-2: #143d52;
+    --fg-3: #1f5c7a;
+    --toggle: #fb923c;
+    --primary: #9a8ef5;
+    --secondary: #d3cff2;
+    --accent: #78c9d3;
+}
+
+:root[data-theme="dark"] {
+    --bg-1: #2c2e3a;
+    --bg-2: #181920;
+    --bg-3: #0b0b0f;
+    --fg-1: #fafafa;
+    --fg-2: #f2f2f2;
+    --fg-3: #e6e6e6;
+    --toggle: #38bdf8;
+    --primary: #160a71;
+    --secondary: #110d30;
+    --accent: #2c7c87;
 }
 
 /* Track */
