@@ -1,5 +1,5 @@
 import {Inter, JetBrains_Mono} from "next/font/google";
-import "@/app/globals.css";
+import "./globals.css";
 
 // FontAwesome Config
 import {config} from "@fortawesome/fontawesome-svg-core";

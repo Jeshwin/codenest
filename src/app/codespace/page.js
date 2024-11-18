@@ -1,10 +1,10 @@
 "use client";
 
 import {useEffect, useState} from "react";
-import Navbar from "@/components/codespace/navbar/navbar";
-import TreeView from "@/components/codespace/directorytree/treeview";
-import CloudShell from "@/components/codespace/cloudshell/cloudshell";
-import CodeEditor from "@/components/codespace/codemirror/mirror";
+import Navbar from "@/src/components/codespace/navbar/navbar";
+import TreeView from "@/src/components/codespace/directorytree/treeview";
+import CloudShell from "@/src/components/codespace/cloudshell/cloudshell";
+import CodeEditor from "@/src/components/codespace/codemirror/mirror";
 
 export default function Page() {
     const [directoryData, setDirectoryData] = useState(null);
@@ -12,16 +12,16 @@ export default function Page() {
     useEffect(() => {
         // Fetch the JSON data from the 'directory.json' file in the 'public' directory
         fetch("/directory.json")
-            .then((response) => {
+            .then(response => {
                 if (response.ok) {
                     return response.json();
                 }
                 throw new Error("Network response was not ok.");
             })
-            .then((data) => {
+            .then(data => {
                 setDirectoryData(data);
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error("Error fetching data:", error);
             });
     }, []);
