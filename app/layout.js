@@ -16,9 +16,6 @@ const jetbrains_mono = JetBrains_Mono({
     variable: "--font-jetbrains-mono",
 });
 
-// Auth0
-import {UserProvider} from "@auth0/nextjs-auth0/client";
-
 export const metadata = {
     title: "CodeNest",
     description: "A fully-featured, web-based coding environment",
@@ -34,7 +31,7 @@ export default function RootLayout({children}) {
                 <head>
                     <link rel="icon" href="/favicon.ico" sizes="any" />
                 </head>
-                <UserProvider>{children}</UserProvider>
+                {children}
             </html>
         </>
     );

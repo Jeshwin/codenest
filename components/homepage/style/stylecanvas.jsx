@@ -4,9 +4,16 @@ const StyleCanvas = () => {
     const canvasRef = useRef(null);
     const numCircles = 10;
     const [canvasSize, setCanvasSize] = useState({width: 1920, height: 1080});
-    const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+    useEffect(() => {
+        // Check for prefers-reduced-motion on the client side
+        if (typeof window !== "undefined") {
+            setPrefersReducedMotion(
+                window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            );
+        }
+    }, []);
 
     useEffect(() => {
         const canvas = canvasRef.current;

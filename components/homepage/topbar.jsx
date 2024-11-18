@@ -3,7 +3,6 @@ import Logo from "../common/logo";
 
 import ThemePicker from "../common/themepicker";
 import FeatureDropdown from "./featuredropdown";
-import UserInfo from "../common/userinfo";
 
 export default function TopBar() {
     return (
@@ -23,7 +22,6 @@ export default function TopBar() {
             </button>
             <span className="flex-grow"></span>
             <ThemePicker />
-            <UserInfo />
         </header>
     );
 }

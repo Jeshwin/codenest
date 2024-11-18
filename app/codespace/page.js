@@ -3,7 +3,6 @@
 import {useEffect, useState} from "react";
 import Navbar from "@/components/codespace/navbar/navbar";
 import TreeView from "@/components/codespace/directorytree/treeview";
-import Editor from "@/components/codespace/editor/editor";
 import CloudShell from "@/components/codespace/cloudshell/cloudshell";
 import CodeEditor from "@/components/codespace/codemirror/mirror";
 
@@ -36,7 +35,6 @@ export default function Page() {
                         <TreeView directoryData={directoryData} />
                     </div>
                     <div className="m-1 w-2/5 text-base flex-1 flex flex-col rounded-lg bg-[var(--bg-1)] overflow-scroll">
-                        {/* <Editor /> */}
                         <CodeEditor />
                     </div>
                     <div className="m-1 w-2/5 h-auto flex-1 flex rounded-lg bg-[var(--bg-1)]">
