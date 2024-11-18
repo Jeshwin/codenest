@@ -1,0 +1,295 @@
+{
+  "version": "38.0.1",
+  "artifacts": {
+    "amplify-codenest-jeshwinprince-sandbox-435f81443d.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "amplify-codenest-jeshwinprince-sandbox-435f81443d.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "amplify-codenest-jeshwinprince-sandbox-435f81443d": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "amplify-codenest-jeshwinprince-sandbox-435f81443d.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "amplify:deployment-type": "sandbox",
+          "created-by": "amplify"
+        },
+        "validateOnSynth": false,
+        "notificationArns": [],
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/47d805413dca12bd8c05b2379187878de690718004b27ef4b6f0ad14cacad243.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "amplify-codenest-jeshwinprince-sandbox-435f81443d.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "amplify-codenest-jeshwinprince-sandbox-435f81443d.assets"
+      ],
+      "metadata": {
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "amplify:deployment-type",
+                "Value": "sandbox"
+              },
+              {
+                "Key": "created-by",
+                "Value": "amplify"
+              }
+            ]
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/deploymentType": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "deploymentType"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/region": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "region"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/UserPool/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthUserPool4BA7F805"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/UserPoolAppClient/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthUserPoolAppClient2626C6F8"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/IdentityPool": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthIdentityPool3FDE84CC"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/authenticatedUserRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthauthenticatedUserRoleD8DA3689"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/unauthenticatedUserRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthunauthenticatedUserRole2B524D9E"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/IdentityPoolRoleAttachment": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthIdentityPoolRoleAttachment045F17C8"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthUserPool4A04AEEFRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthUserPool4A04AEEFRef"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthUserPoolAppClient7AAA5603Ref": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthUserPoolAppClient7AAA5603Ref"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthIdentityPool380C30D6Ref": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthIdentityPool380C30D6Ref"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/auth.NestedStack/auth.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "auth179371D7"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/userPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "userPoolId"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/webClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "webClientId"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/identityPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "identityPoolId"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/authRegion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "authRegion"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/allowUnauthenticatedIdentities": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "allowUnauthenticatedIdentities"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/signupAttributes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "signupAttributes"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/usernameAttributes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "usernameAttributes"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/verificationMechanisms": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "verificationMechanisms"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/passwordPolicyMinLength": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "passwordPolicyMinLength"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/passwordPolicyRequirements": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "passwordPolicyRequirements"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/mfaConfiguration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "mfaConfiguration"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/mfaTypes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "mfaTypes"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/socialProviders": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "socialProviders"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthCognitoDomain": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthCognitoDomain"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthScope": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthScope"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthRedirectSignIn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthRedirectSignIn"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthRedirectSignOut": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthRedirectSignOut"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthResponseType": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthResponseType"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthClientId"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/groups": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "groups"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/amplify-codenest-jeshwinprince-sandbox-435f81443d/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "amplify-codenest-jeshwinprince-sandbox-435f81443d"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
