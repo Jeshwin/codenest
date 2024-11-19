@@ -9,8 +9,8 @@ export default function TypewriterText({text}) {
     useEffect(() => {
         if (index < text.length) {
             const intervalId = setInterval(() => {
-                setDisplayText((prevText) => prevText + text[index]);
-                setIndex((prevIndex) => prevIndex + 1);
+                setDisplayText(prevText => prevText + text[index]);
+                setIndex(prevIndex => prevIndex + 1);
             }, 70); // Adjust the speed of typing
 
             return () => clearInterval(intervalId);
@@ -18,7 +18,7 @@ export default function TypewriterText({text}) {
     }, [index, text]);
 
     return (
-        <div className="text-8xl font-mono font-light text-[var(--fg-1)]">
+        <div className="text-8xl font-mono font-light select-none">
             <span>{displayText}</span>
             <span className="animate-blink">_</span>
         </div>

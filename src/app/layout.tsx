@@ -1,5 +1,6 @@
 import {Inter, JetBrains_Mono} from "next/font/google";
 import "./globals.css";
+import ConfigureAmplifyClientSide from "@/components/configureAmplify";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
                 <head>
                     <link rel="icon" href="/favicon.ico" sizes="any" />
                 </head>
+                <ConfigureAmplifyClientSide />
                 {children}
             </html>
         </>

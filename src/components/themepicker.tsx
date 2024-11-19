@@ -27,7 +27,7 @@ export default function ThemePicker() {
                 <div
                     className={`w-6 h-6 p-1 flex item-center rounded-full bg-accent ${
                         theme == "light" ? "translate-x-0" : " translate-x-6"
-                    } transition duration-300`}
+                    } transition duration-300 select-none`}
                 >
                     {theme === "light" ? (
                         <Sun className="size-4" />

@@ -1,16 +1,22 @@
 "use client";
 
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import {signUp} from "aws-amplify/auth";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import LoginImage from "@/../public/login_image.jpg";
+import LoginImage from "@/../public/3D_logo.png";
 import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
+import {Eye, EyeClosed} from "lucide-react";
+import GitHubLogo from "@/components/icons/github";
+import GoogleLogo from "@/components/icons/google";
 
 const Register = () => {
     const router = useRouter();
     const [user, setUser] = useState({username: "", password: ""});
+    const [closedEye, setClosedEye] = useState(false);
+    const [passwordType, setPasswordType] = useState("password");
 
     const handleInputChange = (event, keyName) => {
         event.persist();
@@ -19,9 +25,10 @@ const Register = () => {
         });
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
-            await signUp({
+            console.dir({
                 username: user.username,
                 password: user.password,
                 options: {
@@ -30,54 +37,109 @@ const Register = () => {
                     },
                 },
             });
-            router.push("/register/confirm");
-        } catch (error) {
-            console.log("error", error);
+            const {isSignUpComplete, userId, nextStep} = await signUp({
+                username: user.username,
+                password: user.password,
+                options: {
+                    userAttributes: {
+                        email: user.username,
+                    },
+                },
+            });
+            console.dir({isSignUpComplete, userId, nextStep});
+            // router.push("/register/confirm");
+        } catch (e) {
+            console.error("Caught error: ", e);
+        }
+    };
+
+    const togglePassword = () => {
+        if (passwordType === "password") {
+            setClosedEye(false);
+            setPasswordType("text");
+        } else {
+            setClosedEye(true);
+            setPasswordType("password");
         }
     };
 
     return (
         <div className="container mx-auto h-screen grid place-content-center">
             <div className="w-full my-24 p-2 rounded-xl grid grid-cols-2 bg-accent shadow">
-                <div className="w-[600px] rounded-lg relative">
+                <div className="rounded-lg relative bg-primary grid place-content-center">
                     <Image
                         src={LoginImage}
                         alt="Keyboard with Colorful Lights"
-                        width={500}
-                        height={750}
-                        className="w-[600px] h-[700px] object-cover rounded-lg"
+                        width={320}
+                        height={320}
+                        className="size-80 object-cover rounded-lg"
                     />
                 </div>
-                <div className="w-[600px] p-16 rounded-lg flex flex-col space-y-4 align-middle">
-                    <div className="text-5xl font-semibold">
+                <div className="w-full p-16 rounded-lg flex flex-col space-y-4 align-middle">
+                    <div className="text-4xl font-medium">
                         Create an Account
                     </div>
                     <div className="text-sm">
                         Already have an account?{" "}
                         <Link href="/login" className="text-primary">
-                            Log In
+                            <Button variant="link" className="p-0 m-0">
+                                Log In
+                            </Button>
                         </Link>
                     </div>
                     <form
                         onSubmit={handleSubmit}
                         className="flex flex-col space-y-4"
                     >
-                        <input
-                            type="text"
+                        <Input
+                            type="email"
+                            id="username"
+                            placeholder="Email"
                             value={user.username}
                             onChange={e => handleInputChange(e, "username")}
                         />
-                        <input
-                            type="password"
-                            value={user.password}
-                            onChange={e => handleInputChange(e, "password")}
-                        />
-                        <div className="flex items-center justify-between">
-                            <Button className="w-full rounded-lg" type="submit">
-                                Create Account
-                            </Button>
+                        <div className="relative w-full h-fit">
+                            <Input
+                                type={passwordType}
+                                id="password"
+                                placeholder="Password"
+                                value={user.password}
+                                onChange={e => handleInputChange(e, "password")}
+                            />
+                            <span
+                                className="absolute top-2 right-3 size-6"
+                                onClick={togglePassword}
+                            >
+                                {closedEye ? (
+                                    <EyeClosed className="size-6" />
+                                ) : (
+                                    <Eye className="size-6" />
+                                )}
+                            </span>
                         </div>
+                        <Input
+                            className="w-full rounded-lg text-center select-none cursor-pointer bg-primary"
+                            type="submit"
+                            value="Create Account"
+                        />
                     </form>
+                    <div className="flex items-center w-full space-x-2">
+                        <div className="h-px bg-accent-foreground flex-1"></div>
+                        <div className="text-xs text-accent-foreground">
+                            Or register with
+                        </div>
+                        <div className="h-px bg-accent-foreground flex-1"></div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
+                        <Button variant="outline">
+                            <GoogleLogo />
+                            Google
+                        </Button>
+                        <Button variant="outline">
+                            <GitHubLogo />
+                            GitHub
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>
