@@ -8,8 +8,8 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     navigationMenuTriggerStyle,
-} from "@/src/components/ui/navigation-menu";
-import {cn} from "@/src/lib/utils";
+} from "@/components/ui/navigation-menu";
+import {cn} from "@/lib/utils";
 
 export default function TopBar() {
     return (

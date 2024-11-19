@@ -1,4 +1,4 @@
-import TopBar from "@/src/components/homepage/topbar";
+import TopBar from "@/components/homepage/topbar";
 
 export default function GeneralLayout({children}) {
     return (

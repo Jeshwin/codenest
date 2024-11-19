@@ -1,9 +1,9 @@
 "use client";
 
 import {useEffect, useState} from "react";
-import TreeView from "@/src/components/codespace/directorytree/treeview";
-import CloudShell from "@/src/components/codespace/cloudshell/cloudshell";
-import CodeEditor from "@/src/components/codespace/codemirror/mirror";
+import TreeView from "@/components/codespace/directorytree/treeview";
+import CloudShell from "@/components/codespace/cloudshell/cloudshell";
+import CodeEditor from "@/components/codespace/codemirror/mirror";
 
 export default function Page() {
     const [directoryData, setDirectoryData] = useState(null);

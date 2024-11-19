@@ -1,11 +1,11 @@
 "use client";
 
-import Footer from "@/src/components/homepage/footer";
-import GetStartedHero from "@/src/components/homepage/heros/getstartedhero";
-import HeroOne from "@/src/components/homepage/heros/heroone";
-import HeroThree from "@/src/components/homepage/heros/herothree";
-import HeroTwo from "@/src/components/homepage/heros/herotwo";
-import IntroHero from "@/src/components/homepage/heros/introhero";
+import Footer from "@/components/homepage/footer";
+import GetStartedHero from "@/components/homepage/heros/getstartedhero";
+import HeroOne from "@/components/homepage/heros/heroone";
+import HeroThree from "@/components/homepage/heros/herothree";
+import HeroTwo from "@/components/homepage/heros/herotwo";
+import IntroHero from "@/components/homepage/heros/introhero";
 
 export default function HomePage() {
     return (

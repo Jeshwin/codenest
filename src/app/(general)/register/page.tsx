@@ -5,8 +5,8 @@ import {signUp} from "aws-amplify/auth";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import LoginImage from "@/public/login_image.jpg";
-import {Button} from "@/src/components/ui/button";
+import LoginImage from "@/../public/login_image.jpg";
+import {Button} from "@/components/ui/button";
 
 const Register = () => {
     const router = useRouter();
