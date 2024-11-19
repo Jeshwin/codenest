@@ -58,19 +58,12 @@ export default function CloudShell() {
 
     // Listen to changes in the theme
     useEffect(() => {
-        const observer = new MutationObserver(mutationsList => {
-            for (const mutation of mutationsList) {
-                if (
-                    mutation.type === "attributes" &&
-                    mutation.attributeName === "data-theme"
-                ) {
-                    // The 'theme' attribute on the HTML tag has changed, so dispatch a custom event
-                    const themeChangeEvent = new CustomEvent("themechange", {
-                        detail: mutation.target.getAttribute("data-theme"),
-                    });
-                    window.dispatchEvent(themeChangeEvent);
-                }
-            }
+        const observer = new MutationObserver(() => {
+            // The 'theme' attribute on the HTML tag has changed, so dispatch a custom event
+            const themeChangeEvent = new CustomEvent("themechange", {
+                detail: document.documentElement.getAttribute("data-theme"),
+            });
+            window.dispatchEvent(themeChangeEvent);
         });
 
         // Start observing changes in the 'theme' attribute of the HTML tag
