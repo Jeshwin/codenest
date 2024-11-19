@@ -1,8 +1,7 @@
 "use client";
 
+import {Moon, Sun} from "lucide-react";
 import {useEffect, useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSun, faMoon} from "@fortawesome/free-solid-svg-icons";
 
 export default function ThemePicker() {
     const [theme, setTheme] = useState("light");
@@ -26,14 +25,15 @@ export default function ThemePicker() {
                 onClick={toggleTheme}
             >
                 <div
-                    className={`w-6 h-6 p-1 flex item-center rounded-full bg-[var(--bg-2)] ${
+                    className={`w-6 h-6 p-1 flex item-center rounded-full bg-accent ${
                         theme == "light" ? "translate-x-0" : " translate-x-6"
                     } transition duration-300`}
                 >
-                    <FontAwesomeIcon
-                        icon={theme == "light" ? faMoon : faSun}
-                        className="h-4 w-4"
-                    />
+                    {theme === "light" ? (
+                        <Sun className="size-4" />
+                    ) : (
+                        <Moon className="size-4" />
+                    )}
                 </div>
             </div>
         </>

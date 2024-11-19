@@ -4,7 +4,7 @@ export default function Logo({width, height}) {
     return (
         <div>
             <svg
-                className={`w-${width} h-${height} fill-[var(--fg-1)]`}
+                className={`w-${width} h-${height} fill-foreground`}
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
             >

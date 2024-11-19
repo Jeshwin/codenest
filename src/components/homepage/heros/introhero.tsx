@@ -1,19 +1,19 @@
 import TypewriterText from "../../common/typewritertext";
 import Link from "next/link";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
 import StyleCanvas from "../style/stylecanvas";
+import {Button} from "../../ui/button";
+import {ArrowDown} from "lucide-react";
 
 export default function IntroHero() {
     return (
-        <div className="bg-[var(--bg-1)] text-[var(--fg-1)]">
+        <div>
             <div className="z-10 absolute w-screen h-screen grid grid-cols-1 gap-y-8 place-content-center">
                 <div
                     className="w-2/3 mx-auto pt-10 flex flex-row
                     justify-center items-end place-items-center"
                 >
                     <svg
-                        className="w-32 h-32 fill-[var(--fg-1)]"
+                        className="w-32 h-32 fill-foreground"
                         viewBox="0 0 512 512"
                         xmlns="http://www.w3.org/2000/svg"
                     >
@@ -22,15 +22,10 @@ export default function IntroHero() {
                     <TypewriterText text={"CodeNest"} />
                 </div>
                 <Link href="/codespace" className="w-fit mx-auto">
-                    <button className="text-3xl rounded-2xl px-8 py-5 bg-[var(--primary)] hover:bg-[var(--secondary)] active:scale-90 duration-200">
-                        Get Started!
-                    </button>
+                    <Button size="lg">Get Started!</Button>
                 </Link>
                 <div className="w-auto mx-auto mt-4">
-                    <FontAwesomeIcon
-                        icon={faArrowDown}
-                        className="w-8 h-8 animate-bounce z-10"
-                    />
+                    <ArrowDown className="size-8 animate-bounce z-10" />
                 </div>
             </div>
             <StyleCanvas />

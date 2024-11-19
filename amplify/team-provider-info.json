@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-codenest-dev-225145-authRole",
+      "UnauthRoleArn": "arn:aws:iam::134300802324:role/amplify-codenest-dev-225145-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::134300802324:role/amplify-codenest-dev-225145-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-codenest-dev-225145-deployment",
+      "UnauthRoleName": "amplify-codenest-dev-225145-unauthRole",
+      "StackName": "amplify-codenest-dev-225145",
+      "StackId": "arn:aws:cloudformation:us-west-1:134300802324:stack/amplify-codenest-dev-225145/97d19a80-9271-11ee-97a4-06d807f64ba3",
+      "AmplifyAppId": "d2jg63dtiiej3u"
+    }
+  }
+}
