@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Logo from "../common/logo";
+import Logo from "../logo";
 
-import ThemePicker from "../common/themepicker";
+import ThemePicker from "../themepicker";
 import {
     NavigationMenu,
     NavigationMenuItem,

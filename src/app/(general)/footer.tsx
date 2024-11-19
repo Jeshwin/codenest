@@ -1,4 +1,4 @@
-import Logo from "../common/logo";
+import Logo from "../../components/logo";
 
 export default function Footer() {
     const GitHubLogo = () => {

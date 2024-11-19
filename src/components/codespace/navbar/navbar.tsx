@@ -1,5 +1,5 @@
-import ThemePicker from "../../common/themepicker";
-import Logo from "../../common/logo";
+import ThemePicker from "../../themepicker";
+import Logo from "../../logo";
 import ProjectName from "./projectname";
 import Link from "next/link";
 import {Search, Server, Settings, User} from "lucide-react";
