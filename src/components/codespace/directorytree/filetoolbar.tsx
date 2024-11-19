@@ -1,9 +1,4 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-    faEllipsis,
-    faFileCirclePlus,
-    faFolderPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import {Ellipsis, FilePlus, FolderPlus} from "lucide-react";
 import {useState} from "react";
 
 export default function FileToolBar({directoryData, setDirectoryData}) {
@@ -24,7 +19,11 @@ export default function FileToolBar({directoryData, setDirectoryData}) {
     }
 
     function addElementToDirectoryData() {
-        var elementToAdd = {
+        var elementToAdd: {
+            type: string;
+            name: string;
+            items?: string[];
+        } = {
             type: addFolder ? "directory" : "file",
             name: elementName,
         };
@@ -43,19 +42,16 @@ export default function FileToolBar({directoryData, setDirectoryData}) {
                     className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-[var(--bg-2)] active:scale-90 transition-transform duration-150 cursor-pointer"
                     onClick={() => toggleAddFile()}
                 >
-                    <FontAwesomeIcon
-                        icon={faFileCirclePlus}
-                        className="h-4 w-4"
-                    />
+                    <FilePlus className="size-4" />
                 </div>
                 <div
                     className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-[var(--bg-2)] active:scale-90 transition-transform duration-150 cursor-pointer"
                     onClick={() => toggleAddFolder()}
                 >
-                    <FontAwesomeIcon icon={faFolderPlus} className="h-4 w-4" />
+                    <FolderPlus className="size-4" />
                 </div>
                 <div className="h-6 w-6 p-1 flex items-center rounded-lg hover:bg-[var(--bg-2)] active:scale-90 transition-transform duration-150 cursor-pointer">
-                    <FontAwesomeIcon icon={faEllipsis} className="h-4 w-4" />
+                    <Ellipsis className="size-4" />
                 </div>
             </div>
             {addFile || addFolder ? (
@@ -63,7 +59,7 @@ export default function FileToolBar({directoryData, setDirectoryData}) {
                     <input
                         placeholder={addFile ? "File name" : "Folder name"}
                         value={elementName}
-                        onChange={(e) => setElementName(e.target.value)}
+                        onChange={e => setElementName(e.target.value)}
                         className="h-8 p-2 w-full rounded-lg placeholder-[var(--fg-2)] text-[var(--fg-1)] bg-[var(--bg-2)] hover:bg-[var(--bg-3)] 
                                    focus:ring-0 focus:outline-none focus:border-2 focus:border-[var(--toggle)]"
                     ></input>

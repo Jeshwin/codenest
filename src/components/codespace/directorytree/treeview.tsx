@@ -15,15 +15,15 @@ export default function TreeView({directoryData}) {
     const [directoryDataState, setDirectoryDataState] = useState(directoryData);
     const [dragOverFolder, setDragOverFolder] = useState(null);
 
-    const toggleCollapse = (name) => {
-        setCollapsed((prevCollapsed) => {
+    const toggleCollapse = name => {
+        setCollapsed(prevCollapsed => {
             const updatedCollapsed = {...prevCollapsed};
             updatedCollapsed[name] = !updatedCollapsed[name];
             return updatedCollapsed;
         });
     };
 
-    const selectFile = (filename) => {
+    const selectFile = filename => {
         console.log("Selected file " + filename);
         // Add select file to local storage
         localStorage.setItem("filename", filename);
@@ -53,7 +53,7 @@ export default function TreeView({directoryData}) {
         e.stopPropagation();
     };
 
-    const handleDragStart = (filename) => {
+    const handleDragStart = filename => {
         console.log("Dragging started for file: " + filename);
     };
 
@@ -73,7 +73,7 @@ export default function TreeView({directoryData}) {
             <ul
                 className={`${
                     directoryFlag
-                        ? `border-l ml-1 pl-3 my-1 border-[var(--fg-2)] border-opacity-75 `
+                        ? `border-l ml-1 pl-3 my-1 border-opacity-75`
                         : ""
                 }`}
             >
@@ -85,14 +85,12 @@ export default function TreeView({directoryData}) {
                                 <div
                                     className={`rounded-lg ${
                                         dragOverFolder === subPath
-                                            ? "bg-[var(--bg-3)]"
+                                            ? "bg-muted"
                                             : ""
                                     }`}
-                                    onDragOver={(e) =>
-                                        handleDragOver(e, subPath)
-                                    }
+                                    onDragOver={e => handleDragOver(e, subPath)}
                                     onDragLeave={handleDragLeave}
-                                    onDrop={(e) => handleDrop(e, subPath)}
+                                    onDrop={e => handleDrop(e, subPath)}
                                 >
                                     <DirectoryElement
                                         name={item.name}
@@ -124,15 +122,15 @@ export default function TreeView({directoryData}) {
             {/* Add Files or Folders */}
             <FileToolBar
                 directoryData={directoryDataState}
-                setDirectoryDate={setDirectoryDataState}
+                setDirectoryData={setDirectoryDataState}
             />
             {/* Tree View */}
             <div
                 className={`h-full px-3 rounded-lg
-                ${dragOverFolder === "." ? "bg-[var(--bg-2)]" : ""}`}
-                onDragOver={(e) => handleDragOver(e, ".")}
+                ${dragOverFolder === "." ? "bg-accent" : ""}`}
+                onDragOver={e => handleDragOver(e, ".")}
                 onDragLeave={handleDragLeave}
-                onDrop={(e) => handleDrop(e, ".")}
+                onDrop={e => handleDrop(e, ".")}
             >
                 {renderTree(directoryDataState)}
             </div>

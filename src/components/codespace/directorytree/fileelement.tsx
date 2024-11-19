@@ -1,5 +1,5 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFile} from "@fortawesome/free-regular-svg-icons";
+import {DragEventHandler} from "react";
+import {File} from "lucide-react";
 
 export default function FileElement({
     displayName,
@@ -7,7 +7,7 @@ export default function FileElement({
     onClick,
     onDragStart,
 }) {
-    const handleDragStart = (e) => {
+    const handleDragStart: DragEventHandler = e => {
         e.dataTransfer.setData("text/plain", fullName);
         if (onDragStart) {
             onDragStart();
@@ -19,13 +19,9 @@ export default function FileElement({
             onClick={onClick}
             draggable={true}
             onDragStart={handleDragStart}
-            className={`flex flex-row my-1 items-center select-none text-[var(--fg-1)] hover:opacity-50 cursor-pointer`}
+            className={`flex flex-row my-1 items-center select-none hover:opacity-50 cursor-pointer`}
         >
-            {/* {icon} */}
-            <FontAwesomeIcon
-                icon={faFile}
-                className="h-5 w-5 text-[var(--fg-2)]"
-            />
+            <File className="size-5 text-accent-foreground" />
             <span className="ml-0.5 overflow-hidden">{displayName}</span>
         </div>
     );
