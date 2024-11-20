@@ -32,20 +32,20 @@ const StyleCanvas = () => {
         };
 
         // Function to get actual color from theme based on string
-        const getColorFromTheme = (colorString) => {
+        const getColorFromTheme = colorString => {
             switch (colorString) {
                 case "--primary":
-                    return getComputedStyle(
+                    return `rgb(${getComputedStyle(
                         document.documentElement
-                    ).getPropertyValue("--primary");
+                    ).getPropertyValue("--primary")})`;
                 case "--secondary":
-                    return getComputedStyle(
+                    return `rgb(${getComputedStyle(
                         document.documentElement
-                    ).getPropertyValue("--secondary");
+                    ).getPropertyValue("--secondary")})`;
                 case "--accent":
-                    return getComputedStyle(
+                    return `rgb(${getComputedStyle(
                         document.documentElement
-                    ).getPropertyValue("--accent");
+                    ).getPropertyValue("--accent")})`;
                 default:
                     return "#000"; // Default to black if colorString is not recognized
             }
@@ -98,7 +98,7 @@ const StyleCanvas = () => {
         circles.push(createCircle(true));
 
         // Function to draw a circle
-        const drawCircle = (circle) => {
+        const drawCircle = circle => {
             let x, y;
             if (circle.centerIndex === -1) {
                 x = circle.centerX + Math.cos(circle.angle) * circle.radius * 2;
@@ -122,7 +122,7 @@ const StyleCanvas = () => {
         const update = () => {
             if (prefersReducedMotion) return; // Cut animation if prefers-reduced-motion is enabled
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            circles.forEach((circle) => {
+            circles.forEach(circle => {
                 circle.angle += circle.speed;
 
                 drawCircle(circle);

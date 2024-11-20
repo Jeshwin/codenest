@@ -24,12 +24,12 @@ const baseTheme = {
 
 function setTerminalTheme(colorscheme, terminal) {
     if (colorscheme == "dark") {
-        const darkBg = getComputedStyle(
+        const darkBg = `rgb(${getComputedStyle(
             document.documentElement
-        ).getPropertyValue("--accent");
-        const darkFg = getComputedStyle(
+        ).getPropertyValue("--accent")})`;
+        const darkFg = `rgb(${getComputedStyle(
             document.documentElement
-        ).getPropertyValue("--foreground");
+        ).getPropertyValue("--foreground")})`;
         terminal.options.theme = {
             ...baseTheme,
             background: darkBg,
@@ -37,12 +37,12 @@ function setTerminalTheme(colorscheme, terminal) {
             cursor: darkFg,
         };
     } else {
-        const lightBg = getComputedStyle(
+        const lightBg = `rgb(${getComputedStyle(
             document.documentElement
-        ).getPropertyValue("--accent");
-        const lightFg = getComputedStyle(
+        ).getPropertyValue("--accent")})`;
+        const lightFg = `rgb(${getComputedStyle(
             document.documentElement
-        ).getPropertyValue("--foreground");
+        ).getPropertyValue("--foreground")})`;
         terminal.options.theme = {
             ...baseTheme,
             background: lightBg,

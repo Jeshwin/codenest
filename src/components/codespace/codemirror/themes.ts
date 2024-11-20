@@ -75,70 +75,70 @@ export const myLightTheme = createTheme({
 export const myDarkTheme = createTheme({
     variant: "dark",
     settings: {
-        background: "#fff",
-        foreground: "#5c6166",
-        caret: "#7c3aed",
-        selection: "#036dd626",
-        lineHighlight: "#8a91991a",
-        gutterBackground: "#fff",
-        gutterForeground: "#8a919966",
+        background: "#181825",
+        foreground: "#cdd6f4",
+        caret: "#f5e0dc",
+        selection: "#7c7f93",
+        lineHighlight: "#4c4f69",
+        gutterBackground: "#181825",
+        gutterForeground: "#7f849c",
     },
     styles: [
         {
             tag: t.comment,
-            color: "#787b8099",
+            color: "#9399b2",
         },
         {
             tag: t.variableName,
-            color: "#5c6166",
+            color: "#cdd6f4",
         },
         {
             tag: [t.string, t.special(t.brace)],
-            color: "#5c6166",
+            color: "#a6e3a1",
         },
         {
             tag: t.number,
-            color: "#5c6166",
+            color: "#fab387",
         },
         {
             tag: t.bool,
-            color: "#5c6166",
+            color: "#94e2d5",
         },
         {
             tag: t.null,
-            color: "#5c6166",
+            color: "#fab387",
         },
         {
             tag: t.keyword,
-            color: "#5c6166",
+            color: "#cba6f7",
         },
         {
             tag: t.operator,
-            color: "#5c6166",
+            color: "#89dceb",
         },
         {
             tag: t.className,
-            color: "#5c6166",
+            color: "#f9e2af",
         },
         {
             tag: t.definition(t.typeName),
-            color: "#5c6166",
+            color: "#f9e2af",
         },
         {
             tag: t.typeName,
-            color: "#5c6166",
+            color: "#f9e2af",
         },
         {
             tag: t.angleBracket,
-            color: "#5c6166",
+            color: "#94e2d5",
         },
         {
             tag: t.tagName,
-            color: "#5c6166",
+            color: "#89b4fa",
         },
         {
             tag: t.attributeName,
-            color: "#5c6166",
+            color: "#f9e2af",
         },
     ],
 });

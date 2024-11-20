@@ -1,7 +1,12 @@
 "use client";
 
 import {FormEvent, useState} from "react";
-import {signUp} from "aws-amplify/auth";
+import {
+    autoSignIn,
+    confirmSignUp,
+    resendSignUpCode,
+    signUp,
+} from "aws-amplify/auth";
 import Link from "next/link";
 import Image from "next/image";
 import LoginImage from "@/../public/3D_logo.png";
@@ -10,8 +15,11 @@ import {Input} from "@/components/ui/input";
 import {Eye, EyeClosed} from "lucide-react";
 import GitHubLogo from "@/components/icons/github";
 import GoogleLogo from "@/components/icons/google";
+import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
+import {useRouter} from "next/navigation";
 
 export default function RegisterPage() {
+    const router = useRouter();
     // Account Creation Data
     const [user, setUser] = useState({username: "", password: ""});
     // Toggle showing password
@@ -31,15 +39,6 @@ export default function RegisterPage() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            console.dir({
-                username: user.username,
-                password: user.password,
-                options: {
-                    userAttributes: {
-                        email: user.username,
-                    },
-                },
-            });
             const {isSignUpComplete, userId, nextStep} = await signUp({
                 username: user.username,
                 password: user.password,
@@ -47,6 +46,7 @@ export default function RegisterPage() {
                     userAttributes: {
                         email: user.username,
                     },
+                    autoSignIn: true, // This enables the auto sign-in flow.
                 },
             });
             console.dir({isSignUpComplete, userId, nextStep});
@@ -66,10 +66,26 @@ export default function RegisterPage() {
         }
     };
 
-    const handleVerificationSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleVerificationSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Verification code submitted:", verificationCode);
         // Add verification logic here
+        const {isSignUpComplete, nextStep} = await confirmSignUp({
+            username: user.username,
+            confirmationCode: verificationCode,
+        });
+        console.dir({isSignUpComplete, nextStep});
+        if (isSignUpComplete) {
+            console.log("Verification code valid! Welcome!");
+            await autoSignIn();
+            router.push("/codespace");
+        }
+    };
+
+    const resendVerificationCode = () => {
+        resendSignUpCode({
+            username: user.username,
+        });
     };
 
     return (
@@ -82,15 +98,16 @@ export default function RegisterPage() {
                 >
                     <Image
                         src={LoginImage}
-                        alt="Keyboard with Colorful Lights"
-                        width={320}
-                        height={320}
-                        className="size-80 object-cover rounded-lg transform"
+                        alt="3D CodeNest Logo!"
+                        width={384}
+                        height={384}
+                        className="size-96 object-cover rounded-lg transform"
                     />
                 </div>
                 <div className="relative w-full overflow-hidden">
+                    {/** Registration Form */}
                     <div
-                        className={`w-full p-16 flex flex-col space-y-4 align-middle duration-300 transition-[transform,opacity] transform ${
+                        className={`absolute top-0 left-0 w-full p-16 flex flex-col space-y-4 align-middle duration-300 transition-[transform,opacity] transform ${
                             isVerificationStep
                                 ? "-translate-x-full opacity-0"
                                 : "translate-x-0 opacity-100"
@@ -109,7 +126,7 @@ export default function RegisterPage() {
                         </div>
                         <form
                             onSubmit={handleSubmit}
-                            className="flex flex-col space-y-4"
+                            className="flex flex-col justify-center space-y-4"
                         >
                             <Input
                                 type="email"
@@ -139,36 +156,27 @@ export default function RegisterPage() {
                                     )}
                                 </span>
                             </div>
-                            <Input
-                                className="w-full rounded-lg text-center select-none cursor-pointer bg-primary"
-                                type="submit"
-                                value="Create Account"
-                            />
-                        </form>
-                        <div className="flex items-center w-full space-x-2">
-                            <div className="h-px bg-accent-foreground flex-1"></div>
-                            <div className="text-xs text-accent-foreground">
-                                Or register with
+                            <Button type="submit">Create Account</Button>
+                            <div className="flex items-center w-full space-x-2">
+                                <div className="h-px bg-accent-foreground flex-1"></div>
+                                <div className="text-xs text-accent-foreground">
+                                    Or register with
+                                </div>
+                                <div className="h-px bg-accent-foreground flex-1"></div>
                             </div>
-                            <div className="h-px bg-accent-foreground flex-1"></div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
-                            <Button variant="outline">
-                                <GoogleLogo />
-                                Google
-                            </Button>
-                            <Button variant="outline">
-                                <GitHubLogo />
-                                GitHub
-                            </Button>
-                        </div>
-                        <Button
-                            className="font-mono text-green-500"
-                            onClick={() => setIsVerificationStep(true)}
-                        >
-                            DEBUG
-                        </Button>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
+                                <Button variant="outline">
+                                    <GoogleLogo />
+                                    Google
+                                </Button>
+                                <Button variant="outline">
+                                    <GitHubLogo />
+                                    GitHub
+                                </Button>
+                            </div>
+                        </form>
                     </div>
+                    {/** Verification Form */}
                     <div
                         className={`absolute top-0 left-0 w-full p-16 flex flex-col space-y-4 align-middle duration-300 transition-[transform,opacity] transform ${
                             isVerificationStep
@@ -179,69 +187,44 @@ export default function RegisterPage() {
                         <div className="text-4xl font-medium">
                             Verify Your Account
                         </div>
-                        <div className="text-sm">
-                            Already have an account?{" "}
-                            <Link href="/login" className="text-primary">
-                                <Button variant="link" className="p-0 m-0">
-                                    Log In
-                                </Button>
-                            </Link>
+                        <div className="h-10 flex items-center text-sm">
+                            Check your inbox at{" "}
+                            {user.username.length > 0
+                                ? user.username
+                                : "coda@codenest.space"}
                         </div>
                         <form
-                            onSubmit={handleSubmit}
-                            className="flex flex-col space-y-4"
+                            onSubmit={handleVerificationSubmit}
+                            className="pt-6 flex flex-col justify-center space-y-4"
                         >
-                            <Input
-                                type="email"
-                                id="username"
-                                placeholder="Email"
-                                value={user.username}
-                                onChange={e => handleInputChange(e, "username")}
-                            />
-                            <div className="relative w-full h-fit">
-                                <Input
-                                    type={passwordType}
-                                    id="password"
-                                    placeholder="Password"
-                                    value={user.password}
-                                    onChange={e =>
-                                        handleInputChange(e, "password")
+                            <div className="w-full self-center pb-8">
+                                <InputOTP
+                                    maxLength={6}
+                                    value={verificationCode}
+                                    onChange={value =>
+                                        setVerificationCode(value)
                                     }
-                                />
-                                <span
-                                    className="absolute top-2 right-3 size-6"
-                                    onClick={togglePassword}
                                 >
-                                    {closedEye ? (
-                                        <EyeClosed className="size-6" />
-                                    ) : (
-                                        <Eye className="size-6" />
-                                    )}
-                                </span>
+                                    <InputOTPGroup className="*:bg-background w-full justify-center">
+                                        <InputOTPSlot index={0} />
+                                        <InputOTPSlot index={1} />
+                                        <InputOTPSlot index={2} />
+                                        <InputOTPSlot index={3} />
+                                        <InputOTPSlot index={4} />
+                                        <InputOTPSlot index={5} />
+                                    </InputOTPGroup>
+                                </InputOTP>
                             </div>
-                            <Input
-                                className="w-full rounded-lg text-center select-none cursor-pointer bg-primary"
-                                type="submit"
-                                value="Create Account"
-                            />
+                            <Button variant="secondary" type="submit">
+                                Submit
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                onClick={resendVerificationCode}
+                            >
+                                Resend Code
+                            </Button>
                         </form>
-                        <div className="flex items-center w-full space-x-2">
-                            <div className="h-px bg-accent-foreground flex-1"></div>
-                            <div className="text-xs text-accent-foreground">
-                                Or register with
-                            </div>
-                            <div className="h-px bg-accent-foreground flex-1"></div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
-                            <Button variant="outline">
-                                <GoogleLogo />
-                                Google
-                            </Button>
-                            <Button variant="outline">
-                                <GitHubLogo />
-                                GitHub
-                            </Button>
-                        </div>
                     </div>
                 </div>
             </div>

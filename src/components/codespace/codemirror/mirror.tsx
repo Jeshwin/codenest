@@ -1,22 +1,20 @@
 "use client";
 
 import {useState, useCallback, useEffect} from "react";
-import CodeMirror, {Compartment} from "@uiw/react-codemirror";
+import CodeMirror from "@uiw/react-codemirror";
 import {loadLanguage} from "@uiw/codemirror-extensions-langs";
 import {myDarkTheme, myLightTheme} from "./themes";
 
-type Theme = "light" | "dark";
-
 export default function CodeEditor() {
     const [value, setValue] = useState("console.log('hello world!');");
-    const [theme, setTheme] = useState<Theme>("light");
+    const [theme, setTheme] = useState("light");
 
     useEffect(() => {
         // Listen to changes in the `data-theme` attribute
         const observer = new MutationObserver(() => {
             const currentTheme = document.documentElement.getAttribute(
                 "data-theme"
-            ) as Theme;
+            );
             setTheme(currentTheme);
         });
 

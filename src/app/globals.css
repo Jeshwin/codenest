@@ -20,48 +20,48 @@
 
 @layer base {
     :root[data-theme="light"] {
-        --background: #eff1f5; /* Base */
-        --foreground: #1e1e2e; /* Text */
-        --card: #eff1f5; /* Base */
-        --card-foreground: #1e1e2e; /* Text */
-        --popover: #eff1f5; /* Base */
-        --popover-foreground: #1e1e2e; /* Text */
-        --primary: #7287fd; /* Lavender */
-        --primary-foreground: #1e1e2e; /* Text */
-        --secondary: #209fb5; /* Sapphire */
-        --secondary-foreground: #1e1e2e; /* Text */
-        --muted: #dce0e8; /* Crust */
-        --muted-foreground: #6c6f85; /* Subtext0 */
-        --accent: #e6e9ef; /* Mantle */
-        --accent-foreground: #5c5f77; /* Subtext1 */
-        --destructive: #d20f39; /* Red */
-        --destructive-foreground: #eff1f5; /* Base */
-        --border: #9ca0b0; /* Overlay0 */
-        --input: #9ca0b0; /* Overlay0 */
-        --ring: #7287fd; /* Lavender */
-        --toggle: #fe640b;
+        --background: 239 241 245; /* Base */
+        --foreground: 30 30 46; /* Text */
+        --card: 239 241 245; /* Base */
+        --card-foreground: 30 30 46; /* Text */
+        --popover: 239 241 245; /* Base */
+        --popover-foreground: 30 30 46; /* Text */
+        --primary: 114 135 253; /* Lavender */
+        --primary-foreground: 30 30 46; /* Text */
+        --secondary: 4 165 229; /* Sky */
+        --secondary-foreground: 30 30 46; /* Text */
+        --muted: 220 224 232; /* Crust */
+        --muted-foreground: 108 111 133; /* Subtext0 */
+        --accent: 230 233 239; /* Mantle */
+        --accent-foreground: 92 95 119; /* Subtext1 */
+        --destructive: 210 15 57; /* Red */
+        --destructive-foreground: 239 241 245; /* Base */
+        --border: 156 160 176; /* Overlay0 */
+        --input: 156 160 176; /* Overlay0 */
+        --ring: 114 135 253; /* Lavender */
+        --toggle: 254 100 11;
     }
     :root[data-theme="dark"] {
-        --background: #1e1e2e; /* Base */
-        --foreground: #eff1f5; /* Text */
-        --card: #1e1e2e; /* Base */
-        --card-foreground: #eff1f5; /* Text */
-        --popover: #1e1e2e; /* Base */
-        --popover-foreground: #eff1f5; /* Text */
-        --primary: #b4befe; /* Lavender */
-        --primary-foreground: #eff1f5; /* Text */
-        --secondary: #74c7ec; /* Sapphire */
-        --secondary-foreground: #eff1f5; /* Text */
-        --muted: #11111b; /* Crust */
-        --muted-foreground: #a6adc8; /* Subtext0 */
-        --accent: #181825; /* Mantle */
-        --accent-foreground: #bac2de; /* Subtext1 */
-        --destructive: #f38ba8; /* Red */
-        --destructive-foreground: #1e1e2e; /* Base */
-        --border: #6c7086; /* Overlay0 */
-        --input: #6c7086; /* Overlay0 */
-        --ring: #b4befe; /* Lavender */
-        --toggle: #89dceb;
+        --background: 30 30 46; /* Base */
+        --foreground: 239 241 245; /* Text */
+        --card: 30 30 46; /* Base */
+        --card-foreground: 239 241 245; /* Text */
+        --popover: 30 30 46; /* Base */
+        --popover-foreground: 239 241 245; /* Text */
+        --primary: 180 190 254; /* Lavender */
+        --primary-foreground: 239 241 245; /* Text */
+        --secondary: 137 220 235; /* Sky */
+        --secondary-foreground: 239 241 245; /* Text */
+        --muted: 17 17 27; /* Crust */
+        --muted-foreground: 166 173 200; /* Subtext0 */
+        --accent: 24 24 37; /* Mantle */
+        --accent-foreground: 186 194 222; /* Subtext1 */
+        --destructive: 243 139 168; /* Red */
+        --destructive-foreground: 30 30 46; /* Base */
+        --border: 108 112 134; /* Overlay0 */
+        --input: 108 112 134; /* Overlay0 */
+        --ring: 180 190 254; /* Lavender */
+        --toggle: 137 180 250;
     }
 }
 
@@ -90,17 +90,6 @@
 }
 #menubar::-webkit-scrollbar {
     display: none;
-}
-
-/* Blinking Animation */
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
-
-.animate-blink {
-    animation: blink 1s infinite steps(1) !important;
 }
 
 /* Loading Blocks Animation */

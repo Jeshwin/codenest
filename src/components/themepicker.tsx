@@ -21,7 +21,7 @@ export default function ThemePicker() {
     return (
         <>
             <div
-                className="w-12 h-6 rounded-full flex bg-[var(--toggle)] transition duration-300 cursor-pointer shadow-inner"
+                className="w-12 h-6 rounded-full flex bg-toggle transition duration-300 cursor-pointer shadow-inner"
                 onClick={toggleTheme}
             >
                 <div
