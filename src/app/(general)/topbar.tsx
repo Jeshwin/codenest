@@ -10,10 +10,11 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {cn} from "@/lib/utils";
+import {Button} from "@/components/ui/button";
 
 export default function TopBar() {
     return (
-        <header className="w-full flex flex-row items-center px-3 py-2 font-sans top-0 fixed z-50 bg-transparent backdrop-blur">
+        <header className="w-full flex flex-row items-center space-x-2 px-3 py-2 font-sans top-0 fixed z-50 bg-transparent backdrop-blur">
             <Link href="/">
                 <Logo size={8} />
             </Link>
@@ -71,6 +72,9 @@ export default function TopBar() {
             </NavigationMenu>
             <span className="flex-grow"></span>
             <ThemePicker />
+            <Link href="/register">
+                <Button size="sm">Sign Up</Button>
+            </Link>
         </header>
     );
 }
