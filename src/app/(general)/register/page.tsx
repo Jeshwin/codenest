@@ -17,6 +17,7 @@ import GitHubLogo from "@/components/icons/github";
 import GoogleLogo from "@/components/icons/google";
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
 import {useRouter} from "next/navigation";
+import CooldownButton from "@/components/cooldownButton";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -39,7 +40,7 @@ export default function RegisterPage() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const {isSignUpComplete, userId, nextStep} = await signUp({
+            await signUp({
                 username: user.username,
                 password: user.password,
                 options: {
@@ -49,7 +50,6 @@ export default function RegisterPage() {
                     autoSignIn: true, // This enables the auto sign-in flow.
                 },
             });
-            console.dir({isSignUpComplete, userId, nextStep});
             setIsVerificationStep(true); // Transition to verification step
         } catch (e) {
             console.error("Caught error: ", e);
@@ -68,13 +68,11 @@ export default function RegisterPage() {
 
     const handleVerificationSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Verification code submitted:", verificationCode);
         // Add verification logic here
         const {isSignUpComplete, nextStep} = await confirmSignUp({
             username: user.username,
             confirmationCode: verificationCode,
         });
-        console.dir({isSignUpComplete, nextStep});
         if (isSignUpComplete) {
             console.log("Verification code valid! Welcome!");
             await autoSignIn();
@@ -218,12 +216,12 @@ export default function RegisterPage() {
                             <Button variant="secondary" type="submit">
                                 Submit
                             </Button>
-                            <Button
+                            <CooldownButton
                                 variant="ghost"
                                 onClick={resendVerificationCode}
                             >
                                 Resend Code
-                            </Button>
+                            </CooldownButton>
                         </form>
                     </div>
                 </div>

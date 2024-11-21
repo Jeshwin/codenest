@@ -96,6 +96,8 @@
      "Ref": "amplifyAuthUserPool4BA7F805"
     }
    },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/UserPoolAppClient/Resource"
    }
@@ -142,6 +144,8 @@
     ],
     "SupportedLoginProviders": {}
    },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/IdentityPool"
    }
@@ -186,6 +190,8 @@
      }
     ]
    },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/authenticatedUserRole/Resource"
    }
@@ -230,6 +236,8 @@
      }
     ]
    },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/unauthenticatedUserRole/Resource"
    }
@@ -284,6 +292,8 @@
     "amplifyAuthIdentityPool3FDE84CC",
     "amplifyAuthUserPoolAppClient2626C6F8"
    ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/IdentityPoolRoleAttachment"
    }
@@ -291,7 +301,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02NwQ6CMAyGn4X7qECing0nL4ZgPBvcqhbGmrChMcve3RGCcurX72/zF5Dv9pAnzdumUnWpphv4E1qH6uwa2YkYXL3khyHH4C8Wh4pZi/JufrxAqQmNW0d/c1QRyH2W5/Ves8aDi23PPsogqOnBT3I6nGYIokbL4yBnteKSjSJHbIIwrBBau3kVGWwhS1pLlA5jrOkR6nl+ATipCP7vAAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02PQQvCMAyFf4v3Ls6B4lV28iIy8SyzjZrZNbBmipT+dzvGdKf35b2ERwpYbbaQL+q3z7R5ZpauEA7oBc1Jav1UKbgEzXdHwhDOHrsjs1Xlzf14gtISOplHf2dvEpB8puP5XLHFnaS2R5vMqKhuIQzmsDhojKpCz32nR2vGJTtDQuyicmwQGr98FTms00uNJ8q6PtW0CNWoXx+eVRfvAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/CDKMetadata/Default"

@@ -35,7 +35,7 @@ export default async function middleware(request: NextRequest) {
 
     // 3. Redirect to /login if the user is not authenticated
     if (isProtectedRoute && !authenticated) {
-        return NextResponse.redirect(new URL("/register", request.nextUrl));
+        return NextResponse.redirect(new URL("/login", request.nextUrl));
     }
 
     // 4. Redirect to /codespace if the user is authenticated

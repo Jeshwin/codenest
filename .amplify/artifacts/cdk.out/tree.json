@@ -13,7 +13,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/deploymentType",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "region": {
@@ -21,7 +21,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/region",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "auth": {
@@ -101,13 +101,13 @@
                         },
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_cognito.CfnUserPool",
-                          "version": "2.167.1"
+                          "version": "2.168.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_cognito.UserPool",
-                      "version": "2.167.1"
+                      "version": "2.168.0"
                     }
                   },
                   "UserPoolAppClient": {
@@ -150,13 +150,13 @@
                         },
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_cognito.CfnUserPoolClient",
-                          "version": "2.167.1"
+                          "version": "2.168.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_cognito.UserPoolClient",
-                      "version": "2.167.1"
+                      "version": "2.168.0"
                     }
                   },
                   "IdentityPool": {
@@ -207,7 +207,7 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPool",
-                      "version": "2.167.1"
+                      "version": "2.168.0"
                     }
                   },
                   "authenticatedUserRole": {
@@ -219,7 +219,7 @@
                         "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/authenticatedUserRole/ImportauthenticatedUserRole",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.Resource",
-                          "version": "2.167.1"
+                          "version": "2.168.0"
                         }
                       },
                       "Resource": {
@@ -268,13 +268,13 @@
                         },
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                          "version": "2.167.1"
+                          "version": "2.168.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_iam.Role",
-                      "version": "2.167.1"
+                      "version": "2.168.0"
                     }
                   },
                   "unauthenticatedUserRole": {
@@ -286,7 +286,7 @@
                         "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifyAuth/unauthenticatedUserRole/ImportunauthenticatedUserRole",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.Resource",
-                          "version": "2.167.1"
+                          "version": "2.168.0"
                         }
                       },
                       "Resource": {
@@ -335,13 +335,13 @@
                         },
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                          "version": "2.167.1"
+                          "version": "2.168.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_iam.Role",
-                      "version": "2.167.1"
+                      "version": "2.168.0"
                     }
                   },
                   "IdentityPoolRoleAttachment": {
@@ -396,7 +396,7 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPoolRoleAttachment",
-                      "version": "2.167.1"
+                      "version": "2.168.0"
                     }
                   }
                 },
@@ -414,7 +414,7 @@
                     "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/CDKMetadata/Default",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
-                      "version": "2.167.1"
+                      "version": "2.168.0"
                     }
                   },
                   "Condition": {
@@ -422,7 +422,7 @@
                     "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/CDKMetadata/Condition",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnCondition",
-                      "version": "2.167.1"
+                      "version": "2.168.0"
                     }
                   }
                 },
@@ -436,7 +436,7 @@
                 "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthUserPool4A04AEEFRef",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnOutput",
-                  "version": "2.167.1"
+                  "version": "2.168.0"
                 }
               },
               "amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthUserPoolAppClient7AAA5603Ref": {
@@ -444,7 +444,7 @@
                 "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthUserPoolAppClient7AAA5603Ref",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnOutput",
-                  "version": "2.167.1"
+                  "version": "2.168.0"
                 }
               },
               "amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthIdentityPool380C30D6Ref": {
@@ -452,13 +452,13 @@
                 "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthIdentityPool380C30D6Ref",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnOutput",
-                  "version": "2.167.1"
+                  "version": "2.168.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.NestedStack",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "auth.NestedStack": {
@@ -497,7 +497,7 @@
                           {
                             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                           },
-                          "/339cd46c54d7d7c9cb15d67237ef91c4610cb050dc50254e1d1ff980bc862854.json"
+                          "/08c25d196013d60bc07653913b7e62cafa89dd962ae43e5616cda7ac9edaa51f.json"
                         ]
                       ]
                     }
@@ -505,7 +505,7 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnStack",
-                  "version": "2.167.1"
+                  "version": "2.168.0"
                 }
               }
             },
@@ -519,7 +519,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/userPoolId",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "webClientId": {
@@ -527,7 +527,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/webClientId",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "identityPoolId": {
@@ -535,7 +535,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/identityPoolId",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "authRegion": {
@@ -543,7 +543,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/authRegion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "allowUnauthenticatedIdentities": {
@@ -551,7 +551,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/allowUnauthenticatedIdentities",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "signupAttributes": {
@@ -559,7 +559,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/signupAttributes",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "usernameAttributes": {
@@ -567,7 +567,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/usernameAttributes",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "verificationMechanisms": {
@@ -575,7 +575,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/verificationMechanisms",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "passwordPolicyMinLength": {
@@ -583,7 +583,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/passwordPolicyMinLength",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "passwordPolicyRequirements": {
@@ -591,7 +591,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/passwordPolicyRequirements",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "mfaConfiguration": {
@@ -599,7 +599,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/mfaConfiguration",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "mfaTypes": {
@@ -607,7 +607,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/mfaTypes",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "socialProviders": {
@@ -615,7 +615,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/socialProviders",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "oauthCognitoDomain": {
@@ -623,7 +623,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthCognitoDomain",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "oauthScope": {
@@ -631,7 +631,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthScope",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "oauthRedirectSignIn": {
@@ -639,7 +639,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthRedirectSignIn",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "oauthRedirectSignOut": {
@@ -647,7 +647,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthRedirectSignOut",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "oauthResponseType": {
@@ -655,7 +655,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthResponseType",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "oauthClientId": {
@@ -663,7 +663,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/oauthClientId",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "groups": {
@@ -671,7 +671,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/groups",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "CDKMetadata": {
@@ -683,7 +683,7 @@
                 "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.167.1"
+                  "version": "2.168.0"
                 }
               },
               "Condition": {
@@ -691,7 +691,7 @@
                 "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/CDKMetadata/Condition",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnCondition",
-                  "version": "2.167.1"
+                  "version": "2.168.0"
                 }
               }
             },
@@ -705,7 +705,7 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/BootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           },
           "CheckBootstrapVersion": {
@@ -713,13 +713,13 @@
             "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
-              "version": "2.167.1"
+              "version": "2.168.0"
             }
           }
         },
         "constructInfo": {
           "fqn": "aws-cdk-lib.Stack",
-          "version": "2.167.1"
+          "version": "2.168.0"
         }
       },
       "Tree": {
@@ -733,7 +733,7 @@
     },
     "constructInfo": {
       "fqn": "aws-cdk-lib.App",
-      "version": "2.167.1"
+      "version": "2.168.0"
     }
   }
 }

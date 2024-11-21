@@ -17,6 +17,7 @@ import GitHubLogo from "@/components/icons/github";
 import GoogleLogo from "@/components/icons/google";
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
 import {useRouter} from "next/navigation";
+import CooldownButton from "@/components/cooldownButton";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -217,12 +218,12 @@ export default function LoginPage() {
                             <Button variant="secondary" type="submit">
                                 Submit
                             </Button>
-                            <Button
+                            <CooldownButton
                                 variant="ghost"
                                 onClick={resendVerificationCode}
                             >
                                 Resend Code
-                            </Button>
+                            </CooldownButton>
                         </form>
                     </div>
                 </div>
