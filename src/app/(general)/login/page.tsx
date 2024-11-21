@@ -9,7 +9,6 @@ import {
 } from "aws-amplify/auth";
 import Link from "next/link";
 import Image from "next/image";
-import LoginImage from "@/../public/3D_logo.png";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Eye, EyeClosed} from "lucide-react";
@@ -32,7 +31,7 @@ export default function LoginPage() {
 
     const handleInputChange = (event, keyName) => {
         event.persist();
-        setUser(user => {
+        setUser((user) => {
             return {...user, [keyName]: event.target.value};
         });
     };
@@ -99,7 +98,7 @@ export default function LoginPage() {
                     } grid place-content-center`}
                 >
                     <Image
-                        src={LoginImage}
+                        src="/3D_logo.png"
                         alt="3D CodeNest Logo!"
                         width={384}
                         height={384}
@@ -133,7 +132,9 @@ export default function LoginPage() {
                                 id="username"
                                 placeholder="Email"
                                 value={user.username}
-                                onChange={e => handleInputChange(e, "username")}
+                                onChange={(e) =>
+                                    handleInputChange(e, "username")
+                                }
                             />
                             <div className="relative w-full h-fit">
                                 <Input
@@ -141,7 +142,7 @@ export default function LoginPage() {
                                     id="password"
                                     placeholder="Password"
                                     value={user.password}
-                                    onChange={e =>
+                                    onChange={(e) =>
                                         handleInputChange(e, "password")
                                     }
                                 />
@@ -201,7 +202,7 @@ export default function LoginPage() {
                                 <InputOTP
                                     maxLength={6}
                                     value={verificationCode}
-                                    onChange={value =>
+                                    onChange={(value) =>
                                         setVerificationCode(value)
                                     }
                                 >

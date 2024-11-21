@@ -1,6 +1,5 @@
 "use client";
 
-import Editor from "@/components/codespace/editor/editor";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,6 +7,7 @@ import Logo from "@/components/logo";
 import TypewriterText from "@/components/typewritertext";
 import {ArrowDown} from "lucide-react";
 import StyleCanvas from "@/components/homepage/stylecanvas";
+import CodeEditor from "@/components/codespace/codemirror/mirror";
 
 export default function HomePage() {
     const supportedLanguages = [
@@ -49,7 +49,7 @@ export default function HomePage() {
                         A fully featured, web based coding environment
                     </div>
                     <div className="w-1/2 h-full rounded-lg bg-[var(--bg-1)] flex flex-col">
-                        <Editor />
+                        <CodeEditor />
                     </div>
                 </div>
             </div>

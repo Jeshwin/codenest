@@ -16,6 +16,7 @@ const StyleCanvas = () => {
     }, []);
 
     useEffect(() => {
+        let animationFrameId; // Used the clean up canvas rendering
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
 
@@ -32,7 +33,7 @@ const StyleCanvas = () => {
         };
 
         // Function to get actual color from theme based on string
-        const getColorFromTheme = colorString => {
+        const getColorFromTheme = (colorString) => {
             switch (colorString) {
                 case "--primary":
                     return `rgb(${getComputedStyle(
@@ -98,7 +99,7 @@ const StyleCanvas = () => {
         circles.push(createCircle(true));
 
         // Function to draw a circle
-        const drawCircle = circle => {
+        const drawCircle = (circle) => {
             let x, y;
             if (circle.centerIndex === -1) {
                 x = circle.centerX + Math.cos(circle.angle) * circle.radius * 2;
@@ -122,19 +123,19 @@ const StyleCanvas = () => {
         const update = () => {
             if (prefersReducedMotion) return; // Cut animation if prefers-reduced-motion is enabled
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            circles.forEach(circle => {
+            circles.forEach((circle) => {
                 circle.angle += circle.speed;
 
                 drawCircle(circle);
             });
 
-            requestAnimationFrame(update);
+            animationFrameId = requestAnimationFrame(update);
         };
 
         update();
 
         // Cleanup function
-        return () => cancelAnimationFrame(update);
+        return () => cancelAnimationFrame(animationFrameId);
     }, [prefersReducedMotion]);
 
     // Function to update canvas size based on parent container size
