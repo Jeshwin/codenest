@@ -15,32 +15,63 @@
     --term-blue: #3b82f6; /* blue-500 */
     --term-magenta: #d946ef; /* fuschia-500 */
     --term-cyan: #06b6d4; /* cyan-500 */
+    --radius: 0.5rem;
 }
 
-:root[data-theme="light"] {
-    --bg-1: #fbfdfe;
-    --bg-2: #f2f2f2;
-    --bg-3: #dfe0e7;
-    --fg-1: #050505;
-    --fg-2: #143d52;
-    --fg-3: #1f5c7a;
-    --toggle: #fb923c;
-    --primary: #9a8ef5;
-    --secondary: #d3cff2;
-    --accent: #78c9d3;
+@layer base {
+    :root[data-theme="light"] {
+        --background: 239 241 245; /* Base */
+        --foreground: 30 30 46; /* Text */
+        --card: 239 241 245; /* Base */
+        --card-foreground: 30 30 46; /* Text */
+        --popover: 239 241 245; /* Base */
+        --popover-foreground: 30 30 46; /* Text */
+        --primary: 114 135 253; /* Lavender */
+        --primary-foreground: 30 30 46; /* Text */
+        --secondary: 4 165 229; /* Sky */
+        --secondary-foreground: 30 30 46; /* Text */
+        --muted: 220 224 232; /* Crust */
+        --muted-foreground: 108 111 133; /* Subtext0 */
+        --accent: 230 233 239; /* Mantle */
+        --accent-foreground: 92 95 119; /* Subtext1 */
+        --destructive: 210 15 57; /* Red */
+        --destructive-foreground: 239 241 245; /* Base */
+        --border: 156 160 176; /* Overlay0 */
+        --input: 156 160 176; /* Overlay0 */
+        --ring: 114 135 253; /* Lavender */
+        --toggle: 254 100 11;
+    }
+    :root[data-theme="dark"] {
+        --background: 30 30 46; /* Base */
+        --foreground: 239 241 245; /* Text */
+        --card: 30 30 46; /* Base */
+        --card-foreground: 239 241 245; /* Text */
+        --popover: 30 30 46; /* Base */
+        --popover-foreground: 239 241 245; /* Text */
+        --primary: 180 190 254; /* Lavender */
+        --primary-foreground: 239 241 245; /* Text */
+        --secondary: 137 220 235; /* Sky */
+        --secondary-foreground: 239 241 245; /* Text */
+        --muted: 17 17 27; /* Crust */
+        --muted-foreground: 166 173 200; /* Subtext0 */
+        --accent: 24 24 37; /* Mantle */
+        --accent-foreground: 186 194 222; /* Subtext1 */
+        --destructive: 243 139 168; /* Red */
+        --destructive-foreground: 30 30 46; /* Base */
+        --border: 108 112 134; /* Overlay0 */
+        --input: 108 112 134; /* Overlay0 */
+        --ring: 180 190 254; /* Lavender */
+        --toggle: 137 180 250;
+    }
 }
 
-:root[data-theme="dark"] {
-    --bg-1: #2c2e3a;
-    --bg-2: #181920;
-    --bg-3: #0b0b0f;
-    --fg-1: #fafafa;
-    --fg-2: #f2f2f2;
-    --fg-3: #e6e6e6;
-    --toggle: #38bdf8;
-    --primary: #160a71;
-    --secondary: #110d30;
-    --accent: #2c7c87;
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
 }
 
 /* Track */
@@ -59,17 +90,6 @@
 }
 #menubar::-webkit-scrollbar {
     display: none;
-}
-
-/* Blinking Animation */
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
-
-.animate-blink {
-    animation: blink 1s infinite steps(1) !important;
 }
 
 /* Loading Blocks Animation */
@@ -123,7 +143,7 @@
 /**
  * Copyright (c) 2014 The xterm.js authors. All rights reserved.
  * Copyright (c) 2012-2013, Christopher Jeffrey (MIT License)
- * https://github.com/chjj/term.js
+ * https:/*github.com/chjj/term.js
  * @license MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -146,7 +166,7 @@
  *
  * Originally forked from (with the author's permission):
  *   Fabrice Bellard's javascript vt100 for jslinux:
- *   http://bellard.org/jslinux/
+ *   http:/*bellard.org/jslinux/
  *   Copyright (c) 2011 Fabrice Bellard
  *   The original design remains. The terminal itself
  *   has been extended to include xterm CSI codes, among
