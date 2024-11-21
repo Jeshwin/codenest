@@ -1,4 +1,4 @@
-import Navbar from "./navbar";
+import Navbar from "@/components/codespace/navbar/navbar";
 
 export default function IDELayout({children}) {
     return (

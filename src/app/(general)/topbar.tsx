@@ -72,6 +72,11 @@ export default function TopBar() {
             </NavigationMenu>
             <span className="flex-grow"></span>
             <ThemePicker />
+            <Link href="/login">
+                <Button size="sm" variant="ghost">
+                    Log In
+                </Button>
+            </Link>
             <Link href="/register">
                 <Button size="sm">Sign Up</Button>
             </Link>
