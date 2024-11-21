@@ -1,63 +1,80 @@
 "use client";
 
 import {useState, useCallback, useEffect} from "react";
-import CodeMirror from "@uiw/react-codemirror";
-import {loadLanguage} from "@uiw/codemirror-extensions-langs";
-import {myDarkTheme, myLightTheme} from "./themes";
-import {io, Socket} from "socket.io-client";
 
-export default function CodeEditor() {
+import CodeMirror, {ViewUpdate} from "@uiw/react-codemirror";
+import {loadLanguage} from "@uiw/codemirror-extensions-langs";
+import {ChangeSet, Text} from "@codemirror/state";
+import {Update, rebaseUpdates} from "@codemirror/collab";
+
+import {myDarkTheme, myLightTheme} from "./themes";
+import {useProjectContext} from "@/app/(ide)/codespace/page";
+
+export default function CodeEditor({filePath}) {
+    const {socket} = useProjectContext();
     const [value, setValue] = useState("console.log('hello world!');");
     const [theme, setTheme] = useState("light");
-    const [socket, setSocket] = useState<Socket>();
+    const [fileError, setFileError] = useState<string>();
 
     useEffect(() => {
-        // Initialize socket connection
-        const socketInstance = io("http://localhost:3333");
-        setSocket(socketInstance);
+        // Set initial theme to data-theme of document
+        setTheme(
+            document.documentElement.getAttribute("data-theme") ?? "light"
+        );
 
-        // Clean up socket connection on component unmount
+        // Listen for the custom 'themechange' event
+        const handleThemeChange = (event: CustomEvent) => {
+            const currentTheme = event.detail;
+            setTheme(currentTheme);
+        };
+
+        window.addEventListener("themechange", handleThemeChange);
+
         return () => {
-            socketInstance.disconnect();
+            window.removeEventListener("themechange", handleThemeChange);
         };
     }, []);
 
     useEffect(() => {
-        // Listen to changes in the `data-theme` attribute
-        const observer = new MutationObserver(() => {
-            const currentTheme =
-                document.documentElement.getAttribute("data-theme");
-            setTheme(currentTheme);
+        // Get file contents of current file
+        socket.emit("getFileContents", filePath);
+
+        // Configure socket listeners
+        socket.on("fileContents", (data) => {
+            setValue(data);
         });
 
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ["data-theme"],
+        // Configure socket listeners
+        socket.on("fileError", (errorMessage) => {
+            setFileError(errorMessage);
         });
 
-        return () => observer.disconnect(); // Cleanup observer on unmount
-    }, []);
+        // Clean up socket connection on component unmount
+        return () => {
+            socket.disconnect();
+        };
+    }, [filePath, socket]);
 
     const onChange = useCallback(
-        (val, viewUpdate) => {
-            console.log("val:", val);
-            console.log("viewUpdate:", viewUpdate);
+        (val: string, _viewUpdate: ViewUpdate) => {
             setValue(val);
-
-            // Send updated content to the server
-            if (socket) {
-                socket.emit("message", val);
-            }
+            // Update the file on the back end
+            if (!socket) return;
+            socket.emit("updateFile", filePath, val);
         },
-        [socket]
+        [socket, filePath]
     );
 
-    return (
+    return !fileError ? (
         <CodeMirror
             value={value}
             onChange={onChange}
             extensions={[loadLanguage("tsx")]}
             theme={theme === "light" ? myLightTheme : myDarkTheme}
         />
+    ) : (
+        <div className="bg-destructive text-destructive-foreground grid place-content-center text-center">
+            {fileError}
+        </div>
     );
 }

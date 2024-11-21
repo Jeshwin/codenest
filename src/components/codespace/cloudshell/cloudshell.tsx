@@ -122,8 +122,7 @@ export default function CloudShell() {
             fitAddon.fit();
 
             // Listen for the custom 'themechange' event
-            const handleThemeChange = event => {
-                console.log("Theme changed to:", event.detail);
+            const handleThemeChange = (event) => {
                 const currentTheme = event.detail;
                 setTerminalTheme(currentTheme, terminal);
             };
@@ -132,9 +131,8 @@ export default function CloudShell() {
             window.addEventListener("themechange", handleThemeChange);
 
             // Get initial theme
-            const currentTheme = document.documentElement.getAttribute(
-                "data-theme"
-            );
+            const currentTheme =
+                document.documentElement.getAttribute("data-theme");
             setTerminalTheme(currentTheme, terminal);
 
             // Resize window in resize
@@ -175,7 +173,7 @@ export default function CloudShell() {
             });
 
             // Send keystrokes to the server, handling Enter as exec
-            terminal.onData(data => {
+            terminal.onData((data) => {
                 // Send keystrokes otherwise
                 socket.emit("keystroke", data);
             });
@@ -190,7 +188,7 @@ export default function CloudShell() {
             });
 
             // Display incoming server data on the terminal
-            socket.on("output", data => {
+            socket.on("output", (data) => {
                 terminal.write(data.output);
             });
 
