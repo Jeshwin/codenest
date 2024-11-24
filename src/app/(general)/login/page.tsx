@@ -31,7 +31,7 @@ export default function LoginPage() {
 
     const handleInputChange = (event, keyName) => {
         event.persist();
-        setUser((user) => {
+        setUser(user => {
             return {...user, [keyName]: event.target.value};
         });
     };
@@ -132,9 +132,7 @@ export default function LoginPage() {
                                 id="username"
                                 placeholder="Email"
                                 value={user.username}
-                                onChange={(e) =>
-                                    handleInputChange(e, "username")
-                                }
+                                onChange={e => handleInputChange(e, "username")}
                             />
                             <div className="relative w-full h-fit">
                                 <Input
@@ -142,7 +140,7 @@ export default function LoginPage() {
                                     id="password"
                                     placeholder="Password"
                                     value={user.password}
-                                    onChange={(e) =>
+                                    onChange={e =>
                                         handleInputChange(e, "password")
                                     }
                                 />
@@ -202,7 +200,7 @@ export default function LoginPage() {
                                 <InputOTP
                                     maxLength={6}
                                     value={verificationCode}
-                                    onChange={(value) =>
+                                    onChange={value =>
                                         setVerificationCode(value)
                                     }
                                 >

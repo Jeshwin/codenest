@@ -5,13 +5,17 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
+import {useContext} from "react";
+import {ProjectContext} from "../projectContext";
 
 export default function ProjectName() {
+    const {projectName} = useContext(ProjectContext);
+
     return (
         <Popover>
             <PopoverTrigger asChild>
                 <Button variant="outline" size="sm" className="gap-1">
-                    TheRoost
+                    {projectName}
                     <ChevronDown className="size-4" />
                 </Button>
             </PopoverTrigger>
@@ -25,7 +29,7 @@ export default function ProjectName() {
                         <Input
                             id="name"
                             type="text"
-                            placeholder="TheRoost"
+                            placeholder={projectName}
                             className="mb-2"
                         />
                     </div>

@@ -47,7 +47,7 @@ export function moveItem(data, sourceItem, targetPath) {
     // Update the found folders
     if (sourceFolder && targetFolder) {
         const sourceIndex = sourceFolder.findIndex(
-            (item) => item.type === "file" && item.name === sourceName
+            item => item.type === "file" && item.name === sourceName
         );
 
         if (sourceIndex !== -1) {
@@ -78,7 +78,7 @@ function findFolder(data, fullPath) {
     for (const componentName of pathComponents) {
         if (componentName === ".") continue;
         const subfolder = currentData.find(
-            (item) => item.type === "directory" && item.name === componentName
+            item => item.type === "directory" && item.name === componentName
         );
 
         if (subfolder) {
@@ -91,4 +91,65 @@ function findFolder(data, fullPath) {
 
     // Return the last found folder
     return currentData;
+}
+
+export interface ProjectDirectory {
+    type: "directory";
+    name: string;
+    items: ProjectStructure; // Recursive reference for nested directories
+}
+
+export interface ProjectFile {
+    type: "file";
+    name: string;
+}
+
+export type ProjectStructure = Array<ProjectDirectory | ProjectFile>;
+
+// Function to convert project structure data from container into tree data structure
+export function parseProjectStructure(data: string) {
+    console.log("Hallo :3");
+
+    const returnProjectStructure: ProjectStructure = [];
+
+    for (let content of data.split("\n")) {
+        if (!content) continue;
+        let path = content.split("/");
+        const isDirectory = path[path.length - 1] === "";
+
+        let contentName: string;
+        if (isDirectory) {
+            contentName = path[path.length - 2];
+        } else {
+            contentName = path[path.length - 1];
+        }
+
+        path = path.slice(1, path.length - 1);
+
+        let currentStructure = returnProjectStructure;
+        for (let i = 0; i < path.length; i++) {
+            const nextStructure = currentStructure.find(
+                content =>
+                    content.type === "directory" && content.name === path[i]
+            );
+            if (nextStructure && nextStructure.type === "directory") {
+                currentStructure = nextStructure.items;
+            }
+        }
+        if (isDirectory) {
+            currentStructure.push({
+                type: "directory",
+                name: contentName,
+                items: [],
+            });
+        } else {
+            currentStructure.push({
+                type: "file",
+                name: contentName,
+            });
+        }
+    }
+
+    console.dir(returnProjectStructure);
+    return returnProjectStructure;
 }

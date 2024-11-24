@@ -88,9 +88,6 @@ export default function CloudShell() {
             var terminalRows = Math.floor(
                 containerHeight / defaultTextHeight - 1
             );
-            console.debug(
-                `${containerHeight} / ${defaultTextHeight} - 3 = ${terminalRows}`
-            );
 
             // Initialize Xterm.js and addons
             const {Terminal} = await import("xterm");
@@ -112,17 +109,10 @@ export default function CloudShell() {
 
             // Open the terminal in the 'terminal-container' div
             terminal.open(termRef.current);
-            console.log(
-                "New Dimensions: { cols: " +
-                    fitAddon.proposeDimensions().cols +
-                    ", rows: " +
-                    fitAddon.proposeDimensions().rows +
-                    "}"
-            );
             fitAddon.fit();
 
             // Listen for the custom 'themechange' event
-            const handleThemeChange = (event) => {
+            const handleThemeChange = event => {
                 const currentTheme = event.detail;
                 setTerminalTheme(currentTheme, terminal);
             };
@@ -131,19 +121,13 @@ export default function CloudShell() {
             window.addEventListener("themechange", handleThemeChange);
 
             // Get initial theme
-            const currentTheme =
-                document.documentElement.getAttribute("data-theme");
+            const currentTheme = document.documentElement.getAttribute(
+                "data-theme"
+            );
             setTerminalTheme(currentTheme, terminal);
 
             // Resize window in resize
             const handleResize = () => {
-                console.log(
-                    "New Dimensions: { cols: " +
-                        fitAddon.proposeDimensions().cols +
-                        ", rows: " +
-                        fitAddon.proposeDimensions().rows +
-                        "}"
-                );
                 fitAddon.fit();
             };
             window.addEventListener("resize", handleResize);
@@ -173,7 +157,7 @@ export default function CloudShell() {
             });
 
             // Send keystrokes to the server, handling Enter as exec
-            terminal.onData((data) => {
+            terminal.onData(data => {
                 // Send keystrokes otherwise
                 socket.emit("keystroke", data);
             });
@@ -188,7 +172,7 @@ export default function CloudShell() {
             });
 
             // Display incoming server data on the terminal
-            socket.on("output", (data) => {
+            socket.on("output", data => {
                 terminal.write(data.output);
             });
 

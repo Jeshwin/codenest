@@ -1,6 +1,6 @@
 "use client";
 
-import {useState, useCallback, useEffect} from "react";
+import {useState, useCallback, useEffect, useContext} from "react";
 
 import CodeMirror, {ViewUpdate} from "@uiw/react-codemirror";
 import {loadLanguage} from "@uiw/codemirror-extensions-langs";
@@ -8,10 +8,10 @@ import {ChangeSet, Text} from "@codemirror/state";
 import {Update, rebaseUpdates} from "@codemirror/collab";
 
 import {myDarkTheme, myLightTheme} from "./themes";
-import {useProjectContext} from "@/app/(ide)/codespace/page";
+import {ProjectContext} from "../projectContext";
 
 export default function CodeEditor({filePath}) {
-    const {socket} = useProjectContext();
+    const {socket} = useContext(ProjectContext);
     const [value, setValue] = useState("console.log('hello world!');");
     const [theme, setTheme] = useState("light");
     const [fileError, setFileError] = useState<string>();
@@ -36,16 +36,18 @@ export default function CodeEditor({filePath}) {
     }, []);
 
     useEffect(() => {
+        if (!socket) return;
         // Get file contents of current file
-        socket.emit("getFileContents", filePath);
-
-        // Configure socket listeners
-        socket.on("fileContents", (data) => {
-            setValue(data);
+        socket.emit("getFileContents", filePath, val => {
+            if (val.success) {
+                setValue(val.data);
+            } else {
+                setFileError(val.data);
+            }
         });
 
         // Configure socket listeners
-        socket.on("fileError", (errorMessage) => {
+        socket.on("fileError", errorMessage => {
             setFileError(errorMessage);
         });
 
