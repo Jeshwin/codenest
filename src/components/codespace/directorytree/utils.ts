@@ -1,4 +1,23 @@
-export function searchFilename(searchTerm, directoryData, prefix = "") {
+// Types
+
+export interface ProjectDirectory {
+    type: "directory";
+    name: string;
+    items: ProjectStructure; // Recursive reference for nested directories
+}
+
+export interface ProjectFile {
+    type: "file";
+    name: string;
+}
+
+export type ProjectStructure = Array<ProjectDirectory | ProjectFile>;
+
+export function searchFilename(
+    searchTerm: string,
+    directoryData: ProjectStructure,
+    prefix = ""
+) {
     var searchResults = [];
     // Iterate through elements in directory
     for (const element of directoryData) {
@@ -24,7 +43,11 @@ export function searchFilename(searchTerm, directoryData, prefix = "") {
     return searchResults;
 }
 
-export function moveItem(data, sourceItem, targetPath) {
+export function moveItem(
+    data: ProjectStructure,
+    sourceItem: string,
+    targetPath: string
+) {
     console.log("Before ↓");
     console.debug(data);
 
@@ -47,7 +70,7 @@ export function moveItem(data, sourceItem, targetPath) {
     // Update the found folders
     if (sourceFolder && targetFolder) {
         const sourceIndex = sourceFolder.findIndex(
-            item => item.type === "file" && item.name === sourceName
+            (item) => item.type === "file" && item.name === sourceName
         );
 
         if (sourceIndex !== -1) {
@@ -64,7 +87,10 @@ export function moveItem(data, sourceItem, targetPath) {
     return updatedData;
 }
 
-function findFolder(data, fullPath) {
+function findFolder(
+    data: ProjectStructure,
+    fullPath: string
+): ProjectStructure {
     // Edge case: folder is root folder
     if (fullPath === ".") return data;
 
@@ -78,10 +104,10 @@ function findFolder(data, fullPath) {
     for (const componentName of pathComponents) {
         if (componentName === ".") continue;
         const subfolder = currentData.find(
-            item => item.type === "directory" && item.name === componentName
+            (item) => item.type === "directory" && item.name === componentName
         );
 
-        if (subfolder) {
+        if (subfolder && subfolder.type === "directory") {
             currentData = subfolder.items;
         } else {
             // If any component of the path is not found, return null
@@ -93,23 +119,8 @@ function findFolder(data, fullPath) {
     return currentData;
 }
 
-export interface ProjectDirectory {
-    type: "directory";
-    name: string;
-    items: ProjectStructure; // Recursive reference for nested directories
-}
-
-export interface ProjectFile {
-    type: "file";
-    name: string;
-}
-
-export type ProjectStructure = Array<ProjectDirectory | ProjectFile>;
-
 // Function to convert project structure data from container into tree data structure
 export function parseProjectStructure(data: string) {
-    console.log("Hallo :3");
-
     const returnProjectStructure: ProjectStructure = [];
 
     for (let content of data.split("\n")) {
@@ -129,7 +140,7 @@ export function parseProjectStructure(data: string) {
         let currentStructure = returnProjectStructure;
         for (let i = 0; i < path.length; i++) {
             const nextStructure = currentStructure.find(
-                content =>
+                (content) =>
                     content.type === "directory" && content.name === path[i]
             );
             if (nextStructure && nextStructure.type === "directory") {
