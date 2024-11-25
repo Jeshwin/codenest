@@ -32,40 +32,44 @@ export default function FileToolBar() {
 
     return (
         <>
-            <div className="min-w-fit w-full flex flex-row items-center">
-                <span className="font-bold">File Explorer</span>
-                <div className="flex-1"></div>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="size-6 hover:bg-muted"
-                    onClick={() => toggleSearchbar()}
-                >
-                    <Search />
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="size-6 hover:bg-muted"
-                    onClick={() => showNewInput("file")}
-                >
-                    <FilePlus />
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="size-6 hover:bg-muted"
-                    onClick={() => showNewInput("directory")}
-                >
-                    <FolderPlus />
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="size-6 hover:bg-muted"
-                >
-                    <Ellipsis />
-                </Button>
+            <div className="flex items-center justify-between">
+                <span className="font-bold flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                    File Explorer
+                </span>
+                {/* <div className="flex-1"></div> */}
+                <div className="w-24">
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-6 hover:bg-muted"
+                        onClick={() => toggleSearchbar()}
+                    >
+                        <Search />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-6 hover:bg-muted"
+                        onClick={() => showNewInput("file")}
+                    >
+                        <FilePlus />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-6 hover:bg-muted"
+                        onClick={() => showNewInput("directory")}
+                    >
+                        <FolderPlus />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-6 hover:bg-muted"
+                    >
+                        <Ellipsis />
+                    </Button>
+                </div>
             </div>
             {showSearchbar && <FileExplorerSearchbar />}
         </>

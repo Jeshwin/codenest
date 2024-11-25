@@ -51,14 +51,14 @@ export default function TreeView() {
 
     return (
         <ProjectStructureProvider initialProjectStructure={projectStructure}>
-            <div className="h-full p-2 flex flex-col font-sans overflow-scroll">
+            <div className="h-full p-2 flex flex-col font-sans">
                 {/* Add Files or Folders */}
                 <FileToolBar />
                 {/* Tree View */}
                 <ul
                     id="file-explorer"
                     ref={fileStructureRef}
-                    className="relative py-1 flex flex-col"
+                    className="relative py-1 flex flex-col overflow-y-scroll"
                     onMouseMove={handleMouseMove}
                     onDragOver={handleMouseMove}
                 >
