@@ -7,9 +7,11 @@ import {
     useState,
 } from "react";
 import ProjectStructureContext from "./projectStructureProvider";
+import {ProjectDirectory, ProjectFile} from "./utils";
 
 export default function NewElement({folderPath}: {folderPath: string}) {
     const {
+        addItem,
         fileOrFolder,
         currentFile,
         showNewElementInput,
@@ -28,16 +30,21 @@ export default function NewElement({folderPath}: {folderPath: string}) {
                 currentFile.lastIndexOf("/")
             );
             console.log(`Adding ${newElementName} inside ${currentFilePath}`);
-            // const newElement = {
-            //     type: fileOrFolder,
-            //     name: newElementName,
-            // };
-            // if (fileOrFolder === "dir") {
-            //     newElement.contents = [];
-            //     newElement.open = false;
-            // }
-            // setShowModal(!addItem(currentFilePath, newElement));
-            // Hide the input
+            let newElement: ProjectFile | ProjectDirectory;
+            if (fileOrFolder === "file") {
+                newElement = {
+                    type: fileOrFolder,
+                    name: newElementName,
+                };
+            } else {
+                newElement = {
+                    type: fileOrFolder,
+                    name: newElementName,
+                    items: [],
+                    open: false,
+                };
+            }
+            addItem(currentFilePath, newElement);
             setNewElementName("");
             setShowNewElementInput(false);
         }
