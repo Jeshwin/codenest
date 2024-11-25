@@ -3,6 +3,7 @@
 export interface ProjectDirectory {
     type: "directory";
     name: string;
+    open?: boolean;
     items: ProjectStructure; // Recursive reference for nested directories
 }
 
@@ -13,81 +14,56 @@ export interface ProjectFile {
 
 export type ProjectStructure = Array<ProjectDirectory | ProjectFile>;
 
-export function searchFilename(
+// Functions
+
+export function fuzzySearchFilename(
     searchTerm: string,
-    directoryData: ProjectStructure,
+    structure: ProjectStructure,
     prefix = ""
 ) {
+    const regexPattern = searchTerm.split("").join(".*");
+    const regex = new RegExp(regexPattern, "i");
+
     var searchResults = [];
-    // Iterate through elements in directory
-    for (const element of directoryData) {
-        // Check if file
+    for (let element of structure) {
+        const fullPath = prefix + element.name;
+
         if (element.type === "file") {
-            // Check file name
-            if (element.name.includes(searchTerm))
-                searchResults.push([prefix + element.name, element.name]);
-        } else if (element.type === "directory") {
-            // Element is a directory
-            // Look through its files and folders
-            // Add to result
+            const match = fullPath.match(regex);
+            if (match) {
+                // Calculate boldLetters array
+                let searchTermPointer = 0;
+                let boldLetters = [];
+                for (
+                    let i = 0;
+                    i < fullPath.length &&
+                    searchTermPointer < searchTerm.length;
+                    i++
+                ) {
+                    if (
+                        searchTerm[searchTermPointer].toLowerCase() ===
+                        fullPath[i].toLowerCase()
+                    ) {
+                        boldLetters.push(i);
+                        searchTermPointer++;
+                    }
+                }
+                searchResults.push({
+                    fullPath,
+                    name: element.name,
+                    boldLetters,
+                });
+            }
+        } else {
             searchResults = searchResults.concat(
-                searchFilename(
-                    searchTerm,
-                    element.items,
-                    prefix + element.name + "/"
-                )
+                fuzzySearchFilename(searchTerm, element.items, fullPath + "/")
             );
         }
     }
-    // Return results
     return searchResults;
 }
 
-export function moveItem(
-    data: ProjectStructure,
-    sourceItem: string,
-    targetPath: string
-) {
-    console.log("Before ↓");
-    console.debug(data);
-
-    const updatedData = [...data];
-
-    const sourceName = sourceItem.split("/").pop();
-
-    // Recusrively find the folders to update
-    const sourceFolder = findFolder(
-        updatedData,
-        sourceItem.substring(0, sourceItem.lastIndexOf("/"))
-    );
-    const targetFolder = findFolder(updatedData, targetPath);
-
-    console.log("Source ↓");
-    console.debug(sourceFolder);
-    console.log("Target ↓");
-    console.debug(targetFolder);
-
-    // Update the found folders
-    if (sourceFolder && targetFolder) {
-        const sourceIndex = sourceFolder.findIndex(
-            (item) => item.type === "file" && item.name === sourceName
-        );
-
-        if (sourceIndex !== -1) {
-            // Remove the item from the source folder
-            const [movedItem] = sourceFolder.splice(sourceIndex, 1);
-
-            // Add the item to the target folder
-            targetFolder.push(movedItem);
-        }
-    }
-
-    console.log("After ↓");
-    console.debug(updatedData);
-    return updatedData;
-}
-
-function findFolder(
+export function findFolder(
     data: ProjectStructure,
     fullPath: string
 ): ProjectStructure {
@@ -95,9 +71,6 @@ function findFolder(
     if (fullPath === ".") return data;
 
     const pathComponents = fullPath.split("/").filter(Boolean);
-
-    console.log("pathComponents ↓");
-    console.debug(pathComponents);
 
     let currentData = data;
 
@@ -161,6 +134,5 @@ export function parseProjectStructure(data: string) {
         }
     }
 
-    console.dir(returnProjectStructure);
     return returnProjectStructure;
 }

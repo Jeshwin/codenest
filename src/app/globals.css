@@ -16,6 +16,34 @@
     --term-magenta: #d946ef; /* fuschia-500 */
     --term-cyan: #06b6d4; /* cyan-500 */
     --radius: 0.5rem;
+
+    /* Colors for file explorer icons based on file/directory name */
+    --A: #993d3d;
+    --B: #954b39;
+    --C: #915934;
+    --D: #8c6730;
+    --E: #88762c;
+    --F: #838327;
+    --G: #6d8024;
+    --H: #5c8223;
+    --I: #498521;
+    --J: #348820;
+    --K: #1e8b1e;
+    --L: #1b8931;
+    --M: #1e8648;
+    --N: #21845c;
+    --O: #24826f;
+    --P: #268080;
+    --Q: #2f788a;
+    --R: #386f94;
+    --S: #42679e;
+    --T: #4d60a8;
+    --U: #5959b3;
+    --V: #6857ad;
+    --W: #7654a8;
+    --X: #8352a3;
+    --Y: #8e4f9e;
+    --Z: #994d99;
 }
 
 @layer base {

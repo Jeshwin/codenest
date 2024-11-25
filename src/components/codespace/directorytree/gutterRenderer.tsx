@@ -1,35 +1,37 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {ProjectStructure} from "./utils";
+import ProjectStructureContext from "./projectStructureProvider";
 
-export default function GutterRenderer({
-    projectStructure,
-    toggleFolder,
-    currentFile,
-    showNewElementInput,
-}: {
-    projectStructure: ProjectStructure;
-    toggleFolder: (arg0: string) => void;
-    currentFile: string;
-    showNewElementInput: boolean;
-}) {
+export default function GutterRenderer() {
+    const {projectStructure, toggleFolder, currentFile, showNewElementInput} =
+        useContext(ProjectStructureContext);
     const [gutterMarks, setGutterMarks] = useState([]);
 
     const addGutter = (newGutter) => {
         setGutterMarks((oldGutterMarks) => [...oldGutterMarks, newGutter]);
     };
 
+    const elementHeight = 24;
+
     useEffect(() => {
-        const calculateGutterPosition = (folderName, level, folderContents) => {
+        const calculateGutterPosition = (
+            folderName: string,
+            level: number,
+            folderContents: ProjectStructure
+        ) => {
             let position = {
                 top: 0,
                 height: 0,
             };
 
             let calcTop = 0;
-            const calculateTop = (structure, currentLevel) => {
+            const calculateTop = (
+                structure: ProjectStructure,
+                currentLevel: number
+            ) => {
                 structure.forEach((item) => {
-                    calcTop += 32; // Height of each file or folder
-                    if (item.type === "dir" && item.open) {
+                    calcTop += elementHeight; // Height of each file or folder
+                    if (item.type === "directory" && item.open) {
                         if (
                             item.name === folderName &&
                             currentLevel === level
@@ -37,7 +39,7 @@ export default function GutterRenderer({
                             position.top = calcTop;
                             return;
                         }
-                        calculateTop(item.contents, currentLevel + 1);
+                        calculateTop(item.items, currentLevel + 1);
                     }
                 });
             };
@@ -45,29 +47,36 @@ export default function GutterRenderer({
             position.top += 4;
 
             let calcHeight = 0;
-            const calculateHeight = (structure, currentLevel) => {
+            const calculateHeight = (
+                structure: ProjectStructure,
+                currentLevel: number
+            ) => {
                 structure.forEach((item) => {
-                    calcHeight += 32;
-                    if (item.type === "dir" && item.open) {
-                        calculateHeight(item.contents, currentLevel + 1);
+                    calcHeight += elementHeight;
+                    if (item.type === "directory" && item.open) {
+                        calculateHeight(item.items, currentLevel + 1);
                     }
                 });
             };
             calculateHeight(folderContents, level + 1);
             position.height = calcHeight;
             if (showNewElementInput && currentFile.includes(folderName)) {
-                position.height += 32;
+                position.height += elementHeight;
             }
             return position;
         };
 
-        const traverseStructure = (structure, parent, parentLevel) => {
+        const traverseStructure = (
+            structure: ProjectStructure,
+            parent: string,
+            parentLevel: number
+        ) => {
             structure.forEach((item) => {
-                if (item.type === "dir" && item.open) {
+                if (item.type === "directory" && item.open) {
                     const gutterPosition = calculateGutterPosition(
                         item.name,
                         parentLevel,
-                        item.contents
+                        item.items
                     );
 
                     const itemPath = `${parent}${parent ? "/" : ""}${
@@ -77,19 +86,19 @@ export default function GutterRenderer({
                     addGutter(
                         <button
                             key={`gutter-${item.name}-${parentLevel}`}
-                            className="absolute w-5 rounded cursor-pointer group flex flex-row-reverse"
+                            className="absolute w-4 rounded cursor-pointer group flex flex-row-reverse"
                             style={{
                                 top: `${gutterPosition.top}px`,
-                                left: `${parentLevel * 16}px`,
+                                left: `${parentLevel * 8}px`,
                                 height: `${gutterPosition.height}px`,
                             }}
                             onClick={() => toggleFolder(itemPath)}
                         >
-                            <div className="group-hover:bg-indigo-500 w-px mr-1 rounded h-full bg-gray-500"></div>
+                            <div className="bg-accent-foreground group-hover:bg-primary w-px mr-1 rounded h-full"></div>
                         </button>
                     );
 
-                    traverseStructure(item.contents, itemPath, parentLevel + 1);
+                    traverseStructure(item.items, itemPath, parentLevel + 1);
                 }
             });
         };

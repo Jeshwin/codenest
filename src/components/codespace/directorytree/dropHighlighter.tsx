@@ -1,34 +1,45 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import ProjectStructureContext from "./projectStructureProvider";
+import {ProjectStructure} from "./utils";
 
-export default function DropHighlighter({y, projectStructure}) {
+export default function DropHighlighter({y}) {
+    const {projectStructure, showNewElementInput, isGlobalDragging} =
+        useContext(ProjectStructureContext);
     const [highlighterPositions, setHighlighterPositions] = useState([]);
     const [highlighterPosition, setHighlighterPosition] = useState(null);
+
+    const elementHeight = 24;
 
     useEffect(() => {
         const positions = [];
 
-        const traverse = (structure, parentName, parentTop, parentLevel) => {
+        const traverse = (
+            structure: ProjectStructure,
+            parentName: string,
+            parentTop: number,
+            parentLevel: number
+        ) => {
             let top = parentTop;
             structure.forEach((item) => {
-                if (item.type === "dir") {
+                if (item.type === "directory") {
                     const folderName = item.name;
                     const fullName = parentName
                         ? `${parentName}/${folderName}`
                         : folderName;
-                    const left = parentLevel * 16 + 8;
-                    let height = 32; // height of folder
+                    const left = parentLevel * 16;
+                    let height = elementHeight; // height of folder
                     if (item.open) {
                         height += traverse(
-                            item.contents,
+                            item.items,
                             fullName,
-                            top + 32,
+                            top + elementHeight,
                             parentLevel + 1
                         );
                     }
                     positions.push({top, left, height, fullName});
                     top += height;
                 } else {
-                    top += 32;
+                    top += elementHeight;
                 }
             });
             return top - parentTop;
@@ -64,18 +75,19 @@ export default function DropHighlighter({y, projectStructure}) {
 
     return (
         <>
-            {highlighterPosition && (
+            {isGlobalDragging && highlighterPosition && (
                 <div
                     style={{
                         position: "absolute",
-                        padding: "8px",
-                        borderRadius: "8px",
+                        padding: 8,
+                        borderRadius: 8,
                         top: `${highlighterPosition.top}px`,
                         left: `${highlighterPosition.left}px`,
-                        height: `${highlighterPosition.height}px`,
-                        width: `calc(100% - ${
-                            highlighterPosition.left != 0 ? 4 : 0
-                        }px - ${highlighterPosition.left}px)`,
+                        height: `${
+                            highlighterPosition.height +
+                            (showNewElementInput ? elementHeight : 0)
+                        }px`,
+                        width: `calc(100% - 4px - ${highlighterPosition.left}px)`,
                         pointerEvents: "none",
                     }}
                     className="border border-primary transition-all duration-150"
