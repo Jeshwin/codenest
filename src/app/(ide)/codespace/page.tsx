@@ -2,7 +2,6 @@
 
 import {useEffect, useState} from "react";
 import {io, Socket} from "socket.io-client";
-import TreeView from "@/components/codespace/directorytree/fileExplorer";
 import CloudShell from "@/components/codespace/cloudshell/cloudshell";
 import CodeEditor from "@/components/codespace/codemirror/mirror";
 import {useSearchParams} from "next/navigation";
@@ -11,7 +10,6 @@ import Navbar from "@/components/codespace/navbar/navbar";
 import ResizableExplorer from "@/components/codespace/directorytree/resizableExplorer";
 import {Layman, LaymanLayout, LaymanProvider, TabData} from "react-layman";
 import {BedDouble, Terminal, Worm} from "lucide-react";
-import {Button} from "@/components/ui/button";
 import LaymanDebugger from "@/components/codespace/LaymanDebugger";
 
 export default function CodespacePage() {
