@@ -20,6 +20,11 @@ export default function NewElement({folderPath}: {folderPath: string}) {
     const newElementInputRef = useRef(null);
     const [newElementName, setNewElementName] = useState("");
 
+    // If the current file ever changes, stop showing the new element input
+    useEffect(() => {
+        setShowNewElementInput(false);
+    }, [currentFile, setShowNewElementInput]);
+
     // Count the number of slashes in the current file path
     const slashCount = Math.max(0, currentFile.split("/").length - 1);
 
@@ -56,21 +61,21 @@ export default function NewElement({folderPath}: {folderPath: string}) {
             <li
                 ref={newElementInputRef}
                 style={{
-                    marginLeft: `${16 * slashCount}px`,
+                    marginLeft: `${16 * slashCount + 1}px`,
                 }}
-                className="h-6 flex items-center cursor-pointer rounded-lg hover:bg-muted border border-transparent focus-within:ring-1 focus-within:ring-primary"
+                className="h-6 w-fit mr-px py-1 flex items-center cursor-pointer rounded hover:bg-muted border-0 focus-within:ring-1 focus-within:ring-primary"
             >
                 {fileOrFolder === "file" ? (
-                    <FilePlus className="size-4" />
+                    <FilePlus className="size-4 mr-1" />
                 ) : (
-                    <FolderPlus className="size-4" />
+                    <FolderPlus className="size-4 mr-1" />
                 )}
                 <input
                     value={newElementName}
                     onChange={(e) => setNewElementName(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder={`Add ${fileOrFolder}...`}
-                    className="h-6 bg-inherit px-1 flex-1 focus:outline-none"
+                    className="h-6 bg-inherit flex-1 focus:outline-none"
                 />
             </li>
         )

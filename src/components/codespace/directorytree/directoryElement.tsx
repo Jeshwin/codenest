@@ -109,14 +109,14 @@ export default function DirectoryElement({item, parent, level}) {
                         style={{
                             color: styleColor,
                         }}
-                        className="size-4 mr-0.5"
+                        className="size-4 mr-1"
                     />
                 ) : (
                     <Folder
                         style={{
                             color: styleColor,
                         }}
-                        className="size-4 mr-0.5"
+                        className="size-4 mr-1"
                     />
                 )}
                 <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
@@ -128,7 +128,7 @@ export default function DirectoryElement({item, parent, level}) {
                         variant="ghost"
                         size="icon"
                         ref={VertDotsRef}
-                        className="size-6 hover:bg-muted"
+                        className="size-6 hover:bg-accent"
                     >
                         <EllipsisVertical />
                     </Button>

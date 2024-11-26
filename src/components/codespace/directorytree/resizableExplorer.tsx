@@ -1,5 +1,5 @@
 import {MouseEventHandler, useEffect, useState} from "react";
-import TreeView from "./treeview";
+import FileExplorer from "./fileExplorer";
 
 export default function ResizableExplorer({showExplorer}) {
     const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -63,18 +63,18 @@ export default function ResizableExplorer({showExplorer}) {
     return (
         <div
             hidden={!showExplorer}
-            className="relative h-full max-w-lg flex-none bg-muted"
+            className="relative h-full max-w-lg flex-none bg-muted transition-transform duration-300"
             style={{
                 width: width,
             }}
         >
-            <TreeView />
+            <FileExplorer />
             <div
                 className="absolute top-0 right-0 h-full w-2 grid place-content-center cursor-ew-resize"
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
             >
-                <div className="h-10 w-0.5 bg-foreground rounded-full"></div>
+                <div className="h-6 w-0.5 bg-muted-foreground rounded-full"></div>
             </div>
         </div>
     );

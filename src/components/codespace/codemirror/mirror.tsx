@@ -38,7 +38,7 @@ export default function CodeEditor({filePath}) {
     useEffect(() => {
         if (!socket) return;
         // Get file contents of current file
-        socket.emit("getFileContents", filePath, val => {
+        socket.emit("getFileContents", filePath, (val) => {
             if (val.success) {
                 setValue(val.data);
             } else {
@@ -47,7 +47,7 @@ export default function CodeEditor({filePath}) {
         });
 
         // Configure socket listeners
-        socket.on("fileError", errorMessage => {
+        socket.on("fileError", (errorMessage) => {
             setFileError(errorMessage);
         });
 

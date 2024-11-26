@@ -36,12 +36,11 @@ export default function FileToolBar() {
                 <span className="font-bold flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
                     File Explorer
                 </span>
-                {/* <div className="flex-1"></div> */}
                 <div className="w-24">
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="size-6 hover:bg-muted"
+                        className="size-6 hover:bg-accent"
                         onClick={() => toggleSearchbar()}
                     >
                         <Search />
@@ -49,7 +48,7 @@ export default function FileToolBar() {
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="size-6 hover:bg-muted"
+                        className="size-6 hover:bg-accent"
                         onClick={() => showNewInput("file")}
                     >
                         <FilePlus />
@@ -57,7 +56,7 @@ export default function FileToolBar() {
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="size-6 hover:bg-muted"
+                        className="size-6 hover:bg-accent"
                         onClick={() => showNewInput("directory")}
                     >
                         <FolderPlus />
@@ -65,7 +64,7 @@ export default function FileToolBar() {
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="size-6 hover:bg-muted"
+                        className="size-6 hover:bg-accent"
                     >
                         <Ellipsis />
                     </Button>

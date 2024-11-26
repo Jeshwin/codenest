@@ -1,8 +1,10 @@
-import {useState, useContext, useRef} from "react";
+import {useState, useContext, useRef, useEffect} from "react";
 import {Button} from "@/components/ui/button";
 import {EllipsisVertical, File} from "lucide-react";
-import {ProjectDirectory, ProjectFile} from "./utils";
 import ProjectStructureContext from "./projectStructureProvider";
+
+import {ConnectDragSource, useDrag, useDrop} from "react-dnd";
+import {TabData, TabType} from "react-layman";
 
 export default function FileElement({item, parent, level}) {
     const {moveItem, setCurrentFile, setIsGlobalDragging} = useContext(
@@ -21,6 +23,21 @@ export default function FileElement({item, parent, level}) {
         console.log(`Selected ${filePath}`);
         setCurrentFile(filePath);
     };
+
+    const [{isDragging}, drag] = useDrag({
+        type: TabType,
+        item: {
+            path: undefined,
+            tab: new TabData(item.name),
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    });
+
+    useEffect(() => {
+        setIsGlobalDragging(isDragging);
+    }, [isDragging, setIsGlobalDragging]);
 
     const handleDragStart = (event) => {
         setIsGlobalDragging(true);
@@ -83,7 +100,7 @@ export default function FileElement({item, parent, level}) {
                 style={{
                     color: styleColor,
                 }}
-                className="size-4 mr-0.5 flex-shrink-0"
+                className="size-4 mr-1"
             />
             <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
                 {item.name}
@@ -94,7 +111,7 @@ export default function FileElement({item, parent, level}) {
                 variant="ghost"
                 className={` ${
                     !showDots ? "hidden" : ""
-                } size-6 hover:bg-muted`}
+                } size-6 hover:bg-accent`}
             >
                 <EllipsisVertical />
             </Button>

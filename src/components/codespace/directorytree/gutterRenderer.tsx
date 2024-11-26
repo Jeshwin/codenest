@@ -94,7 +94,7 @@ export default function GutterRenderer() {
                             }}
                             onClick={() => toggleFolder(itemPath)}
                         >
-                            <div className="bg-accent-foreground group-hover:bg-primary w-px mr-1 rounded h-full"></div>
+                            <div className="bg-accent-foreground group-hover:bg-primary w-px mr-2 rounded h-full"></div>
                         </button>
                     );
 

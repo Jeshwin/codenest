@@ -11,17 +11,18 @@ import SettingsDropdown from "./settingsDropdown";
 
 export default function Navbar({showExplorer, setShowExplorer}) {
     return (
-        <header className="top-0 flex flex-row gap-1 items-center px-3 py-2 font-sans">
+        <header className="top-0 flex flex-row gap-1 items-center p-1">
             <Button
                 size="icon"
                 variant="ghost"
                 onClick={() => setShowExplorer(!showExplorer)}
-                className="[&_svg]:size-6"
             >
                 {showExplorer ? <PanelLeftClose /> : <PanelLeftOpen />}
             </Button>
             <Link href="/">
-                <Logo size={8} />
+                <Button size="icon" variant="ghost" className="[&_svg]:size-6">
+                    <Logo size={8} />
+                </Button>
             </Link>
             <ProjectName />
             <Button size="icon" variant="ghost">

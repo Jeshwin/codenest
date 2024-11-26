@@ -17,7 +17,7 @@ import DropHighlighter from "./dropHighlighter";
 import {ProjectStructureProvider} from "./projectStructureProvider";
 import RenderElements from "./renderElements";
 
-export default function TreeView() {
+export default function FileExplorer() {
     const {socket} = useContext(ProjectContext);
     const [projectStructure, setProjectStructure] =
         useState<ProjectStructure>();

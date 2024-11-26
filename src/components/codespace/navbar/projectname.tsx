@@ -14,9 +14,13 @@ export default function ProjectName() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-1">
+                <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-inherit gap-1"
+                >
                     {projectName}
-                    <ChevronDown className="size-4" />
+                    <ChevronDown />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-96 mx-12">

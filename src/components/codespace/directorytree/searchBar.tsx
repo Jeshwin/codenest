@@ -2,6 +2,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import ProjectStructureContext from "./projectStructureProvider";
 import {fuzzySearchFilename} from "./utils";
 import {X} from "lucide-react";
+import {Button} from "@/components/ui/button";
 
 export default function FileExplorerSearchbar() {
     const {projectStructure, setCurrentFile} = useContext(
@@ -32,31 +33,33 @@ export default function FileExplorerSearchbar() {
     };
 
     return (
-        <div className="relative p-1">
+        <div className="relative">
             <input
-                className="w-full pl-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full pl-2 p-1 bg-accent rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
                 ref={searchInputRef}
                 placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             ></input>
             {searchTerm && (
-                <button
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-1 right-1 size-6 hover:text-destructive hover:bg-muted"
                     onClick={clearSearchTerm}
-                    className="absolute right-0 top-0 p-2 rounded-md hover:brightness-75"
                 >
-                    <X className="size-6" />
-                </button>
+                    <X />
+                </Button>
             )}
-            <ul className="absolute w-fit max-h-80 m-2 overflow-y-scroll z-10 flex flex-col bg-indigo-50 dark:bg-indigo-950 shadow-lg rounded-lg *:flex *:flex-col *:p-2">
+            <ul className="absolute w-full max-h-96 mt-1 overflow-y-scroll z-10 flex flex-col bg-background shadow-lg rounded-md *:flex *:flex-col *:p-2">
                 {searchResults.map((result, index) => {
                     return (
                         <li
                             key={index}
-                            className="hover:bg-indigo-100 hover:dark:bg-indigo-900 first:rounded-t-lg last:rounded-b-lg cursor-pointer"
+                            className="hover:bg-muted first:rounded-t-lg last:rounded-b-lg cursor-pointer"
                             onClick={() => setCurrentFile(result.fullPath)}
                         >
-                            <p className="text-xs text-indigo-800 dark:text-indigo-200">
+                            <p className="text-xs text-muted-foreground">
                                 {result.fullPath.split("").map((char, i) => (
                                     <span
                                         key={i}
@@ -70,7 +73,7 @@ export default function FileExplorerSearchbar() {
                                     </span>
                                 ))}
                             </p>
-                            <p className="text-indigo-900 dark:text-indigo-50">
+                            <p className="text-primary-foreground">
                                 {result.name}
                             </p>
                         </li>
