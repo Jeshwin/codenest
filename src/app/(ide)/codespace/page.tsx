@@ -9,13 +9,17 @@ import {useSearchParams} from "next/navigation";
 import {ProjectProvider} from "@/components/codespace/projectContext";
 import Navbar from "@/components/codespace/navbar/navbar";
 import ResizableExplorer from "@/components/codespace/directorytree/resizableExplorer";
-import {LaymanProvider} from "react-layman";
+import {Layman, LaymanLayout, LaymanProvider, TabData} from "react-layman";
+import {BedDouble, Terminal, Worm} from "lucide-react";
+import {Button} from "@/components/ui/button";
+import LaymanDebugger from "@/components/codespace/LaymanDebugger";
 
 export default function CodespacePage() {
     const searchParams = useSearchParams();
     const projectName = searchParams.get("project") || "TheRoost"; // Get `project` or default to "TheRoost"
     const [socket, setSocket] = useState<Socket>();
     const [showExplorer, setShowExplorer] = useState<boolean>(true);
+    const [initialLayout, setInitialLayout] = useState<LaymanLayout>();
 
     useEffect(() => {
         // Connect to the socket.io server
@@ -30,9 +34,67 @@ export default function CodespacePage() {
         };
     }, [projectName]);
 
-    if (!socket || !projectName) {
+    useEffect(() => {
+        // setInitialLayout(JSON.parse(localStorage.getItem("codenestLayout")));
+        setInitialLayout({
+            direction: "row",
+            children: [
+                {
+                    tabs: [
+                        new TabData("main.py", {
+                            type: "editor",
+                            projectPath: "main.py",
+                            icon: <Worm className="size-4" />,
+                        }),
+                    ],
+                    selectedIndex: 0,
+                },
+                {
+                    tabs: [
+                        new TabData("Shell", {
+                            icon: <Terminal className="size-4" />,
+                        }),
+                    ],
+                    selectedIndex: 0,
+                },
+            ],
+        });
+    }, []);
+
+    if (!socket || !projectName || !initialLayout) {
         // Optional: Add a loading state
         return <div>Loading...</div>;
+    }
+
+    const renderPane = (tab: TabData) => {
+        if (tab.options.type === "editor") {
+            return <CodeEditor filePath={tab.options.projectPath} />;
+        }
+        if (tab.name === "Shell") {
+            return <CloudShell />;
+        }
+    };
+
+    const renderTab = (tab: TabData) => {
+        if (tab.options.icon) {
+            return (
+                <div className="flex space-x-2">
+                    {tab.options.icon as JSX.Element}
+                    <div>{tab.name}</div>
+                </div>
+            );
+        } else {
+            return tab.name;
+        }
+    };
+
+    function NullLayout() {
+        return (
+            <div className="w-full h-full flex flex-col justify-center align-middle bg-muted">
+                <BedDouble className="size-48" />
+                <div className="m-4 text-4xl">Open a file to get started!</div>
+            </div>
+        );
     }
 
     return (
@@ -42,20 +104,16 @@ export default function CodespacePage() {
                 setShowExplorer={setShowExplorer}
             />
             <LaymanProvider
-                initialLayout={undefined}
-                renderPane={() => <></>}
-                renderTab={() => <></>}
-                renderNull={<></>}
+                initialLayout={initialLayout}
+                renderPane={renderPane}
+                renderTab={renderTab}
+                renderNull={<NullLayout />}
             >
-                <div className="h-[calc(100vh-56px-8px)] w-screen flex">
+                <div className="relative h-[calc(100vh-48px)] w-screen flex">
                     <ResizableExplorer showExplorer={showExplorer} />
-                    <div className="h-[calc(100vh-56px-8px)] flex-1 m-1 flex">
-                        <div className="m-1 text-base flex-1 flex flex-col rounded-lg overflow-scroll bg-background">
-                            <CodeEditor filePath={"main.py"} />
-                        </div>
-                        <div className="m-1 flex-1 rounded-lg bg-background">
-                            <CloudShell />
-                        </div>
+                    <div className="h-full w-full flex-1">
+                        <Layman />
+                        <LaymanDebugger />
                     </div>
                 </div>
             </LaymanProvider>

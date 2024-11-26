@@ -89,7 +89,7 @@ export default function GutterRenderer() {
                             className="absolute w-4 rounded cursor-pointer group flex flex-row-reverse"
                             style={{
                                 top: `${gutterPosition.top}px`,
-                                left: `${parentLevel * 8}px`,
+                                left: `${parentLevel * 16}px`,
                                 height: `${gutterPosition.height}px`,
                             }}
                             onClick={() => toggleFolder(itemPath)}

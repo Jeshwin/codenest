@@ -61,21 +61,23 @@ export default function ResizableExplorer({showExplorer}) {
     }, [isDragging]);
 
     return (
-        <div
-            hidden={!showExplorer}
-            className="relative h-full max-w-lg flex-none bg-muted transition-transform duration-300"
-            style={{
-                width: width,
-            }}
-        >
-            <FileExplorer />
+        <>
             <div
-                className="absolute top-0 right-0 h-full w-2 grid place-content-center cursor-ew-resize"
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
+                hidden={!showExplorer}
+                className="relative h-full max-w-lg flex-none bg-muted transition-transform duration-300"
+                style={{
+                    width: width,
+                }}
             >
-                <div className="h-6 w-0.5 bg-muted-foreground rounded-full"></div>
+                <FileExplorer />
+                <div
+                    className="absolute top-0 right-0 h-full w-2 grid place-content-center cursor-ew-resize"
+                    onMouseDown={handleMouseDown}
+                    onMouseUp={handleMouseUp}
+                >
+                    <div className="h-6 w-0.5 bg-muted-foreground rounded-full"></div>
+                </div>
             </div>
-        </div>
+        </>
     );
 }

@@ -1,10 +1,17 @@
-import {createContext, Dispatch, SetStateAction, useState} from "react";
+import {
+    createContext,
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useState,
+} from "react";
 import {
     findFolder,
     ProjectDirectory,
     ProjectFile,
     ProjectStructure,
 } from "./utils";
+import _ from "lodash";
 
 interface ProjectStructureContextType {
     projectStructure: ProjectStructure;
@@ -181,16 +188,19 @@ export const ProjectStructureProvider = ({
     };
 
     const moveItem = (sourcePath: string, targetPath: string) => {
-        const updatedData = [...projectStructure];
+        console.log(`Moving ${sourcePath} to ${targetPath}`);
+        const updatedStructure = _.cloneDeep(projectStructure);
+
+        console.log("Before:", updatedStructure);
 
         const sourceName = sourcePath.split("/").pop();
 
         // Recusrively find the folders to update
         const sourceFolder = findFolder(
-            updatedData,
+            updatedStructure,
             sourcePath.substring(0, sourcePath.lastIndexOf("/"))
         );
-        const targetFolder = findFolder(updatedData, targetPath);
+        const targetFolder = findFolder(updatedStructure, targetPath);
 
         // Update the found folders
         if (sourceFolder && targetFolder) {
@@ -235,7 +245,11 @@ export const ProjectStructureProvider = ({
             }
         }
 
-        setProjectStructure(updatedData);
+        console.log("After:", updatedStructure);
+
+        setProjectStructure(updatedStructure);
+
+        return true;
     };
 
     // Function to delete a file at the specified path
@@ -292,6 +306,11 @@ export const ProjectStructureProvider = ({
         // Update the state with the modified structure
         setProjectStructure([...projectStructure]);
     };
+
+    //! DEBUG
+    useEffect(() => {
+        console.log("DEBUG:", projectStructure);
+    }, [projectStructure]);
 
     return (
         <ProjectStructureContext.Provider

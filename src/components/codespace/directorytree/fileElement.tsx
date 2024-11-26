@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button";
 import {EllipsisVertical, File} from "lucide-react";
 import ProjectStructureContext from "./projectStructureProvider";
 
-import {ConnectDragSource, useDrag, useDrop} from "react-dnd";
+import {useDrag, useDrop} from "react-dnd";
 import {TabData, TabType} from "react-layman";
 
 export default function FileElement({item, parent, level}) {
@@ -29,47 +29,29 @@ export default function FileElement({item, parent, level}) {
         item: {
             path: undefined,
             tab: new TabData(item.name),
+            data: {
+                projectPath: filePath,
+            },
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
     });
 
+    const [, drop] = useDrop(() => ({
+        accept: [TabType],
+        drop: (
+            item: {tab: TabData; data?: {projectPath: string}},
+            _monitor
+        ) => {
+            if (!item.data) return;
+            moveItem(item.data.projectPath, parent);
+        },
+    }));
+
     useEffect(() => {
         setIsGlobalDragging(isDragging);
     }, [isDragging, setIsGlobalDragging]);
-
-    const handleDragStart = (event) => {
-        setIsGlobalDragging(true);
-        event.dataTransfer.setData(
-            "text/plain",
-            JSON.stringify({
-                type: "file",
-                path: filePath,
-            })
-        );
-    };
-
-    const handleDragOver = (event) => {
-        event.preventDefault();
-    };
-
-    const handleDrop = (event) => {
-        event.preventDefault();
-        const droppedData = JSON.parse(
-            event.dataTransfer.getData("text/plain")
-        );
-        const targetPath = parent;
-        const sourcePath = droppedData.path;
-
-        moveItem(sourcePath, targetPath);
-        setIsGlobalDragging(false);
-    };
-
-    const handleDragEnd = (event) => {
-        event.preventDefault();
-        setIsGlobalDragging(false);
-    };
 
     const handleMouseEnter = () => {
         setShowDots(true);
@@ -82,16 +64,16 @@ export default function FileElement({item, parent, level}) {
     return (
         <li
             id={filePath}
+            ref={(node) => {
+                drag(node);
+                drop(node);
+            }}
             style={{
                 marginLeft: `${level * 16}px`,
                 width: `calc(100% - ${level * 16}px)`,
             }}
             className="flex items-center cursor-pointer rounded-lg hover:bg-muted"
             draggable
-            onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            onDragEnd={handleDragEnd}
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

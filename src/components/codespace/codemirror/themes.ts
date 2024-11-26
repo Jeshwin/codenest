@@ -4,7 +4,7 @@ import {tags as t} from "@lezer/highlight";
 export const myLightTheme = createTheme({
     variant: "light",
     settings: {
-        background: "#e6e9ef",
+        background: "#eff1f5",
         foreground: "#4c4f69",
         caret: "#dc8a78",
         selection: "#7c7f9344",
@@ -75,7 +75,7 @@ export const myLightTheme = createTheme({
 export const myDarkTheme = createTheme({
     variant: "dark",
     settings: {
-        background: "#181825",
+        background: "#1e1e2e",
         foreground: "#cdd6f4",
         caret: "#f5e0dc",
         selection: "#7c7f93",

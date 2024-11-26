@@ -1,10 +1,11 @@
 import {useContext, useEffect, useRef, useState} from "react";
 import ProjectStructureContext from "./projectStructureProvider";
-import {ProjectDirectory, ProjectFile} from "./utils";
 import FileElement from "./fileElement";
 import NewElement from "./newElement";
 import {EllipsisVertical, Folder, FolderOpen} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import {useDrag, useDrop} from "react-dnd";
+import {TabData, TabType} from "react-layman";
 
 export default function DirectoryElement({item, parent, level}) {
     const {
@@ -27,39 +28,34 @@ export default function DirectoryElement({item, parent, level}) {
         toggleFolder(folderPath);
     };
 
-    const handleDragStart = (event) => {
-        setIsGlobalDragging(true);
-        event.dataTransfer.setData(
-            "text/plain",
-            JSON.stringify({
-                type: "directory",
-                path: folderPath,
-                open: item.open,
-                contents: item.contents,
-            })
-        );
-    };
+    const [{isDragging}, drag] = useDrag({
+        type: TabType,
+        item: {
+            path: undefined,
+            tab: new TabData(item.name),
+            data: {
+                projectPath: folderPath,
+            },
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    });
 
-    const handleDragOver = (event) => {
-        event.preventDefault();
-    };
+    const [, drop] = useDrop(() => ({
+        accept: [TabType],
+        drop: (
+            item: {tab: TabData; data?: {projectPath: string}},
+            _monitor
+        ) => {
+            if (!item.data) return;
+            moveItem(item.data.projectPath, parent);
+        },
+    }));
 
-    const handleDrop = (event) => {
-        event.preventDefault();
-        const droppedData = JSON.parse(
-            event.dataTransfer.getData("text/plain")
-        );
-        const targetPath = folderPath;
-        const sourcePath = droppedData.path;
-
-        moveItem(sourcePath, targetPath);
-        setIsGlobalDragging(false);
-    };
-
-    const handleDragEnd = (event) => {
-        event.preventDefault();
-        setIsGlobalDragging(false);
-    };
+    useEffect(() => {
+        setIsGlobalDragging(isDragging);
+    }, [isDragging, setIsGlobalDragging]);
 
     const handleMouseEnter = () => {
         setShowDots(true);
@@ -89,16 +85,16 @@ export default function DirectoryElement({item, parent, level}) {
         <>
             <li
                 id={folderPath}
+                ref={(node) => {
+                    drag(node);
+                    drop(node);
+                }}
                 style={{
                     marginLeft: `${level * 16}px`,
                     width: `calc(100% - ${level * 16}px)`,
                 }}
                 className="flex items-center cursor-pointer rounded-lg hover:bg-muted"
                 draggable
-                onDragStart={handleDragStart}
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-                onDragEnd={handleDragEnd}
                 onClick={handleToggleFolder}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}

@@ -1,0 +1,47 @@
+:root {
+    /*** Separators ***/
+    /* Color of the handle on the separator */
+    --separator-handle-color: rgb(var(--primary));
+
+    /* Thickness of the separator between windows */
+    --separator-thickness: 4px;
+
+    /* Length of the separator handle */
+    --separator-handle-length: 16px;
+
+    /*** Windows ***/
+    /* Background color of the window */
+    --window-bg-color: rgb(var(--background));
+
+    /* Border radius for window corners */
+    --border-radius: 8px;
+
+    /*** Window Toolbars ***/
+    /* Background color of the toolbar */
+    --toolbar-bg-color: rgb(var(--accent));
+
+    /* Background color of the toolbar on hover */
+    --toolbar-hover-bg-color: rgb(var(--muted));
+
+    /* Background color for toolbar buttons on hover */
+    --toolbar-button-hover-bg-color: rgb(var(--muted));
+
+    /* Height of the toolbar at the top of each window */
+    --toolbar-height: 32px;
+
+    /*** Tabs ***/
+    /* Text color of tab titles */
+    --tab-text-color: rgb(var(--foreground));
+
+    /* Color of the 'close' icon in tabs, with opacity */
+    --close-tab-color: rgb(var(--destructive));
+
+    /* Color of indicators (e.g., focus indicator)) */
+    --indicator-color: rgb(var(--primary));
+
+    /* Thickness of indicators (e.g., focus indicator)) */
+    --indicator-thickness: 1px;
+
+    /* Font size for text in tabs */
+    --tab-font-size: 14px;
+}
