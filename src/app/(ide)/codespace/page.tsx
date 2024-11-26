@@ -10,7 +10,6 @@ import Navbar from "@/components/codespace/navbar/navbar";
 import ResizableExplorer from "@/components/codespace/directorytree/resizableExplorer";
 import {Layman, LaymanLayout, LaymanProvider, TabData} from "react-layman";
 import {BedDouble, Terminal, Worm} from "lucide-react";
-import LaymanDebugger from "@/components/codespace/LaymanDebugger";
 
 export default function CodespacePage() {
     const searchParams = useSearchParams();
@@ -33,7 +32,6 @@ export default function CodespacePage() {
     }, [projectName]);
 
     useEffect(() => {
-        // setInitialLayout(JSON.parse(localStorage.getItem("codenestLayout")));
         setInitialLayout({
             direction: "row",
             children: [
@@ -60,7 +58,6 @@ export default function CodespacePage() {
     }, []);
 
     if (!socket || !projectName || !initialLayout) {
-        // Optional: Add a loading state
         return <div>Loading...</div>;
     }
 
@@ -111,7 +108,6 @@ export default function CodespacePage() {
                     <ResizableExplorer showExplorer={showExplorer} />
                     <div className="h-full w-full flex-1">
                         <Layman />
-                        <LaymanDebugger />
                     </div>
                 </div>
             </LaymanProvider>

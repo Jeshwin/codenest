@@ -188,11 +188,7 @@ export const ProjectStructureProvider = ({
     };
 
     const moveItem = (sourcePath: string, targetPath: string) => {
-        console.log(`Moving ${sourcePath} to ${targetPath}`);
         const updatedStructure = _.cloneDeep(projectStructure);
-
-        console.log("Before:", updatedStructure);
-
         const sourceName = sourcePath.split("/").pop();
 
         // Recusrively find the folders to update
@@ -244,11 +240,7 @@ export const ProjectStructureProvider = ({
                 });
             }
         }
-
-        console.log("After:", updatedStructure);
-
         setProjectStructure(updatedStructure);
-
         return true;
     };
 
@@ -306,11 +298,6 @@ export const ProjectStructureProvider = ({
         // Update the state with the modified structure
         setProjectStructure([...projectStructure]);
     };
-
-    //! DEBUG
-    useEffect(() => {
-        console.log("DEBUG:", projectStructure);
-    }, [projectStructure]);
 
     return (
         <ProjectStructureContext.Provider
