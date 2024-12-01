@@ -12,7 +12,7 @@ import {ProjectContext} from "../projectContext";
 
 export default function CodeEditor({filePath}) {
     const {socket} = useContext(ProjectContext);
-    const [value, setValue] = useState("console.log('hello world!');");
+    const [value, setValue] = useState<string>();
     const [theme, setTheme] = useState("light");
     const [fileError, setFileError] = useState<string>();
 
@@ -39,6 +39,7 @@ export default function CodeEditor({filePath}) {
         if (!socket) return;
         // Get file contents of current file
         socket.emit("getFileContents", filePath, (val) => {
+            console.log("getFileContents", filePath, "=>", val);
             if (val.success) {
                 setValue(val.data);
             } else {
@@ -50,11 +51,6 @@ export default function CodeEditor({filePath}) {
         socket.on("fileError", (errorMessage) => {
             setFileError(errorMessage);
         });
-
-        // Clean up socket connection on component unmount
-        return () => {
-            socket.disconnect();
-        };
     }, [filePath, socket]);
 
     const onChange = useCallback(

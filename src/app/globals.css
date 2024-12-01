@@ -68,6 +68,7 @@
         --input: 156 160 176; /* Overlay0 */
         --ring: 114 135 253; /* Lavender */
         --toggle: 254 100 11;
+        --cursor: 220 138 120;
     }
     :root[data-theme="dark"] {
         --background: 30 30 46; /* Base */
@@ -90,6 +91,7 @@
         --input: 108 112 134; /* Overlay0 */
         --ring: 180 190 254; /* Lavender */
         --toggle: 137 180 250;
+        --cursor: 245 224 220;
     }
 }
 

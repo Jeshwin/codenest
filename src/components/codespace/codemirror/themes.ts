@@ -1,17 +1,19 @@
 import {createTheme} from "thememirror";
 import {tags as t} from "@lezer/highlight";
 
+const baseThemeSettings = {
+    background: "rgb(var(--background))",
+    foreground: "rgb(var(--foreground))",
+    caret: "rgb(var(--cursor))",
+    selection: "rgb(var(--muted-foreground) / 0.2)",
+    lineHighlight: "rgb(var(--foreground) / 0.05)",
+    gutterBackground: "rgb(var(--background))",
+    gutterForeground: "rgb(var(--muted-foreground))",
+};
+
 export const myLightTheme = createTheme({
     variant: "light",
-    settings: {
-        background: "#eff1f5",
-        foreground: "#4c4f69",
-        caret: "#dc8a78",
-        selection: "#7c7f9344",
-        lineHighlight: "#4c4f6922",
-        gutterBackground: "#e6e9ef",
-        gutterForeground: "#8c8fa1",
-    },
+    settings: baseThemeSettings,
     styles: [
         {
             tag: t.comment,
@@ -74,15 +76,7 @@ export const myLightTheme = createTheme({
 
 export const myDarkTheme = createTheme({
     variant: "dark",
-    settings: {
-        background: "#1e1e2e",
-        foreground: "#cdd6f4",
-        caret: "#f5e0dc",
-        selection: "#7c7f93",
-        lineHighlight: "#4c4f69",
-        gutterBackground: "#181825",
-        gutterForeground: "#7f849c",
-    },
+    settings: baseThemeSettings,
     styles: [
         {
             tag: t.comment,

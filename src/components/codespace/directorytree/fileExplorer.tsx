@@ -97,7 +97,7 @@ export default function FileExplorer({showExplorer}) {
     return (
         <div
             hidden={!showExplorer}
-            className="h-full max-w-lg flex-none bg-muted"
+            className="relative h-full max-w-lg flex-none bg-muted"
             style={{
                 width: width,
             }}
