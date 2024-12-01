@@ -64,12 +64,18 @@ export default function CodeEditor({filePath}) {
     );
 
     return !fileError ? (
-        <CodeMirror
-            value={value}
-            onChange={onChange}
-            extensions={[loadLanguage("tsx")]}
-            theme={theme === "light" ? myLightTheme : myDarkTheme}
-        />
+        <div className="h-full overflow-hidden">
+            <CodeMirror
+                value={value}
+                onChange={onChange}
+                extensions={[loadLanguage("tsx")]}
+                theme={theme === "light" ? myLightTheme : myDarkTheme}
+                style={{
+                    height: "100%", // Ensure full height
+                    overflow: "auto", // Allow scrolling if content overflows
+                }}
+            />
+        </div>
     ) : (
         <div className="bg-destructive text-destructive-foreground grid place-content-center text-center">
             {fileError}

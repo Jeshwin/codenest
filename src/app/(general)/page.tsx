@@ -49,7 +49,7 @@ export default function HomePage() {
                         A fully featured, web based coding environment
                     </div>
                     <div className="w-1/2 h-full rounded-lg bg-[var(--bg-1)] flex flex-col">
-                        <CodeEditor />
+                        {/* <CodeEditor /> */}
                     </div>
                 </div>
             </div>
