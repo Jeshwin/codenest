@@ -7,9 +7,11 @@ import {useDrag, useDrop} from "react-dnd";
 import {TabData, TabType} from "react-layman";
 
 export default function FileElement({item, parent, level}) {
-    const {moveItem, setCurrentFile, setIsGlobalDragging} = useContext(
-        ProjectStructureContext
-    );
+    const {
+        projectStructureDispatch,
+        setElementCreationState,
+        setIsGlobalDragging,
+    } = useContext(ProjectStructureContext);
 
     const [showDots, setShowDots] = useState(false);
     const VertDotsRef = useRef(null);
@@ -21,7 +23,10 @@ export default function FileElement({item, parent, level}) {
 
     const handleClick = () => {
         console.log(`Selected ${filePath}`);
-        setCurrentFile(filePath);
+        setElementCreationState((prevState) => ({
+            ...prevState,
+            currentFile: filePath,
+        }));
     };
 
     const [{isDragging}, drag] = useDrag({
@@ -45,7 +50,11 @@ export default function FileElement({item, parent, level}) {
             _monitor
         ) => {
             if (!item.data) return;
-            moveItem(item.data.projectPath, parent);
+            projectStructureDispatch({
+                type: "moveItem",
+                itemPath: item.data.projectPath,
+                newItemPath: parent,
+            });
         },
     }));
 

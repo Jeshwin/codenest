@@ -5,7 +5,7 @@ import {X} from "lucide-react";
 import {Button} from "@/components/ui/button";
 
 export default function FileExplorerSearchbar() {
-    const {projectStructure, setCurrentFile} = useContext(
+    const {projectStructure, setElementCreationState} = useContext(
         ProjectStructureContext
     );
     const [searchTerm, setSearchTerm] = useState("");
@@ -30,6 +30,13 @@ export default function FileExplorerSearchbar() {
         if (searchInputRef.current) {
             searchInputRef.current.focus();
         }
+    };
+
+    const selectSearchResult = (newCurrentFile: string) => {
+        setElementCreationState((prevState) => ({
+            ...prevState,
+            currentFile: newCurrentFile,
+        }));
     };
 
     return (
@@ -57,7 +64,7 @@ export default function FileExplorerSearchbar() {
                         <li
                             key={index}
                             className="hover:bg-muted first:rounded-t-lg last:rounded-b-lg cursor-pointer"
-                            onClick={() => setCurrentFile(result.fullPath)}
+                            onClick={() => selectSearchResult(result.fullPath)}
                         >
                             <p className="text-xs text-muted-foreground">
                                 {result.fullPath.split("").map((char, i) => (

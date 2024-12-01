@@ -9,7 +9,8 @@ import {
 } from "react";
 
 import FileToolBar from "./toolBar";
-import {parseProjectStructure, ProjectStructure} from "./utils";
+import {parseProjectStructure} from "./utils";
+import {ProjectStructure} from "./types";
 import {ProjectContext} from "../projectContext";
 import NewElement from "./newElement";
 import GutterRenderer from "./gutterRenderer";
@@ -62,7 +63,7 @@ export default function FileExplorer() {
                     onMouseMove={handleMouseMove}
                     onDragOver={handleMouseMove}
                 >
-                    <RenderElements />
+                    <RenderElements parent="" level={0} />
                     {/** If selected file is in root directory, render form to add new file/folder */}
                     {<NewElement folderPath="" />}
                     {/** Render lines from open folders, also act as collapse buttons */}

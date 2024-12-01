@@ -1,9 +1,9 @@
 import {useContext, useEffect, useState} from "react";
 import ProjectStructureContext from "./projectStructureProvider";
-import {ProjectStructure} from "./utils";
+import {ProjectStructure} from "./types";
 
 export default function DropHighlighter({y}) {
-    const {projectStructure, showNewElementInput, isGlobalDragging} =
+    const {projectStructure, elementCreationState, isGlobalDragging} =
         useContext(ProjectStructureContext);
     const [highlighterPositions, setHighlighterPositions] = useState([]);
     const [highlighterPosition, setHighlighterPosition] = useState(null);
@@ -83,10 +83,7 @@ export default function DropHighlighter({y}) {
                         borderRadius: 8,
                         top: `${highlighterPosition.top}px`,
                         left: `${highlighterPosition.left}px`,
-                        height: `${
-                            highlighterPosition.height +
-                            (showNewElementInput ? elementHeight : 0)
-                        }px`,
+                        height: `${highlighterPosition.height}px`,
                         width: `calc(100% - 4px - ${highlighterPosition.left}px)`,
                         pointerEvents: "none",
                     }}

@@ -1,9 +1,9 @@
 import {useContext, useEffect, useState} from "react";
-import {ProjectStructure} from "./utils";
+import {ProjectStructure} from "./types";
 import ProjectStructureContext from "./projectStructureProvider";
 
 export default function GutterRenderer() {
-    const {projectStructure, toggleFolder, currentFile, showNewElementInput} =
+    const {projectStructure, projectStructureDispatch, elementCreationState} =
         useContext(ProjectStructureContext);
     const [gutterMarks, setGutterMarks] = useState([]);
 
@@ -60,7 +60,10 @@ export default function GutterRenderer() {
             };
             calculateHeight(folderContents, level + 1);
             position.height = calcHeight;
-            if (showNewElementInput && currentFile.includes(folderName)) {
+            if (
+                elementCreationState.showInput &&
+                elementCreationState.currentFile.includes(folderName)
+            ) {
                 position.height += elementHeight;
             }
             return position;
@@ -92,7 +95,12 @@ export default function GutterRenderer() {
                                 left: `${parentLevel * 16}px`,
                                 height: `${gutterPosition.height}px`,
                             }}
-                            onClick={() => toggleFolder(itemPath)}
+                            onClick={() =>
+                                projectStructureDispatch({
+                                    type: "toggleFolder",
+                                    itemPath: itemPath,
+                                })
+                            }
                         >
                             <div className="bg-accent-foreground group-hover:bg-primary w-px mr-2 rounded h-full"></div>
                         </button>
@@ -105,7 +113,12 @@ export default function GutterRenderer() {
 
         setGutterMarks([]);
         traverseStructure(projectStructure, "", 0);
-    }, [toggleFolder, currentFile, showNewElementInput, projectStructure]);
+    }, [
+        projectStructure,
+        elementCreationState.showInput,
+        elementCreationState.currentFile,
+        projectStructureDispatch,
+    ]);
 
     return <>{gutterMarks}</>;
 }

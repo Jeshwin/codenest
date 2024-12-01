@@ -8,76 +8,53 @@ export default function ResizableExplorer({showExplorer}) {
     const maxWidth = 320;
 
     // Toggle isDragging when holding separator
-    const handleMouseUp: MouseEventHandler<HTMLElement> = (event) => {
+    const handleMouseUp = (event) => {
         event.preventDefault();
         setIsDragging(false);
     };
 
-    const handleMouseDown: MouseEventHandler<HTMLElement> = (event) => {
+    const handleMouseDown = (event) => {
         event.preventDefault();
         setIsDragging(true);
     };
 
     useEffect(() => {
-        const handleMouseMove: MouseEventHandler<HTMLDivElement> = (event) => {
+        const handleMouseMove = (event) => {
             event.preventDefault();
             if (!isDragging) return;
             setWidth(Math.max(minWidth, Math.min(maxWidth, event.clientX)));
         };
 
         // Add event listeners to document
-        document.addEventListener(
-            "mousemove",
-            handleMouseMove as unknown as (
-                this: Document,
-                ev: MouseEvent
-            ) => never
-        );
-        document.addEventListener(
-            "mouseup",
-            handleMouseUp as unknown as (
-                this: Document,
-                ev: MouseEvent
-            ) => never
-        );
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
 
         // Clean up event listeners when component unmounts
         return () => {
-            document.removeEventListener(
-                "mousemove",
-                handleMouseMove as unknown as (
-                    this: Document,
-                    ev: MouseEvent
-                ) => never
-            );
-            document.removeEventListener(
-                "mouseup",
-                handleMouseUp as unknown as (
-                    this: Document,
-                    ev: MouseEvent
-                ) => never
-            );
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
         };
     }, [isDragging]);
 
     return (
-        <>
+        <div
+            hidden={!showExplorer}
+            // className={`h-full max-w-lg flex-none bg-muted transition-[transform] duration-300
+            //     ${showExplorer ? "translate-x-0" : "-translate-x-full"}
+            // `}
+            className="h-full max-w-lg flex-none bg-muted"
+            style={{
+                width: width,
+            }}
+        >
+            <FileExplorer />
             <div
-                hidden={!showExplorer}
-                className="relative h-full max-w-lg flex-none bg-muted transition-transform duration-300"
-                style={{
-                    width: width,
-                }}
+                className="absolute top-0 right-0 h-full w-2 grid place-content-center cursor-ew-resize"
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
             >
-                <FileExplorer />
-                <div
-                    className="absolute top-0 right-0 h-full w-2 grid place-content-center cursor-ew-resize"
-                    onMouseDown={handleMouseDown}
-                    onMouseUp={handleMouseUp}
-                >
-                    <div className="h-6 w-0.5 bg-muted-foreground rounded-full"></div>
-                </div>
+                <div className="h-6 w-0.5 bg-muted-foreground rounded-full"></div>
             </div>
-        </>
+        </div>
     );
 }

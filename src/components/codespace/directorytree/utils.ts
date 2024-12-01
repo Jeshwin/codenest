@@ -1,20 +1,4 @@
-// Types
-
-export interface ProjectDirectory {
-    type: "directory";
-    name: string;
-    open?: boolean;
-    items: ProjectStructure; // Recursive reference for nested directories
-}
-
-export interface ProjectFile {
-    type: "file";
-    name: string;
-}
-
-export type ProjectStructure = Array<ProjectDirectory | ProjectFile>;
-
-// Functions
+import {ProjectStructure} from "./types";
 
 export function fuzzySearchFilename(
     searchTerm: string,
@@ -68,9 +52,9 @@ export function findFolder(
     fullPath: string
 ): ProjectStructure {
     // Edge case: folder is root folder
-    if (fullPath === ".") return data;
+    if (fullPath === "." || fullPath === "") return data;
 
-    const pathComponents = fullPath.split("/").filter(Boolean);
+    const pathComponents = fullPath.split("/");
 
     let currentData = data;
 

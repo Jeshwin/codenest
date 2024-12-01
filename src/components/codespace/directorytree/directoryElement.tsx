@@ -6,14 +6,12 @@ import {EllipsisVertical, Folder, FolderOpen} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {useDrag, useDrop} from "react-dnd";
 import {TabData, TabType} from "react-layman";
+import RenderElements from "./renderElements";
 
 export default function DirectoryElement({item, parent, level}) {
     const {
-        toggleFolder,
-        setFolderOpen,
-        moveItem,
-        currentFile,
-        showNewElementInput,
+        projectStructureDispatch,
+        elementCreationState,
         setIsGlobalDragging,
     } = useContext(ProjectStructureContext);
     const [showDots, setShowDots] = useState(false);
@@ -23,10 +21,6 @@ export default function DirectoryElement({item, parent, level}) {
         ? `var(--${item.name[0].toUpperCase()})`
         : "#9D9D9D";
     const folderPath = `${parent}${parent ? "/" : ""}${item.name}`;
-
-    const handleToggleFolder = () => {
-        toggleFolder(folderPath);
-    };
 
     const [{isDragging}, drag] = useDrag({
         type: TabType,
@@ -49,13 +43,24 @@ export default function DirectoryElement({item, parent, level}) {
             _monitor
         ) => {
             if (!item.data) return;
-            moveItem(item.data.projectPath, parent);
+            projectStructureDispatch({
+                type: "moveItem",
+                itemPath: item.data.projectPath,
+                newItemPath: parent,
+            });
         },
     }));
 
     useEffect(() => {
         setIsGlobalDragging(isDragging);
     }, [isDragging, setIsGlobalDragging]);
+
+    const handleToggleFolder = () => {
+        projectStructureDispatch({
+            type: "toggleFolder",
+            itemPath: folderPath,
+        });
+    };
 
     const handleMouseEnter = () => {
         setShowDots(true);
@@ -68,17 +73,20 @@ export default function DirectoryElement({item, parent, level}) {
     useEffect(() => {
         if (
             !item.open &&
-            currentFile.includes(folderPath) &&
-            showNewElementInput
+            elementCreationState.currentFile.includes(folderPath) &&
+            elementCreationState.showInput
         ) {
-            setFolderOpen(folderPath);
+            projectStructureDispatch({
+                type: "toggleFolder",
+                itemPath: folderPath,
+            });
         }
     }, [
-        currentFile,
+        elementCreationState.currentFile,
+        elementCreationState.showInput,
         folderPath,
         item.open,
-        setFolderOpen,
-        showNewElementInput,
+        projectStructureDispatch,
     ]);
 
     return (
@@ -130,30 +138,15 @@ export default function DirectoryElement({item, parent, level}) {
                     </Button>
                 )}
             </li>
-            {/** Show folder contents if open */}
-            {item.open &&
-                item.items.map((child_item) => {
-                    if (child_item.type === "file") {
-                        return (
-                            <FileElement
-                                key={child_item.name}
-                                item={child_item}
-                                parent={folderPath}
-                                level={level + 1}
-                            />
-                        );
-                    } else {
-                        return (
-                            <DirectoryElement
-                                key={child_item.name}
-                                item={child_item}
-                                parent={folderPath}
-                                level={level + 1}
-                            />
-                        );
-                    }
-                })}
-            {<NewElement folderPath={folderPath} />}
+            {item.open && (
+                <RenderElements
+                    structure={item.items}
+                    parent={folderPath}
+                    level={level + 1}
+                />
+            )}
+
+            <NewElement folderPath={folderPath} />
         </>
     );
 }

@@ -5,27 +5,33 @@ import {Button} from "@/components/ui/button";
 import FileExplorerSearchbar from "./searchBar";
 
 export default function FileToolBar() {
-    const {
-        showNewElementInput,
-        setShowNewElementInput,
-        fileOrFolder,
-        setFileOrFolder,
-    } = useContext(ProjectStructureContext);
+    const {elementCreationState, setElementCreationState} = useContext(
+        ProjectStructureContext
+    );
     const [showSearchbar, setShowSearchbar] = useState(false);
 
     const toggleSearchbar = () => {
         setShowSearchbar(!showSearchbar);
     };
 
-    const showNewInput = (newFileOrFolder: "file" | "directory") => {
-        if (!showNewElementInput) {
-            setShowNewElementInput(true);
-            setFileOrFolder(newFileOrFolder);
+    const showNewInput = (newItemType: "file" | "directory") => {
+        if (!elementCreationState.showInput) {
+            setElementCreationState((prevState) => ({
+                ...prevState,
+                showInput: true,
+                itemType: newItemType,
+            }));
         } else {
-            if (newFileOrFolder !== fileOrFolder) {
-                setFileOrFolder(newFileOrFolder);
+            if (newItemType !== elementCreationState.itemType) {
+                setElementCreationState((prevState) => ({
+                    ...prevState,
+                    itemType: newItemType,
+                }));
             } else {
-                setShowNewElementInput(false);
+                setElementCreationState((prevState) => ({
+                    ...prevState,
+                    showInput: false,
+                }));
             }
         }
     };
