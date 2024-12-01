@@ -50,7 +50,7 @@
         "react-dnd-html5-backend": "^16.0.1",
         "react-dom": "^18",
         "react-hook-form": "^7.53.2",
-        "react-layman": "^0.2.5",
+        "react-layman": "^0.2.6",
         "socket.io-client": "^4.8.1",
         "tailwind-merge": "^2.5.4",
         "tailwindcss-animate": "^1.0.7",
