@@ -1,10 +1,16 @@
-import {useState, useContext, useRef, useEffect} from "react";
+import {
+    useState,
+    useContext,
+    useRef,
+    useEffect,
+    MouseEventHandler,
+} from "react";
 import {Button} from "@/components/ui/button";
-import {EllipsisVertical, File} from "lucide-react";
+import {EllipsisVertical, File, Worm} from "lucide-react";
 import ProjectStructureContext from "./projectStructureProvider";
 
 import {useDrag, useDrop} from "react-dnd";
-import {TabData, TabType} from "react-layman";
+import {LaymanContext, TabData, TabType} from "react-layman";
 
 export default function FileElement({item, parent, level}) {
     const {
@@ -12,6 +18,7 @@ export default function FileElement({item, parent, level}) {
         setElementCreationState,
         setIsGlobalDragging,
     } = useContext(ProjectStructureContext);
+    const {layoutDispatch} = useContext(LaymanContext);
 
     const [showDots, setShowDots] = useState(false);
     const VertDotsRef = useRef(null);
@@ -21,12 +28,23 @@ export default function FileElement({item, parent, level}) {
         : "#9D9D9D";
     const filePath = `${parent}${parent ? "/" : ""}${item.name}`;
 
-    const handleClick = () => {
+    const handleClick: MouseEventHandler<HTMLLIElement> = (event) => {
         console.log(`Selected ${filePath}`);
         setElementCreationState((prevState) => ({
             ...prevState,
             currentFile: filePath,
         }));
+        // Open file in layout on double-click
+        if (event.detail === 2)
+            layoutDispatch({
+                type: "addTabWithHeuristic",
+                tab: new TabData(item.name, {
+                    type: "editor",
+                    projectPath: filePath,
+                    icon: <Worm className="size-4" />,
+                }),
+                heuristic: "topleft",
+            });
     };
 
     const [{isDragging}, drag] = useDrag({

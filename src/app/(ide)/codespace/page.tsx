@@ -7,9 +7,9 @@ import CodeEditor from "@/components/codespace/codemirror/mirror";
 import {useSearchParams} from "next/navigation";
 import {ProjectProvider} from "@/components/codespace/projectContext";
 import Navbar from "@/components/codespace/navbar/navbar";
-import ResizableExplorer from "@/components/codespace/directorytree/resizableExplorer";
 import {Layman, LaymanLayout, LaymanProvider, TabData} from "react-layman";
 import {BedDouble, Terminal, Worm} from "lucide-react";
+import FileExplorer from "@/components/codespace/directorytree/fileExplorer";
 
 export default function CodespacePage() {
     const searchParams = useSearchParams();
@@ -70,18 +70,12 @@ export default function CodespacePage() {
         }
     };
 
-    const renderTab = (tab: TabData) => {
-        if (tab.options.icon) {
-            return (
-                <div className="flex space-x-2">
-                    {tab.options.icon as JSX.Element}
-                    <div>{tab.name}</div>
-                </div>
-            );
-        } else {
-            return tab.name;
-        }
-    };
+    const renderTab = (tab: TabData) => (
+        <div className="flex space-x-2">
+            {tab.options.icon && (tab.options.icon as JSX.Element)}
+            <div>{tab.name}</div>
+        </div>
+    );
 
     function NullLayout() {
         return (
@@ -105,7 +99,7 @@ export default function CodespacePage() {
                 renderNull={<NullLayout />}
             >
                 <div className="relative h-[calc(100vh-48px)] w-screen flex">
-                    <ResizableExplorer showExplorer={showExplorer} />
+                    <FileExplorer showExplorer={showExplorer} />
                     <div className="h-full w-full flex-1">
                         <Layman />
                     </div>
