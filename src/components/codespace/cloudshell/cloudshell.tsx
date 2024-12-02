@@ -1,7 +1,8 @@
 "use client";
 
-import {useEffect, useRef} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {io} from "socket.io-client";
+import {ProjectContext} from "../projectContext";
 
 const baseTheme = {
     black: "#64748b",
@@ -52,7 +53,10 @@ function setTerminalTheme(colorscheme, terminal) {
     }
 }
 
-export default function CloudShell() {
+export default function CloudShell({tabId}) {
+    const {socket} = useContext(ProjectContext);
+    const [shellError, setShellError] = useState<string | null>(null);
+
     const termRef = useRef(null);
     const themeChangeRef = useRef(null);
 
@@ -110,6 +114,12 @@ export default function CloudShell() {
             // Open the terminal in the 'terminal-container' div
             terminal.open(termRef.current);
             fitAddon.fit();
+            // Resize shell on the back end
+            const dimensions = {cols: terminal.cols, rows: terminal.rows};
+            socket.emit("terminalResize", {
+                id: tabId,
+                dimensions: dimensions,
+            });
 
             // Listen for the custom 'themechange' event
             const handleThemeChange = (event) => {
@@ -128,10 +138,24 @@ export default function CloudShell() {
             // Resize window in resize
             const handleResize = () => {
                 fitAddon.fit();
+                // Resize shell on the back end
+                const dimensions = {cols: terminal.cols, rows: terminal.rows};
+                socket.emit("terminalResize", {
+                    id: tabId,
+                    dimensions: dimensions,
+                });
             };
             window.addEventListener("resize", handleResize);
 
-            // Create a WebSocket connection to your EC2 instance
+            // Add a resize observer to the terminal container
+            const resizeObserver = new ResizeObserver(() => {
+                handleResize();
+            });
+
+            const terminalContainer = termRef.current;
+            if (terminalContainer) {
+                resizeObserver.observe(terminalContainer);
+            }
             // const ec2Ip = "ec2-13-57-246-174.us-west-1.compute.amazonaws.com";
             // const port = "6060";
             // const socket = new WebSocket(`ws://${ec2Ip}:${port}`);
@@ -147,32 +171,64 @@ export default function CloudShell() {
             //     terminal.write(event.data);
             // };
 
-            // Create a Socket.IO connection with the username and project as query params
-            const socket = io("http://localhost:5000", {
-                query: {
-                    username: "johnny",
-                    project: "appleseed",
-                },
-            });
+            // // Create a Socket.IO connection with the username and project as query params
+            // const socket = io("http://localhost:5000", {
+            //     query: {
+            //         username: "johnny",
+            //         project: "appleseed",
+            //     },
+            // });
+
+            // Create back end shell on mount
+            socket.emit("connectTerminal", {id: tabId});
 
             // Send keystrokes to the server, handling Enter as exec
             terminal.onData((data) => {
                 // Send keystrokes otherwise
-                socket.emit("keystroke", data);
+                socket.emit(
+                    "terminalInput",
+                    {
+                        id: tabId,
+                        data,
+                    },
+                    (val: {success: boolean; data: string}) => {
+                        if (!val.success) {
+                            setShellError(val.data);
+                        } else {
+                            setShellError(null);
+                        }
+                    }
+                );
             });
 
             // Send empty char to start to show terminal
             socket.on("connect", () => {
-                socket.emit("keystroke", "");
+                socket.emit(
+                    "terminalInput",
+                    {
+                        id: tabId,
+                        data: "",
+                    },
+                    (val: {success: boolean; data: string}) => {
+                        if (!val.success) {
+                            setShellError(val.data);
+                        } else {
+                            setShellError(null);
+                        }
+                    }
+                );
             });
-            // Send empty char to show revived terminal
-            socket.on("revived", () => {
-                socket.emit("keystroke", "");
-            });
+            // // Send empty char to show revived terminal
+            // socket.on("revived", () => {
+            //     socket.emit("terminalInput", {
+            //         id: tabId,
+            //         data: "",
+            //     });
+            // });
 
             // Display incoming server data on the terminal
-            socket.on("output", (data) => {
-                terminal.write(data.output);
+            socket.on("terminalOutput", (val) => {
+                if (val.id === tabId) terminal.write(val.data);
             });
 
             // Clean up the terminal and close the WebSocket on component unmount
@@ -183,18 +239,27 @@ export default function CloudShell() {
                     themeChangeRef.current
                 );
                 // socket.close();
-                socket.disconnect();
+                // socket.disconnect();
+                socket.emit("disconnectTerminal", {id: tabId});
             };
         };
+        if (!socket) return;
         initTerminal();
-    }, []);
+    }, [tabId, socket]);
 
-    return (
+    return !shellError ? (
         <div
             className="p-3 flex flex-col w-full h-full"
             id="custom-terminal-container"
         >
             <div className="min-h-full" ref={termRef}></div>
+        </div>
+    ) : (
+        <div
+            className="p-3 flex flex-col w-full h-full"
+            id="custom-terminal-container"
+        >
+            <div className="min-h-full">{shellError}</div>
         </div>
     );
 }

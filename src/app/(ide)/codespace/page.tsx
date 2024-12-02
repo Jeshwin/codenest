@@ -66,7 +66,7 @@ export default function CodespacePage() {
             return <CodeEditor filePath={tab.options.projectPath} />;
         }
         if (tab.name === "Shell") {
-            return <CloudShell />;
+            return <CloudShell tabId={tab.id} />;
         }
     };
 
