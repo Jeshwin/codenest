@@ -1,12 +1,23 @@
-import {
-    useState,
-    useContext,
-    useRef,
-    useEffect,
-    MouseEventHandler,
-} from "react";
+import {useState, useContext, useEffect, MouseEventHandler} from "react";
 import {Button} from "@/components/ui/button";
 import {EllipsisVertical, File, Worm} from "lucide-react";
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuSeparator,
+    ContextMenuShortcut,
+    ContextMenuTrigger,
+} from "@/components/ui/context-menu";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuPortal,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+    DropdownMenuShortcut,
+} from "@/components/ui/dropdown-menu";
 import ProjectStructureContext from "./projectStructureProvider";
 
 import {useDrag, useDrop} from "react-dnd";
@@ -18,10 +29,8 @@ export default function FileElement({item, parent, level}) {
         setElementCreationState,
         setIsGlobalDragging,
     } = useContext(ProjectStructureContext);
-    const {layoutDispatch} = useContext(LaymanContext);
-
+    const {setGlobalDragging, layoutDispatch} = useContext(LaymanContext);
     const [showDots, setShowDots] = useState(false);
-    const VertDotsRef = useRef(null);
 
     const styleColor = item.name[0].match(/[a-z]/i) // Check if first character is a letter
         ? `var(--${item.name[0].toUpperCase()})`
@@ -51,10 +60,11 @@ export default function FileElement({item, parent, level}) {
         type: TabType,
         item: {
             path: undefined,
-            tab: new TabData(item.name),
-            data: {
+            tab: new TabData(item.name, {
+                type: "editor",
                 projectPath: filePath,
-            },
+                icon: <Worm className="size-4" />,
+            }),
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -78,7 +88,8 @@ export default function FileElement({item, parent, level}) {
 
     useEffect(() => {
         setIsGlobalDragging(isDragging);
-    }, [isDragging, setIsGlobalDragging]);
+        setGlobalDragging(isDragging);
+    }, [isDragging, setGlobalDragging, setIsGlobalDragging]);
 
     const handleMouseEnter = () => {
         setShowDots(true);
@@ -89,41 +100,140 @@ export default function FileElement({item, parent, level}) {
     };
 
     return (
-        <li
-            id={filePath}
-            ref={(node) => {
-                drag(node);
-                drop(node);
-            }}
-            style={{
-                marginLeft: `${level * 16}px`,
-                width: `calc(100% - ${level * 16}px)`,
-            }}
-            className="flex items-center cursor-pointer rounded-lg hover:bg-muted"
-            draggable
-            onClick={handleClick}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-        >
-            <File
-                style={{
-                    color: styleColor,
-                }}
-                className="size-4 mr-1"
-            />
-            <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                {item.name}
-            </span>
-            <Button
-                ref={VertDotsRef}
-                size="icon"
-                variant="ghost"
-                className={` ${
-                    !showDots ? "hidden" : ""
-                } size-6 hover:bg-accent`}
-            >
-                <EllipsisVertical />
-            </Button>
-        </li>
+        <ContextMenu>
+            <ContextMenuTrigger>
+                <li
+                    id={filePath}
+                    ref={(node) => {
+                        drag(node);
+                        drop(node);
+                    }}
+                    style={{
+                        marginLeft: `${level * 16}px`,
+                        width: `calc(100% - ${level * 16}px)`,
+                    }}
+                    className="flex items-center cursor-pointer rounded-lg hover:bg-muted"
+                    draggable
+                    onClick={handleClick}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    <File
+                        style={{
+                            color: styleColor,
+                        }}
+                        className="size-4 mr-1"
+                    />
+                    <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                        {item.name}
+                    </span>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                size="icon"
+                                variant="ghost"
+                                className={` ${
+                                    !showDots ? "text-transparent" : ""
+                                } size-6 hover:bg-accent`}
+                            >
+                                <EllipsisVertical />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuPortal>
+                            <DropdownMenuContent className="w-48">
+                                <div className="text-xs text-muted-foreground px-2 py-1.5">
+                                    {item.name}
+                                </div>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                    Download
+                                    <DropdownMenuShortcut>
+                                        ⌘D
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                    Cut
+                                    <DropdownMenuShortcut>
+                                        ⌘X
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Copy
+                                    <DropdownMenuShortcut>
+                                        ⌘C
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Paste
+                                    <DropdownMenuShortcut>
+                                        ⌘V
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Copy Name</DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Copy Path
+                                    <DropdownMenuShortcut>
+                                        ⌘⇧C
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                    Rename
+                                    <DropdownMenuShortcut>
+                                        ⮐
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem className="text-destructive bg-destructive/25 hover:bg-destructive/50">
+                                    Delete
+                                    <DropdownMenuShortcut>
+                                        ⌘⌫
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenuPortal>
+                    </DropdownMenu>
+                </li>
+            </ContextMenuTrigger>
+            <ContextMenuContent className="w-48">
+                <div className="text-xs text-muted-foreground px-2 py-1.5">
+                    {item.name}
+                </div>
+                <ContextMenuSeparator />
+                <ContextMenuItem>
+                    Download
+                    <ContextMenuShortcut>⌘D</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuSeparator />
+                <ContextMenuItem>
+                    Cut
+                    <ContextMenuShortcut>⌘X</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                    Copy
+                    <ContextMenuShortcut>⌘C</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                    Paste
+                    <ContextMenuShortcut>⌘V</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuSeparator />
+                <ContextMenuItem>Copy Name</ContextMenuItem>
+                <ContextMenuItem>
+                    Copy Path
+                    <ContextMenuShortcut>⌘⇧C</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuSeparator />
+                <ContextMenuItem>
+                    Rename
+                    <ContextMenuShortcut>⮐</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem className="text-destructive bg-destructive/25 hover:bg-destructive/50">
+                    Delete
+                    <ContextMenuShortcut>⌘⌫</ContextMenuShortcut>
+                </ContextMenuItem>
+            </ContextMenuContent>
+        </ContextMenu>
     );
 }

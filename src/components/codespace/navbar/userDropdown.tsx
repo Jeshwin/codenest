@@ -53,15 +53,18 @@ export default function UserDropdown() {
                 <DropdownMenuContent className="mx-2">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
                         <User />
                         Profile
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
                         <CreditCard />
                         Billing
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleSignOut}>
+                    <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={handleSignOut}
+                    >
                         <LogOut />
                         Sign Out
                     </DropdownMenuItem>
