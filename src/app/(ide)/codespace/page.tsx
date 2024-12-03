@@ -97,6 +97,8 @@ export default function CodespacePage() {
                 renderPane={renderPane}
                 renderTab={renderTab}
                 renderNull={<NullLayout />}
+                mutable
+                toolbarButtons={["splitBottom", "splitRight", "misc"]}
             >
                 <div className="relative h-[calc(100vh-48px)] w-screen flex">
                     <FileExplorer showExplorer={showExplorer} />
