@@ -1,4 +1,4 @@
-import {ProjectStructure} from "./types";
+import {ProjectDirectory, ProjectFile, ProjectStructure} from "./types";
 
 export function fuzzySearchFilename(
     searchTerm: string,
@@ -46,6 +46,18 @@ export function fuzzySearchFilename(
     }
     return searchResults;
 }
+
+// Helper function for custom sorting items
+// Directories first, then files
+// Otherwise, alphabetically
+export const customCompare = (
+    a: ProjectFile | ProjectDirectory,
+    b: ProjectFile | ProjectDirectory
+) => {
+    if (a.type === "directory" && b.type === "file") return -1;
+    if (a.type === "file" && b.type === "directory") return 1;
+    return a.name.localeCompare(b.name);
+};
 
 export function findFolder(
     data: ProjectStructure,

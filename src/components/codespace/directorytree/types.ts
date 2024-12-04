@@ -38,6 +38,7 @@ export interface ToggleFolderAction extends BaseProjectStructureAction {
     type: "toggleFolder";
 }
 
+// Following actions are forwarded to the Socket.IO API
 export interface AddItemAction extends BaseProjectStructureAction {
     type: "addItem";
     itemType: "file" | "directory";
@@ -57,9 +58,14 @@ export interface DeleteItemAction extends BaseProjectStructureAction {
     type: "deleteItem";
 }
 
+export interface DuplicateItemAction extends BaseProjectStructureAction {
+    type: "duplicateItem";
+}
+
 export type ProjectStructureAction =
     | ToggleFolderAction
     | AddItemAction
     | RenameItemAction
     | MoveItemAction
-    | DeleteItemAction;
+    | DeleteItemAction
+    | DuplicateItemAction;

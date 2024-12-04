@@ -10,19 +10,8 @@ import {
     ToggleFolderAction,
 } from "./types";
 
-import {findFolder} from "./utils";
-
-// Helper function for custom sorting items
-// Directories first, then files
-// Otherwise, alphabetically
-const customCompare = (
-    a: ProjectFile | ProjectDirectory,
-    b: ProjectFile | ProjectDirectory
-) => {
-    if (a.type === "directory" && b.type === "file") return -1;
-    if (a.type === "file" && b.type === "directory") return 1;
-    return a.name.localeCompare(b.name);
-};
+import {parseProjectStructure, customCompare, findFolder} from "./utils";
+import {Socket} from "socket.io-client";
 
 // Helper function to clone the project structure state
 const deepCopyState = (state: ProjectStructure) => {
@@ -234,11 +223,25 @@ const deleteItem = (state: ProjectStructure, action: DeleteItemAction) => {
     return state;
 };
 
+const syncSocket = (action: ProjectStructureAction, socket: Socket) => {
+    socket.emit(
+        action.type,
+        action,
+        (val: {success: boolean; data: string}) => {
+            if (!val.success) {
+                console.error(val.data);
+            }
+        }
+    );
+};
+
 export function projectStructureReducer(
     state: ProjectStructure,
-    action: ProjectStructureAction
+    action: ProjectStructureAction,
+    socket: Socket
 ) {
     console.log("Received dispatch:", action);
+    syncSocket(action, socket);
     switch (action.type) {
         case "toggleFolder":
             return toggleFolder(state, action);

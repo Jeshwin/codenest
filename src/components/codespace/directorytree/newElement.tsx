@@ -23,23 +23,11 @@ export default function NewElement({folderPath}: {folderPath: string}) {
             elementCreationState.currentFile.lastIndexOf("/")
         );
         console.log(`Adding ${newElementName} inside ${currentFilePath}`);
-        let newElement: ProjectFile | ProjectDirectory;
-        if (elementCreationState.itemType === "file") {
-            newElement = {
-                type: "file",
-                name: newElementName,
-            };
-        } else {
-            newElement = {
-                type: "directory",
-                name: newElementName,
-                items: [],
-                open: false,
-            };
-        }
         projectStructureDispatch({
             type: "addItem",
-            itemPath: `${currentFilePath}/${newElementName}`,
+            itemPath: `${currentFilePath}${
+                currentFilePath ? "/" : ""
+            }${newElementName}`,
             itemType: elementCreationState.itemType,
         });
         setNewElementName("");

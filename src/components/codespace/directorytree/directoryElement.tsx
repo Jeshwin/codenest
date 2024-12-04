@@ -64,7 +64,7 @@ export default function DirectoryElement({item, parent, level}) {
             projectStructureDispatch({
                 type: "moveItem",
                 itemPath: item.data.projectPath,
-                newItemPath: parent,
+                newItemPath: folderPath,
             });
         },
     }));

@@ -36,7 +36,7 @@ export default function FileExplorer({showExplorer}) {
         if (!socket) return;
 
         socket.emit("getProjectStructure", (val) => {
-            if (val.success) {
+            if (val && val.success) {
                 setProjectStructure(parseProjectStructure(val.data));
             }
         });

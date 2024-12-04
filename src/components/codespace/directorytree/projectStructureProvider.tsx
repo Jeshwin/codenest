@@ -1,6 +1,12 @@
-import {createContext, useReducer, useState} from "react";
-import {ElementCreationState, ProjectStructureContextType} from "./types";
+import {createContext, useContext, useReducer, useState} from "react";
+import {
+    ElementCreationState,
+    ProjectStructure,
+    ProjectStructureAction,
+    ProjectStructureContextType,
+} from "./types";
 import {projectStructureReducer} from "./projectStructureReducer";
+import {ProjectContext} from "../projectContext";
 
 export const ProjectStructureContext =
     createContext<ProjectStructureContextType>({
@@ -21,9 +27,11 @@ export const ProjectStructureProvider = ({
     initialProjectStructure,
     children,
 }) => {
+    const {socket} = useContext(ProjectContext);
     // Reducer hook for project structure state
     const [projectStructure, projectStructureDispatch] = useReducer(
-        projectStructureReducer,
+        (state: ProjectStructure, action: ProjectStructureAction) =>
+            projectStructureReducer(state, action, socket),
         initialProjectStructure
     );
     // State for new element creation
