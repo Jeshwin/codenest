@@ -22,7 +22,7 @@ export interface ElementCreationState {
 
 export interface ProjectStructureContextType {
     projectStructure: ProjectStructure;
-    projectStructureDispatch: Dispatch<ProjectStructureAction>;
+    projectStructureDispatch: (action: ProjectStructureAction) => void;
     elementCreationState: ElementCreationState;
     setElementCreationState: Dispatch<SetStateAction<ElementCreationState>>;
     isGlobalDragging: boolean;
@@ -62,10 +62,16 @@ export interface DuplicateItemAction extends BaseProjectStructureAction {
     type: "duplicateItem";
 }
 
+export interface RollbackItemAction extends BaseProjectStructureAction {
+    type: "rollback";
+    prevState: ProjectStructure;
+}
+
 export type ProjectStructureAction =
     | ToggleFolderAction
     | AddItemAction
     | RenameItemAction
     | MoveItemAction
     | DeleteItemAction
-    | DuplicateItemAction;
+    | DuplicateItemAction
+    | RollbackItemAction;

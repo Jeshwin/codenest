@@ -80,7 +80,6 @@ export default function FileElement({item, parent, level}) {
             item: {tab: TabData; data?: {projectPath: string}},
             _monitor
         ) => {
-            console.log(item);
             if (!item.data) return;
             projectStructureDispatch({
                 type: "moveItem",

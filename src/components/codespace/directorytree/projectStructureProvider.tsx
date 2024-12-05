@@ -1,4 +1,10 @@
-import {createContext, useContext, useReducer, useState} from "react";
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useReducer,
+    useState,
+} from "react";
 import {
     ElementCreationState,
     ProjectStructure,
@@ -28,12 +34,40 @@ export const ProjectStructureProvider = ({
     children,
 }) => {
     const {socket} = useContext(ProjectContext);
+
     // Reducer hook for project structure state
-    const [projectStructure, projectStructureDispatch] = useReducer(
-        (state: ProjectStructure, action: ProjectStructureAction) =>
-            projectStructureReducer(state, action, socket),
+    const [projectStructure, dispatch] = useReducer(
+        projectStructureReducer,
         initialProjectStructure
     );
+
+    // Wrapper around project structure reducer
+    // Optimistically sync with socket
+    // Roll back to prevState if sync fails
+    const projectStructureDispatch = useCallback(
+        async (action: ProjectStructureAction) => {
+            const prevState = projectStructure;
+            dispatch(action);
+            try {
+                const response = await socket.emitWithAck(action.type, action);
+                if (!response.success) {
+                    dispatch({
+                        type: "rollback",
+                        prevState,
+                        itemPath: "",
+                    });
+                }
+            } catch (error) {
+                dispatch({
+                    type: "rollback",
+                    prevState,
+                    itemPath: "",
+                });
+            }
+        },
+        [projectStructure, socket]
+    );
+
     // State for new element creation
     const [elementCreationState, setElementCreationState] =
         useState<ElementCreationState>({

@@ -1,6 +1,8 @@
+import _ from "lodash";
 import {
     AddItemAction,
     DeleteItemAction,
+    DuplicateItemAction,
     MoveItemAction,
     ProjectDirectory,
     ProjectFile,
@@ -10,29 +12,12 @@ import {
     ToggleFolderAction,
 } from "./types";
 
-import {parseProjectStructure, customCompare, findFolder} from "./utils";
-import {Socket} from "socket.io-client";
-
-// Helper function to clone the project structure state
-const deepCopyState = (state: ProjectStructure) => {
-    return state.map((item) => {
-        if (item.type === "directory") {
-            // Deep copy for directory
-            return {
-                ...item,
-                items: deepCopyState(item.items), // Recursively deep copy nested items
-            };
-        } else {
-            // Simple copy for file
-            return {...item};
-        }
-    });
-};
+import {customCompare, findFolder, duplicateItemName} from "./utils";
 
 // Function to toggle the "open" attribute of a folder
 const toggleFolder = (state: ProjectStructure, action: ToggleFolderAction) => {
     // Copy current state for mutation
-    const newState = deepCopyState(state);
+    const newState = _.cloneDeep(state);
     // Split folderName into individual folder names
     const folders = action.itemPath.split("/");
 
@@ -156,7 +141,7 @@ const renameItem = (state: ProjectStructure, action: RenameItemAction) => {
 };
 
 const moveItem = (state: ProjectStructure, action: MoveItemAction) => {
-    const updatedStructure = deepCopyState(state);
+    const updatedStructure = _.cloneDeep(state);
     const sourceName = action.itemPath.split("/").at(-1);
 
     // Recusrively find the folders to update
@@ -223,25 +208,28 @@ const deleteItem = (state: ProjectStructure, action: DeleteItemAction) => {
     return state;
 };
 
-const syncSocket = (action: ProjectStructureAction, socket: Socket) => {
-    socket.emit(
-        action.type,
-        action,
-        (val: {success: boolean; data: string}) => {
-            if (!val.success) {
-                console.error(val.data);
-            }
-        }
-    );
+const duplicateItem = (
+    state: ProjectStructure,
+    action: DuplicateItemAction
+) => {
+    const itemPath = action.itemPath.split("/");
+    const itemName = itemPath.at(-1);
+    const duplicateName = duplicateItemName(itemName);
+    const duplicatePath = `${itemPath.slice(0, -1)}${
+        itemPath.length > 1 ? "/" : ""
+    }${duplicateName}`;
+    return addItem(state, {
+        type: "addItem",
+        itemPath: duplicatePath,
+        itemType: "file",
+    });
 };
 
 export function projectStructureReducer(
     state: ProjectStructure,
-    action: ProjectStructureAction,
-    socket: Socket
+    action: ProjectStructureAction
 ) {
     console.log("Received dispatch:", action);
-    syncSocket(action, socket);
     switch (action.type) {
         case "toggleFolder":
             return toggleFolder(state, action);
@@ -253,6 +241,8 @@ export function projectStructureReducer(
             return moveItem(state, action);
         case "deleteItem":
             return deleteItem(state, action);
+        case "duplicateItem":
+            return duplicateItem(state, action);
         default:
             return state;
     }

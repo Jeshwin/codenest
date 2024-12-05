@@ -88,6 +88,31 @@ export function findFolder(
     return currentData;
 }
 
+// Create the name of a duplicated file
+export const duplicateItemName = (itemPath: string) => {
+    const itemName = itemPath.split("/").at(-1);
+    const extension = itemName.split(".").slice(1).join(".");
+    const itemNameNoExtension = itemName.split(".").at(0);
+
+    // Check if the name already contains "(copy)" pattern
+    const copyPattern = /\(copy\s*(\d*)\)$/;
+    const match = itemNameNoExtension.match(copyPattern);
+
+    let newName;
+    if (match) {
+        // If already has (copy) or (copy n), increment the number
+        const currentCopyNumber = match[1] ? parseInt(match[1]) : 1;
+        const baseName = itemNameNoExtension.replace(copyPattern, "").trim();
+        newName = `${baseName} (copy ${currentCopyNumber + 1})`;
+    } else {
+        // If no (copy) exists, add (copy)
+        newName = `${itemNameNoExtension} (copy)`;
+    }
+
+    // Add back the extension
+    return extension ? `${newName}.${extension}` : newName;
+};
+
 // Function to convert project structure data from container into tree data structure
 export function parseProjectStructure(data: string) {
     const returnProjectStructure: ProjectStructure = [];
