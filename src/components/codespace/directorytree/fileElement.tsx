@@ -1,6 +1,8 @@
 import {useState, useContext, useEffect, MouseEventHandler} from "react";
-import {Button} from "@/components/ui/button";
+import ProjectStructureContext from "./projectStructureProvider";
+
 import {EllipsisVertical, File, Worm} from "lucide-react";
+import {Button} from "@/components/ui/button";
 import {
     ContextMenu,
     ContextMenuContent,
@@ -18,7 +20,16 @@ import {
     DropdownMenuTrigger,
     DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
-import ProjectStructureContext from "./projectStructureProvider";
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+    DialogHeader,
+} from "@/components/ui/dialog";
 
 import {useDrag, useDrop} from "react-dnd";
 import {LaymanContext, TabData, TabType} from "react-layman";
@@ -31,6 +42,7 @@ export default function FileElement({item, parent, level}) {
     } = useContext(ProjectStructureContext);
     const {setGlobalDragging, layoutDispatch} = useContext(LaymanContext);
     const [showDots, setShowDots] = useState(false);
+    const [showRename, setShowRename] = useState(false);
 
     const styleColor = item.name[0].match(/[a-z]/i) // Check if first character is a letter
         ? `var(--${item.name[0].toUpperCase()})`
@@ -102,141 +114,180 @@ export default function FileElement({item, parent, level}) {
         setShowDots(false);
     };
 
+    // Handlers for context menu actions
+
+    // Helper function to access the user's clipboard
+    async function writeClipboardText(text: string) {
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    const handleCopyName = () => {
+        writeClipboardText(item.name);
+    };
+
+    const handleCopyPath = () => {
+        writeClipboardText(filePath);
+    };
+
+    const handleRename = () => {
+        setShowRename(true);
+    };
+
+    const handleDuplicate = () => {
+        projectStructureDispatch({
+            type: "duplicateItem",
+            itemPath: filePath,
+        });
+    };
+
+    // User confirms deletion in the modal
+    const handleDelete = () => {
+        projectStructureDispatch({
+            type: "deleteItem",
+            itemPath: filePath,
+        });
+    };
+
     return (
-        <ContextMenu>
-            <ContextMenuTrigger>
-                <li
-                    id={filePath}
-                    ref={(node) => {
-                        drag(node);
-                        drop(node);
-                    }}
-                    style={{
-                        marginLeft: `${level * 16}px`,
-                        width: `calc(100% - ${level * 16}px)`,
-                    }}
-                    className="flex items-center cursor-pointer rounded-lg hover:bg-muted"
-                    draggable
-                    onClick={handleClick}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                >
-                    <File
-                        style={{
-                            color: styleColor,
+        <Dialog>
+            <ContextMenu>
+                <ContextMenuTrigger>
+                    <li
+                        id={filePath}
+                        ref={(node) => {
+                            drag(node);
+                            drop(node);
                         }}
-                        className="size-4 mr-1"
-                    />
-                    <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                        style={{
+                            marginLeft: `${level * 16}px`,
+                            width: `calc(100% - ${level * 16}px)`,
+                        }}
+                        className="flex items-center cursor-pointer rounded-lg hover:bg-muted"
+                        draggable
+                        onClick={handleClick}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        <File
+                            style={{
+                                color: styleColor,
+                            }}
+                            className="size-4 mr-1"
+                        />
+                        <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                            {item.name}
+                        </span>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className={` ${
+                                        !showDots ? "text-transparent" : ""
+                                    } size-6 hover:bg-accent`}
+                                >
+                                    <EllipsisVertical />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuPortal>
+                                <DropdownMenuContent className="w-48">
+                                    <div className="text-xs text-muted-foreground px-2 py-1.5">
+                                        {item.name}
+                                    </div>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem>
+                                        Download
+                                        <DropdownMenuShortcut>
+                                            ⌘D
+                                        </DropdownMenuShortcut>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem>
+                                        Copy Name
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>
+                                        Copy Path
+                                        <DropdownMenuShortcut>
+                                            ⌘⇧C
+                                        </DropdownMenuShortcut>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem onClick={handleDuplicate}>
+                                        Duplicate
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>
+                                        Rename
+                                        <DropdownMenuShortcut>
+                                            ⮐
+                                        </DropdownMenuShortcut>
+                                    </DropdownMenuItem>
+                                    <DialogTrigger asChild>
+                                        <DropdownMenuItem className="text-destructive bg-destructive/25 hover:bg-destructive/50">
+                                            Delete
+                                            <DropdownMenuShortcut>
+                                                ⌘⌫
+                                            </DropdownMenuShortcut>
+                                        </DropdownMenuItem>
+                                    </DialogTrigger>
+                                </DropdownMenuContent>
+                            </DropdownMenuPortal>
+                        </DropdownMenu>
+                    </li>
+                </ContextMenuTrigger>
+                <ContextMenuContent className="w-48">
+                    <div className="text-xs text-muted-foreground px-2 py-1.5">
                         {item.name}
-                    </span>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button
-                                size="icon"
-                                variant="ghost"
-                                className={` ${
-                                    !showDots ? "text-transparent" : ""
-                                } size-6 hover:bg-accent`}
-                            >
-                                <EllipsisVertical />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuPortal>
-                            <DropdownMenuContent className="w-48">
-                                <div className="text-xs text-muted-foreground px-2 py-1.5">
-                                    {item.name}
-                                </div>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    Download
-                                    <DropdownMenuShortcut>
-                                        ⌘D
-                                    </DropdownMenuShortcut>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    Cut
-                                    <DropdownMenuShortcut>
-                                        ⌘X
-                                    </DropdownMenuShortcut>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Copy
-                                    <DropdownMenuShortcut>
-                                        ⌘C
-                                    </DropdownMenuShortcut>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Paste
-                                    <DropdownMenuShortcut>
-                                        ⌘V
-                                    </DropdownMenuShortcut>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>Copy Name</DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Copy Path
-                                    <DropdownMenuShortcut>
-                                        ⌘⇧C
-                                    </DropdownMenuShortcut>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    Rename
-                                    <DropdownMenuShortcut>
-                                        ⮐
-                                    </DropdownMenuShortcut>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem className="text-destructive bg-destructive/25 hover:bg-destructive/50">
-                                    Delete
-                                    <DropdownMenuShortcut>
-                                        ⌘⌫
-                                    </DropdownMenuShortcut>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenuPortal>
-                    </DropdownMenu>
-                </li>
-            </ContextMenuTrigger>
-            <ContextMenuContent className="w-48">
-                <div className="text-xs text-muted-foreground px-2 py-1.5">
-                    {item.name}
-                </div>
-                <ContextMenuSeparator />
-                <ContextMenuItem>
-                    Download
-                    <ContextMenuShortcut>⌘D</ContextMenuShortcut>
-                </ContextMenuItem>
-                <ContextMenuSeparator />
-                <ContextMenuItem>
-                    Cut
-                    <ContextMenuShortcut>⌘X</ContextMenuShortcut>
-                </ContextMenuItem>
-                <ContextMenuItem>
-                    Copy
-                    <ContextMenuShortcut>⌘C</ContextMenuShortcut>
-                </ContextMenuItem>
-                <ContextMenuItem>
-                    Paste
-                    <ContextMenuShortcut>⌘V</ContextMenuShortcut>
-                </ContextMenuItem>
-                <ContextMenuSeparator />
-                <ContextMenuItem>Copy Name</ContextMenuItem>
-                <ContextMenuItem>
-                    Copy Path
-                    <ContextMenuShortcut>⌘⇧C</ContextMenuShortcut>
-                </ContextMenuItem>
-                <ContextMenuSeparator />
-                <ContextMenuItem>
-                    Rename
-                    <ContextMenuShortcut>⮐</ContextMenuShortcut>
-                </ContextMenuItem>
-                <ContextMenuItem className="text-destructive bg-destructive/25 hover:bg-destructive/50">
-                    Delete
-                    <ContextMenuShortcut>⌘⌫</ContextMenuShortcut>
-                </ContextMenuItem>
-            </ContextMenuContent>
-        </ContextMenu>
+                    </div>
+                    <ContextMenuSeparator />
+                    <ContextMenuItem>
+                        Download
+                        <ContextMenuShortcut>⌘D</ContextMenuShortcut>
+                    </ContextMenuItem>
+                    <ContextMenuSeparator />
+                    <ContextMenuItem>Copy Name</ContextMenuItem>
+                    <ContextMenuItem>
+                        Copy Path
+                        <ContextMenuShortcut>⌘⇧C</ContextMenuShortcut>
+                    </ContextMenuItem>
+                    <ContextMenuSeparator />
+                    <ContextMenuItem onClick={handleDuplicate}>
+                        Duplicate
+                    </ContextMenuItem>
+                    <ContextMenuItem>
+                        Rename
+                        <ContextMenuShortcut>⮐</ContextMenuShortcut>
+                    </ContextMenuItem>
+                    <DialogTrigger asChild>
+                        <ContextMenuItem className="text-destructive bg-destructive/25 hover:bg-destructive/50">
+                            Delete
+                            <ContextMenuShortcut>⌘⌫</ContextMenuShortcut>
+                        </ContextMenuItem>
+                    </DialogTrigger>
+                </ContextMenuContent>
+            </ContextMenu>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    <DialogDescription>
+                        This action cannot be undone. Are you sure you want to
+                        permanently delete this file from our servers?
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                    <DialogClose asChild>
+                        <Button>Close</Button>
+                    </DialogClose>
+                    <DialogClose asChild>
+                        <Button variant="destructive" onClick={handleDelete}>
+                            Confirm
+                        </Button>
+                    </DialogClose>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     );
 }

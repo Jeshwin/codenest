@@ -33,7 +33,6 @@ export default function DirectoryElement({item, parent, level}) {
         setIsGlobalDragging,
     } = useContext(ProjectStructureContext);
     const [showDots, setShowDots] = useState(false);
-    const VertDotsRef = useRef(null);
 
     const styleColor = item.name[0].match(/[a-z]/i) // Check if first character is a letter
         ? `var(--${item.name[0].toUpperCase()})`
@@ -165,30 +164,12 @@ export default function DirectoryElement({item, parent, level}) {
                                     </div>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem>
-                                        Download
+                                        Download as zip
                                         <DropdownMenuShortcut>
                                             ⌘D
                                         </DropdownMenuShortcut>
                                     </DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem>
-                                        Cut
-                                        <DropdownMenuShortcut>
-                                            ⌘X
-                                        </DropdownMenuShortcut>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        Copy
-                                        <DropdownMenuShortcut>
-                                            ⌘C
-                                        </DropdownMenuShortcut>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        Paste
-                                        <DropdownMenuShortcut>
-                                            ⌘V
-                                        </DropdownMenuShortcut>
-                                    </DropdownMenuItem>
+
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem>
                                         Copy Name
@@ -200,6 +181,9 @@ export default function DirectoryElement({item, parent, level}) {
                                         </DropdownMenuShortcut>
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
+                                    <DropdownMenuItem>
+                                        Duplicate
+                                    </DropdownMenuItem>
                                     <DropdownMenuItem>
                                         Rename
                                         <DropdownMenuShortcut>
@@ -227,25 +211,13 @@ export default function DirectoryElement({item, parent, level}) {
                         <ContextMenuShortcut>⌘D</ContextMenuShortcut>
                     </ContextMenuItem>
                     <ContextMenuSeparator />
-                    <ContextMenuItem>
-                        Cut
-                        <ContextMenuShortcut>⌘X</ContextMenuShortcut>
-                    </ContextMenuItem>
-                    <ContextMenuItem>
-                        Copy
-                        <ContextMenuShortcut>⌘C</ContextMenuShortcut>
-                    </ContextMenuItem>
-                    <ContextMenuItem>
-                        Paste
-                        <ContextMenuShortcut>⌘V</ContextMenuShortcut>
-                    </ContextMenuItem>
-                    <ContextMenuSeparator />
                     <ContextMenuItem>Copy Name</ContextMenuItem>
                     <ContextMenuItem>
                         Copy Path
                         <ContextMenuShortcut>⌘⇧C</ContextMenuShortcut>
                     </ContextMenuItem>
                     <ContextMenuSeparator />
+                    <DropdownMenuItem>Duplicate</DropdownMenuItem>
                     <ContextMenuItem>
                         Rename
                         <ContextMenuShortcut>⮐</ContextMenuShortcut>
