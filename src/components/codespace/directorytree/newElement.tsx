@@ -9,7 +9,6 @@ export default function NewElement({folderPath}: {folderPath: string}) {
         elementCreationState,
         setElementCreationState,
     } = useContext(ProjectStructureContext);
-    const newElementInputRef = useRef(null);
     const [newElementName, setNewElementName] = useState("");
 
     const slashCount = Math.max(
@@ -64,7 +63,6 @@ export default function NewElement({folderPath}: {folderPath: string}) {
                 )}
                 <input
                     autoFocus
-                    ref={newElementInputRef}
                     value={newElementName}
                     onChange={(e) => setNewElementName(e.target.value)}
                     onBlur={handleBlur}

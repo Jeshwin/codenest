@@ -12,7 +12,7 @@ import {
     ToggleFolderAction,
 } from "./types";
 
-import {customCompare, findFolder, duplicateItemName} from "./utils";
+import {customCompare, findFolder, generateDuplicateName} from "./utils";
 
 // Function to toggle the "open" attribute of a folder
 const toggleFolder = (state: ProjectStructure, action: ToggleFolderAction) => {
@@ -55,7 +55,8 @@ const toggleFolder = (state: ProjectStructure, action: ToggleFolderAction) => {
 
 const addItem = (state: ProjectStructure, action: AddItemAction) => {
     const folders = action.itemPath.split("/");
-    let currentStructure = state;
+    let newState = _.cloneDeep(state);
+    let currentStructure = newState;
 
     let newItem: ProjectFile | ProjectDirectory;
     if (action.itemType === "file") {
@@ -95,13 +96,18 @@ const addItem = (state: ProjectStructure, action: AddItemAction) => {
     // Re-sort the structure to maintain alphabetical order
     currentStructure.sort(customCompare);
 
-    return state;
+    //! DEBUG
+    console.log(currentStructure);
+    console.log(newState);
+
+    return newState;
 };
 
 const renameItem = (state: ProjectStructure, action: RenameItemAction) => {
     const folders = action.itemPath.split("/");
     const itemName = folders.pop(); // Get the original item name
-    let currentStructure = state;
+    let newState = _.cloneDeep(state);
+    let currentStructure = newState;
 
     // Traverse the file structure to the specified path
     currentStructure = findFolder(
@@ -137,7 +143,11 @@ const renameItem = (state: ProjectStructure, action: RenameItemAction) => {
     // Re-sort the structure to maintain alphabetical order
     currentStructure.sort(customCompare);
 
-    return state;
+    //! DEBUG
+    console.log(currentStructure);
+    console.log(newState);
+
+    return newState;
 };
 
 const moveItem = (state: ProjectStructure, action: MoveItemAction) => {
@@ -191,21 +201,37 @@ const moveItem = (state: ProjectStructure, action: MoveItemAction) => {
 const deleteItem = (state: ProjectStructure, action: DeleteItemAction) => {
     const folders = action.itemPath.split("/");
     const fileName = folders.pop(); // Get the file name
-    let currentStructure = state;
+    let newState = _.cloneDeep(state);
 
-    // Traverse the file structure to the specified path
-    currentStructure = findFolder(
-        currentStructure,
-        action.itemPath.substring(0, action.itemPath.lastIndexOf("/"))
-    );
-    if (!currentStructure) return state;
+    // Function to recursively update the state
+    const updateStateRecursively = (
+        structure: ProjectStructure,
+        remainingFolders: string[]
+    ): ProjectStructure => {
+        // If no more folders to traverse, filter out the item
+        if (remainingFolders.length === 0) {
+            return structure.filter((item) => item.name !== fileName);
+        }
 
-    // Remove the file from the current structure
-    currentStructure = currentStructure.filter(
-        (item) => item.name !== fileName
-    );
+        const currentFolder = remainingFolders[0];
+        return structure.map((item) => {
+            // If this is the folder we're looking for
+            if (item.name === currentFolder && item.type === "directory") {
+                // Recursively update its children
+                return {
+                    ...item,
+                    children: updateStateRecursively(
+                        item.items || [],
+                        remainingFolders.slice(1)
+                    ),
+                };
+            }
+            return item;
+        });
+    };
 
-    return state;
+    // Update the state
+    return updateStateRecursively(newState, folders);
 };
 
 const duplicateItem = (
@@ -214,7 +240,7 @@ const duplicateItem = (
 ) => {
     const itemPath = action.itemPath.split("/");
     const itemName = itemPath.at(-1);
-    const duplicateName = duplicateItemName(itemName);
+    const duplicateName = generateDuplicateName(itemName);
     const duplicatePath = `${itemPath.slice(0, -1)}${
         itemPath.length > 1 ? "/" : ""
     }${duplicateName}`;

@@ -43,6 +43,7 @@ export default function FileElement({item, parent, level}) {
     const {setGlobalDragging, layoutDispatch} = useContext(LaymanContext);
     const [showDots, setShowDots] = useState(false);
     const [showRename, setShowRename] = useState(false);
+    const [newName, setNewName] = useState("");
 
     const styleColor = item.name[0].match(/[a-z]/i) // Check if first character is a letter
         ? `var(--${item.name[0].toUpperCase()})`
@@ -133,7 +134,7 @@ export default function FileElement({item, parent, level}) {
         writeClipboardText(filePath);
     };
 
-    const handleRename = () => {
+    const handleToggleRename = () => {
         setShowRename(true);
     };
 
@@ -151,6 +152,48 @@ export default function FileElement({item, parent, level}) {
             itemPath: filePath,
         });
     };
+
+    // Rename file form handlers
+
+    const handleBlur = () => {
+        setShowRename(false);
+    };
+
+    const handleRename = () => {
+        projectStructureDispatch({
+            type: "renameItem",
+            itemPath: filePath,
+            newName: newName,
+        });
+    };
+
+    // Show rename file form only if showRename flag is set
+    if (showRename) {
+        return (
+            <form
+                style={{
+                    marginLeft: `${16 * level + 1}px`,
+                }}
+                className="h-6 w-fit mr-px py-1 flex items-center cursor-pointer rounded hover:bg-muted border-0 focus-within:ring-1 focus-within:ring-primary"
+                onSubmit={handleRename}
+            >
+                <File
+                    style={{
+                        color: styleColor,
+                    }}
+                    className="size-4 mr-1"
+                />
+                <input
+                    autoFocus
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    onBlur={handleBlur}
+                    placeholder={item.name}
+                    className="h-6 bg-inherit flex-1 focus:outline-none"
+                />
+            </form>
+        );
+    }
 
     return (
         <Dialog>
@@ -206,10 +249,10 @@ export default function FileElement({item, parent, level}) {
                                         </DropdownMenuShortcut>
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem>
+                                    <DropdownMenuItem onClick={handleCopyName}>
                                         Copy Name
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem>
+                                    <DropdownMenuItem onClick={handleCopyPath}>
                                         Copy Path
                                         <DropdownMenuShortcut>
                                             ⌘⇧C
@@ -219,7 +262,9 @@ export default function FileElement({item, parent, level}) {
                                     <DropdownMenuItem onClick={handleDuplicate}>
                                         Duplicate
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem>
+                                    <DropdownMenuItem
+                                        onClick={handleToggleRename}
+                                    >
                                         Rename
                                         <DropdownMenuShortcut>
                                             ⮐
@@ -257,7 +302,7 @@ export default function FileElement({item, parent, level}) {
                     <ContextMenuItem onClick={handleDuplicate}>
                         Duplicate
                     </ContextMenuItem>
-                    <ContextMenuItem>
+                    <ContextMenuItem onClick={handleToggleRename}>
                         Rename
                         <ContextMenuShortcut>⮐</ContextMenuShortcut>
                     </ContextMenuItem>

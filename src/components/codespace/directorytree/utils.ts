@@ -89,7 +89,7 @@ export function findFolder(
 }
 
 // Create the name of a duplicated file
-export const duplicateItemName = (itemPath: string) => {
+export const generateDuplicateName = (itemPath: string) => {
     const itemName = itemPath.split("/").at(-1);
     const extension = itemName.split(".").slice(1).join(".");
     const itemNameNoExtension = itemName.split(".").at(0);
@@ -153,6 +153,7 @@ export function parseProjectStructure(data: string) {
                 name: contentName,
             });
         }
+        currentStructure.sort(customCompare);
     }
 
     return returnProjectStructure;
