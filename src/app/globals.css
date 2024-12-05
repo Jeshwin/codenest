@@ -1,0 +1,370 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* Status Colors */
+    --bg-success: #22c55e; /* green-500 */
+    --bg-warning: #eab308; /* yellow-500 */
+    --bg-error: #ef4444; /* red-500 */
+    /* Terminal Colors */
+    --term-black: #64748b; /* slate-500 */
+    --term-red: #ec4899; /* red-500 */
+    --term-green: #84cc16; /* lime-500 */
+    --term-yellow: #eab308; /* yellow-500 */
+    --term-blue: #3b82f6; /* blue-500 */
+    --term-magenta: #d946ef; /* fuschia-500 */
+    --term-cyan: #06b6d4; /* cyan-500 */
+    --radius: 0.5rem;
+}
+
+@layer base {
+    :root[data-theme="light"] {
+        --background: 239 241 245; /* Base */
+        --foreground: 30 30 46; /* Text */
+        --card: 239 241 245; /* Base */
+        --card-foreground: 30 30 46; /* Text */
+        --popover: 239 241 245; /* Base */
+        --popover-foreground: 30 30 46; /* Text */
+        --primary: 114 135 253; /* Lavender */
+        --primary-foreground: 30 30 46; /* Text */
+        --secondary: 4 165 229; /* Sky */
+        --secondary-foreground: 30 30 46; /* Text */
+        --muted: 220 224 232; /* Crust */
+        --muted-foreground: 108 111 133; /* Subtext0 */
+        --accent: 230 233 239; /* Mantle */
+        --accent-foreground: 92 95 119; /* Subtext1 */
+        --destructive: 210 15 57; /* Red */
+        --destructive-foreground: 239 241 245; /* Base */
+        --border: 156 160 176; /* Overlay0 */
+        --input: 156 160 176; /* Overlay0 */
+        --ring: 114 135 253; /* Lavender */
+        --toggle: 254 100 11;
+    }
+    :root[data-theme="dark"] {
+        --background: 30 30 46; /* Base */
+        --foreground: 239 241 245; /* Text */
+        --card: 30 30 46; /* Base */
+        --card-foreground: 239 241 245; /* Text */
+        --popover: 30 30 46; /* Base */
+        --popover-foreground: 239 241 245; /* Text */
+        --primary: 180 190 254; /* Lavender */
+        --primary-foreground: 239 241 245; /* Text */
+        --secondary: 137 220 235; /* Sky */
+        --secondary-foreground: 239 241 245; /* Text */
+        --muted: 17 17 27; /* Crust */
+        --muted-foreground: 166 173 200; /* Subtext0 */
+        --accent: 24 24 37; /* Mantle */
+        --accent-foreground: 186 194 222; /* Subtext1 */
+        --destructive: 243 139 168; /* Red */
+        --destructive-foreground: 30 30 46; /* Base */
+        --border: 108 112 134; /* Overlay0 */
+        --input: 108 112 134; /* Overlay0 */
+        --ring: 180 190 254; /* Lavender */
+        --toggle: 137 180 250;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+#menubar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Loading Blocks Animation */
+.loading-block {
+    animation: loading_block 2.4s linear infinite;
+}
+
+.block-offset-0 {
+    animation-delay: -2.4s;
+}
+
+.block-offset-1 {
+    animation-delay: -1.6s;
+}
+
+.block-offset-2 {
+    animation-delay: -0.8s;
+}
+
+@keyframes loading_block {
+    8.33% {
+        x: 13px;
+        y: 1px;
+    }
+    25% {
+        x: 13px;
+        y: 1px;
+    }
+    33.3% {
+        x: 13px;
+        y: 13px;
+    }
+    50% {
+        x: 13px;
+        y: 13px;
+    }
+    58.33% {
+        x: 1px;
+        y: 13px;
+    }
+    75% {
+        x: 1px;
+        y: 13px;
+    }
+    83.33% {
+        x: 1px;
+        y: 1px;
+    }
+}
+
+/**
+ * Copyright (c) 2014 The xterm.js authors. All rights reserved.
+ * Copyright (c) 2012-2013, Christopher Jeffrey (MIT License)
+ * https:/*github.com/chjj/term.js
+ * @license MIT
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * Originally forked from (with the author's permission):
+ *   Fabrice Bellard's javascript vt100 for jslinux:
+ *   http:/*bellard.org/jslinux/
+ *   Copyright (c) 2011 Fabrice Bellard
+ *   The original design remains. The terminal itself
+ *   has been extended to include xterm CSI codes, among
+ *   other features.
+ */
+
+/**
+ *  Default styles for xterm.js
+ */
+
+.xterm {
+    cursor: text;
+    position: relative;
+    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.xterm.focus,
+.xterm:focus {
+    outline: none;
+}
+
+.xterm .xterm-helpers {
+    position: absolute;
+    top: 0;
+    /**
+     * The z-index of the helpers must be higher than the canvases in order for
+     * IMEs to appear on top.
+     */
+    z-index: 5;
+}
+
+.xterm .xterm-helper-textarea {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    /* Move textarea out of the screen to the far left, so that the cursor is not visible */
+    position: absolute;
+    opacity: 0;
+    left: -9999em;
+    top: 0;
+    width: 0;
+    height: 0;
+    z-index: -5;
+    /** Prevent wrapping so the IME appears against the textarea at the correct position */
+    white-space: nowrap;
+    overflow: hidden;
+    resize: none;
+}
+
+.xterm .composition-view {
+    display: none;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.xterm .composition-view.active {
+    display: block;
+}
+
+.xterm .xterm-viewport {
+    /* On OS X this is required in order for the scroll bar to appear fully opaque */
+    /* display: none; */
+    overflow-y: scroll;
+    cursor: default;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.xterm .xterm-screen {
+    position: relative;
+}
+
+.xterm .xterm-screen canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.xterm .xterm-scroll-area {
+    visibility: hidden;
+}
+
+.xterm-char-measure-element {
+    display: inline-block;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: -9999em;
+    line-height: normal;
+}
+
+.xterm.enable-mouse-events {
+    /* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
+    cursor: default;
+}
+
+.xterm.xterm-cursor-pointer,
+.xterm .xterm-cursor-pointer {
+    cursor: pointer;
+}
+
+.xterm.column-select.focus {
+    /* Column selection mode */
+    cursor: crosshair;
+}
+
+.xterm .xterm-accessibility,
+.xterm .xterm-message {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    color: transparent;
+    pointer-events: none;
+}
+
+.xterm .live-region {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.xterm-dim {
+    /* Dim should not apply to background, so the opacity of the foreground color is applied
+     * explicitly in the generated class and reset to 1 here */
+    opacity: 1 !important;
+}
+
+.xterm-underline-1 {
+    text-decoration: underline;
+}
+.xterm-underline-2 {
+    text-decoration: double underline;
+}
+.xterm-underline-3 {
+    text-decoration: wavy underline;
+}
+.xterm-underline-4 {
+    text-decoration: dotted underline;
+}
+.xterm-underline-5 {
+    text-decoration: dashed underline;
+}
+
+.xterm-overline {
+    text-decoration: overline;
+}
+
+.xterm-overline.xterm-underline-1 {
+    text-decoration: overline underline;
+}
+.xterm-overline.xterm-underline-2 {
+    text-decoration: overline double underline;
+}
+.xterm-overline.xterm-underline-3 {
+    text-decoration: overline wavy underline;
+}
+.xterm-overline.xterm-underline-4 {
+    text-decoration: overline dotted underline;
+}
+.xterm-overline.xterm-underline-5 {
+    text-decoration: overline dashed underline;
+}
+
+.xterm-strikethrough {
+    text-decoration: line-through;
+}
+
+.xterm-screen .xterm-decoration-container .xterm-decoration {
+    z-index: 6;
+    position: absolute;
+}
+
+.xterm-screen
+    .xterm-decoration-container
+    .xterm-decoration.xterm-decoration-top-layer {
+    z-index: 7;
+}
+
+.xterm-decoration-overview-ruler {
+    z-index: 8;
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+}
+
+.xterm-decoration-top {
+    z-index: 2;
+    position: relative;
+}
