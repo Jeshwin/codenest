@@ -3,7 +3,7 @@ import {fetchAuthSession} from "aws-amplify/auth/server";
 import {runWithAmplifyServerContext} from "@/utils/amplifyServerUtils";
 
 // 1. Specify protected and public routes
-const protectedRoutes = ["/codespace"];
+const protectedRoutes = ["/codespace", "/home", "/profile"];
 const publicRoutes = ["/register", "/login", "/"];
 
 export default async function middleware(request: NextRequest) {
@@ -17,7 +17,7 @@ export default async function middleware(request: NextRequest) {
     // 2. Check if the user is authenticated
     const authenticated = await runWithAmplifyServerContext({
         nextServerContext: {request, response},
-        operation: async contextSpec => {
+        operation: async (contextSpec) => {
             try {
                 const session = await fetchAuthSession(contextSpec);
                 return (
