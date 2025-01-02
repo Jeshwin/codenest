@@ -1,5 +1,5 @@
 {
- "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"1.8.0\",\"stackType\":\"root\",\"metadata\":{}}",
+ "Description": "{\"createdOn\":\"Linux\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"1.11.0\",\"stackType\":\"root\",\"metadata\":{}}",
  "Metadata": {
   "AWS::Amplify::Platform": {
    "version": "1",
@@ -156,7 +156,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/08c25d196013d60bc07653913b7e62cafa89dd962ae43e5616cda7ac9edaa51f.json"
+       "/bdcf48175d34fff2fe65db6cb2fe644b0971e851ad4c51f2e8a36b076c07c8ac.json"
       ]
      ]
     }
@@ -172,7 +172,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzSz0DNQTCwv1k1OydbNyUzSqw4uSUzO1nFOy/MvLSkoLQGx4EJBqcX5pUXJqSC2c35eSmZJZn5erU5efkqqXlaxfpmRgZ4p0Lys4sxM3aLSvJLM3FS9IAgNACSaFFVsAAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzQ31jNRTCwv1k1OydbNyUzSqw4uSUzO1nFOy/MvLSkoLQGx4EJBqcX5pUXJqSC2c35eSmZJZn5erU5efkqqXlaxfpmhhZ6RgZ6pYlZxZqZuUWleSWZuql4QhAYAYSGES20AAAA="
    },
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/CDKMetadata/Default"
