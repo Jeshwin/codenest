@@ -75,7 +75,7 @@ export default function RegisterPage() {
         if (isSignUpComplete) {
             console.log("Verification code valid! Welcome!");
             await autoSignIn();
-            router.push("/codespace");
+            router.push("/home");
         }
     };
 
@@ -94,7 +94,7 @@ export default function RegisterPage() {
                     } grid place-content-center`}
                 >
                     <Image
-                        src="/3D_logo.png"
+                        src="/coollogo.png"
                         alt="3D CodeNest Logo!"
                         width={384}
                         height={384}

@@ -31,6 +31,7 @@ export default function UserDropdown() {
     const router = useRouter();
     const handleSignOut = async () => {
         await signOut();
+        console.log("Returning home...");
         router.push("/");
     };
 
