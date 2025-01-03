@@ -65,11 +65,16 @@ export default function HomePage() {
             </div>
             <div>
                 <div className="flex justify-between mb-4">
-                    <div className="text-3xl ">My Projects</div>
-                    <Button>
-                        <Plus className="size-6" />
-                        Create Project
-                    </Button>
+                    <div className="text-3xl ">Recent Projects</div>
+                    <div className="flex space-x-4">
+                        <Link href="/projects">
+                            <Button variant="outline">See All</Button>
+                        </Link>
+                        <Button>
+                            <Plus className="size-6" />
+                            Create Project
+                        </Button>
+                    </div>
                 </div>
                 <div className="flex gap-x-4 flex-wrap">
                     {projectData.map((project, index) => (

@@ -115,7 +115,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                                     SidebarState === "expanded"
                                         ? "flex justify-center gap-0"
                                         : "pl-1"
-                                } bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground`}
+                                } bg-primary hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground`}
                             >
                                 <div className="p-1 rounded-lg">
                                     <Plus className="size-6" />

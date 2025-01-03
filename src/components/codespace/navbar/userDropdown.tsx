@@ -80,7 +80,7 @@ export default function UserDropdown() {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem className="bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground flex justify-center font-semibold">
+                        <DropdownMenuItem className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground flex justify-center font-semibold">
                             <Sparkles />
                             Upgrade to Pro
                         </DropdownMenuItem>
