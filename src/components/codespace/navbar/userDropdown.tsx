@@ -8,16 +8,15 @@ import {
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {AuthUser, getCurrentUser} from "aws-amplify/auth";
-import {CreditCard, LogOut, Sparkles, User} from "lucide-react";
+import {LogOut, Settings2, Sparkles, User} from "lucide-react";
 import {signOut} from "aws-amplify/auth";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
-import Image from "next/image";
-import {Avatar, AvatarFallback, AvatarImage} from "@radix-ui/react-avatar";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import Link from "next/link";
 
 export default function UserDropdown() {
     const [currentUser, setCurrentUser] = useState<AuthUser>();
@@ -42,21 +41,23 @@ export default function UserDropdown() {
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="sm" className="size-10 p-2">
-                        <Image
-                            src={`https://api.toucanny.net/avatar?userid=${
-                                currentUser?.userId
-                            }&w=${256}`}
-                            alt="User Profile Picture"
-                            width={256}
-                            height={256}
-                            className="size-6 rounded-full cursor-pointer"
-                        />
+                        <Avatar className="size-6 rounded-full">
+                            <AvatarImage
+                                src={`https://api.toucanny.net/avatar?userid=${
+                                    currentUser?.userId
+                                }&w=${256}`}
+                                alt={currentUser?.userId}
+                            />
+                            <AvatarFallback className="rounded-lg">
+                                CN
+                            </AvatarFallback>
+                        </Avatar>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="mx-2">
+                <DropdownMenuContent className="mx-2 w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg">
                     <DropdownMenuLabel className="p-0 font-normal">
                         <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                            <Avatar className="h-8 w-8 rounded-lg">
+                            <Avatar className="size-8 rounded-full">
                                 <AvatarImage
                                     src={`https://api.toucanny.net/avatar?userid=${
                                         currentUser?.userId
@@ -79,15 +80,27 @@ export default function UserDropdown() {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem className="bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground flex justify-center font-semibold">
                             <Sparkles />
                             Upgrade to Pro
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
-                    <DropdownMenuItem className="cursor-pointer">
-                        <User />
-                        Account
-                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                        <Link href="/profile">
+                            <DropdownMenuItem>
+                                <User />
+                                Profile
+                            </DropdownMenuItem>
+                        </Link>
+                        <Link href="/account">
+                            <DropdownMenuItem>
+                                <Settings2 />
+                                Account
+                            </DropdownMenuItem>
+                        </Link>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem
                         className="cursor-pointer"
                         onClick={handleSignOut}

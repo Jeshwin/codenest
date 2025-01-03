@@ -1,36 +1,40 @@
+"use client";
+
+import UserDropdown from "@/components/codespace/navbar/userDropdown";
 import ThemePicker from "@/components/themepicker";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {Separator} from "@/components/ui/separator";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
 import {SidebarTrigger} from "@/components/ui/sidebar";
+import {CircleHelp, Inbox, Search, Settings} from "lucide-react";
+import Link from "next/link";
+import {useState} from "react";
 
 export default function TopBar() {
+    const [searchTerm, setSearchTerm] = useState("");
+
     return (
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+        <header className="flex h-12 shrink-0 items-center gap-2 pr-3 py-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" />
-                <Separator orientation="vertical" className="mr-2 h-4" />
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        <BreadcrumbItem className="hidden md:block">
-                            <BreadcrumbLink href="#">
-                                Building Your Application
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator className="hidden md:block" />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
+            </div>
+            <div className="flex-1 mx-20 relative">
+                <Input
+                    className="pl-7 h-8 bg-accent border-0 focus:outline-none focus:ring-1 focus:ring-primary"
+                    placeholder="Search"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <Search className="size-4 absolute top-2 left-2 text-accent-foreground" />
             </div>
             <ThemePicker />
+
+            <Button variant="ghost" className="size-8">
+                <Inbox />
+            </Button>
+            <Button variant="ghost" className="size-8">
+                <CircleHelp />
+            </Button>
+            <UserDropdown />
         </header>
     );
 }

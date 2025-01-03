@@ -1,6 +1,6 @@
 "use client";
 
-import {ChevronsUpDown, LogOut, Sparkles, User} from "lucide-react";
+import {ChevronsUpDown, LogOut, Settings2, Sparkles, User} from "lucide-react";
 
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {
@@ -18,6 +18,11 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar";
+import {AuthUser, getCurrentUser} from "aws-amplify/auth";
+import {signOut} from "aws-amplify/auth";
+import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
+import Link from "next/link";
 
 export function NavUser({
     user,
@@ -29,6 +34,22 @@ export function NavUser({
     };
 }) {
     const {isMobile} = useSidebar();
+    const [currentUser, setCurrentUser] = useState<AuthUser>();
+
+    useEffect(() => {
+        const getData = async () => {
+            const data = await getCurrentUser();
+            setCurrentUser(data);
+        };
+        getData();
+    }, []);
+
+    const router = useRouter();
+    const handleSignOut = async () => {
+        await signOut();
+        console.log("Returning home...");
+        router.push("/");
+    };
 
     return (
         <SidebarMenu>
@@ -39,21 +60,23 @@ export function NavUser({
                             size="lg"
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
-                            <Avatar className="h-8 w-8 rounded-lg">
+                            <Avatar className="h-8 w-8 rounded-full">
                                 <AvatarImage
-                                    src={user.avatar}
-                                    alt={user.name}
+                                    src={`https://api.toucanny.net/avatar?userid=${
+                                        currentUser?.userId
+                                    }&w=${256}`}
+                                    alt={currentUser?.userId}
                                 />
-                                <AvatarFallback className="rounded-lg">
+                                <AvatarFallback className="rounded-full">
                                     CN
                                 </AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {user.name}
+                                    {currentUser?.userId}
                                 </span>
                                 <span className="truncate text-xs">
-                                    {user.email}
+                                    {currentUser?.userId}
                                 </span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4" />
@@ -67,41 +90,54 @@ export function NavUser({
                     >
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                <Avatar className="h-8 w-8 rounded-lg">
+                                <Avatar className="h-8 w-8 rounded-full">
                                     <AvatarImage
-                                        src={user.avatar}
-                                        alt={user.name}
+                                        src={`https://api.toucanny.net/avatar?userid=${
+                                            currentUser?.userId
+                                        }&w=${256}`}
+                                        alt={currentUser?.userId}
                                     />
-                                    <AvatarFallback className="rounded-lg">
+                                    <AvatarFallback className="rounded-full">
                                         CN
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">
-                                        {user.name}
+                                        {currentUser?.userId}
                                     </span>
                                     <span className="truncate text-xs">
-                                        {user.email}
+                                        {currentUser?.userId}
                                     </span>
                                 </div>
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem className="bg-primary text-primary-foreground flex justify-center font-semibold">
+                            <DropdownMenuItem className="bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground flex justify-center font-semibold">
                                 <Sparkles />
                                 Upgrade to Pro
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <User />
-                                Account
-                            </DropdownMenuItem>
+                            <Link href="/profile">
+                                <DropdownMenuItem>
+                                    <User />
+                                    Profile
+                                </DropdownMenuItem>
+                            </Link>
+                            <Link href="/account">
+                                <DropdownMenuItem>
+                                    <Settings2 />
+                                    Account
+                                </DropdownMenuItem>
+                            </Link>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="cursor-pointer"
+                            onClick={handleSignOut}
+                        >
                             <LogOut />
                             Log out
                         </DropdownMenuItem>

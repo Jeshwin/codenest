@@ -33,9 +33,9 @@ import Link from "next/link";
 // This is sample data.
 const data = {
     user: {
-        name: "shadcn",
+        name: "Jeshwin Prince",
         email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
+        avatar: "/avatar.png",
     },
     navMain: [
         {
@@ -53,22 +53,17 @@ const data = {
             url: "/usage",
             icon: Gauge,
         },
+    ],
+    projects: [
         {
             title: "People",
             url: "/people",
             icon: Users,
         },
-    ],
-    projects: [
         {
             title: "Templates",
             url: "/templates",
             icon: FileJson,
-        },
-        {
-            title: "Themes",
-            url: "/themes",
-            icon: Palette,
         },
         {
             title: "Events",
@@ -136,23 +131,27 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 <SidebarGroup className="pt-0">
                     <SidebarMenu>
                         {data.navMain.map((item) => (
-                            <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton tooltip={item.title}>
-                                    {item.icon && <item.icon />}
-                                    <span>{item.title}</span>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                            <Link href={item.url} key={item.title}>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton tooltip={item.title}>
+                                        {item.icon && <item.icon />}
+                                        <span>{item.title}</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </Link>
                         ))}
                     </SidebarMenu>
                     <SidebarGroupLabel>Explore</SidebarGroupLabel>
                     <SidebarMenu>
                         {data.projects.map((item) => (
-                            <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton tooltip={item.title}>
-                                    {item.icon && <item.icon />}
-                                    <span>{item.title}</span>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                            <Link href={item.url} key={item.title}>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton tooltip={item.title}>
+                                        {item.icon && <item.icon />}
+                                        <span>{item.title}</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </Link>
                         ))}
                     </SidebarMenu>
                 </SidebarGroup>
