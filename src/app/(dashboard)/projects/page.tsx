@@ -1,4 +1,3 @@
-import Greeting from "@/components/dashboard/home/greeting";
 import Folders from "@/components/dashboard/projects/folders";
 import {
     CppIcon,
@@ -21,9 +20,8 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import {BookOpen, Folder, PartyPopper, Plus, Users} from "lucide-react";
+import {Plus} from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 // Sample Data
 const projectData = [
