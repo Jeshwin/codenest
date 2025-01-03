@@ -49,11 +49,27 @@ module.exports = {
                 input: "rgb(var(--input))",
                 ring: "rgb(var(--ring))",
                 toggle: "rgb(var(--toggle))",
+                sidebar: {
+                    DEFAULT: "rgb(var(--sidebar-background))",
+                    foreground: "rgb(var(--sidebar-foreground))",
+                    primary: "rgb(var(--sidebar-primary))",
+                    "primary-foreground":
+                        "rgb(var(--sidebar-primary-foreground))",
+                    accent: "rgb(var(--sidebar-accent))",
+                    "accent-foreground":
+                        "rgb(var(--sidebar-accent-foreground))",
+                    border: "rgb(var(--sidebar-border))",
+                    ring: "rgb(var(--sidebar-ring))",
+                },
             },
             keyframes: {
                 "caret-blink": {
-                    "0%,70%,100%": {opacity: "1"},
-                    "20%,50%": {opacity: "0"},
+                    "0%,70%,100%": {
+                        opacity: "1",
+                    },
+                    "20%,50%": {
+                        opacity: "0",
+                    },
                 },
                 blink: {
                     "50%": {
