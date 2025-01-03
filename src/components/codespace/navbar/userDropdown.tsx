@@ -73,7 +73,7 @@ export default function UserDropdown() {
                                     {currentUser?.userId}
                                 </span>
                                 <span className="truncate text-xs">
-                                    {currentUser?.userId}
+                                    {currentUser?.signInDetails?.loginId}
                                 </span>
                             </div>
                         </div>

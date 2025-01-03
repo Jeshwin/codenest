@@ -7,13 +7,12 @@ import {
     FileJson,
     Gauge,
     Home,
-    Palette,
     PartyPopper,
     Plus,
     Users,
 } from "lucide-react";
 
-import {NavUser} from "@/components/nav-user";
+import NavUser from "@/components/dashboard/nav-user";
 import {
     Sidebar,
     SidebarContent,
@@ -157,7 +156,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user} />
+                <NavUser />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

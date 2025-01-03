@@ -16,7 +16,7 @@ import GitHubLogo from "@/components/icons/github";
 import GoogleLogo from "@/components/icons/google";
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
 import {useRouter} from "next/navigation";
-import CooldownButton from "@/components/cooldownButton";
+import CooldownButton from "@/components/login/cooldownButton";
 
 export default function LoginPage() {
     const router = useRouter();

@@ -4,10 +4,9 @@ import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/components/logo";
-import TypewriterText from "@/components/typewritertext";
+import TypewriterText from "@/components/landing/typewritertext";
 import {ArrowDown} from "lucide-react";
-import StyleCanvas from "@/components/homepage/stylecanvas";
-import CodeEditor from "@/components/codespace/codemirror/mirror";
+import StyleCanvas from "@/components/landing/stylecanvas";
 
 export default function HomePage() {
     const supportedLanguages = [

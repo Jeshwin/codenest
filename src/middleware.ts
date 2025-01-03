@@ -40,7 +40,7 @@ export default async function middleware(request: NextRequest) {
 
     // 4. Redirect to /codespace if the user is authenticated
     if (isPublicRoute && authenticated) {
-        return NextResponse.redirect(new URL("/codespace", request.nextUrl));
+        return NextResponse.redirect(new URL("/home", request.nextUrl));
     }
 
     return NextResponse.next();

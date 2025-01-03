@@ -24,15 +24,7 @@ import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import Link from "next/link";
 
-export function NavUser({
-    user,
-}: {
-    user: {
-        name: string;
-        email: string;
-        avatar: string;
-    };
-}) {
+export default function NavUser() {
     const {isMobile} = useSidebar();
     const [currentUser, setCurrentUser] = useState<AuthUser>();
 
@@ -76,7 +68,7 @@ export function NavUser({
                                     {currentUser?.userId}
                                 </span>
                                 <span className="truncate text-xs">
-                                    {currentUser?.userId}
+                                    {currentUser?.signInDetails?.loginId}
                                 </span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4" />
@@ -106,7 +98,7 @@ export function NavUser({
                                         {currentUser?.userId}
                                     </span>
                                     <span className="truncate text-xs">
-                                        {currentUser?.userId}
+                                        {currentUser?.signInDetails?.loginId}
                                     </span>
                                 </div>
                             </div>

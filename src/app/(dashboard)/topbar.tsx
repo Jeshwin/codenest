@@ -5,6 +5,7 @@ import ThemePicker from "@/components/themepicker";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {SidebarTrigger} from "@/components/ui/sidebar";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {CircleHelp, Inbox, Search, Settings} from "lucide-react";
 import Link from "next/link";
 import {useState} from "react";
@@ -27,13 +28,26 @@ export default function TopBar() {
                 <Search className="size-4 absolute top-2 left-2 text-accent-foreground" />
             </div>
             <ThemePicker />
-
-            <Button variant="ghost" className="size-8">
-                <Inbox />
-            </Button>
-            <Button variant="ghost" className="size-8">
-                <CircleHelp />
-            </Button>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button variant="ghost" className="size-8">
+                        <Inbox />
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" align="center">
+                    Inbox
+                </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button variant="ghost" className="size-8">
+                        <CircleHelp />
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" align="center">
+                    Help
+                </TooltipContent>
+            </Tooltip>
             <UserDropdown />
         </header>
     );
