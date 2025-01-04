@@ -10,7 +10,11 @@ export default function DashboardLayout({children}) {
                 <AppSidebar />
                 <SidebarInset>
                     <TopBar />
-                    <Suspense>{children}</Suspense>
+                    <Suspense>
+                        <div className="container px-10 mx-auto flex flex-col gap-8 pt-6">
+                            {children}
+                        </div>
+                    </Suspense>
                 </SidebarInset>
             </SidebarProvider>
         </body>

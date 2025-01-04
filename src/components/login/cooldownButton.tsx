@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Button} from "./ui/button";
+import {Button} from "../ui/button";
 
 export default function CooldownButton({onClick, variant, children}) {
     const cooldownTime = 60; // Cooldown time in seconds
@@ -21,7 +21,7 @@ export default function CooldownButton({onClick, variant, children}) {
         }
     }, []);
 
-    const startCountdown = duration => {
+    const startCountdown = (duration) => {
         let secondsLeft = duration;
 
         const interval = setInterval(() => {

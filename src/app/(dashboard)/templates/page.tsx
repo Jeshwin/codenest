@@ -34,7 +34,7 @@ const featuredTemplates = [
 
 export default function TemplatesPage() {
     return (
-        <div className="container mx-10 sm:mx-auto flex flex-col gap-8 pt-6">
+        <>
             <div>
                 <div className="text-5xl">Templates</div>
                 <div className="text-xl ml-1 mt-1">
@@ -84,6 +84,6 @@ export default function TemplatesPage() {
                     </Button>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

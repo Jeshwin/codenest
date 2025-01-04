@@ -56,7 +56,7 @@ const gettingStarted = [
 
 export default function HomePage() {
     return (
-        <div className="container mx-10 sm:mx-auto flex flex-col gap-8 pt-6">
+        <>
             <div>
                 <Greeting />
                 <div className="text-xl ml-1 mt-1">
@@ -116,6 +116,6 @@ export default function HomePage() {
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     );
 }

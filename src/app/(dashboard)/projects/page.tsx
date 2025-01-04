@@ -48,7 +48,7 @@ const nestedFolders = ["CS 181", "Research", "Subfolder #3", "Playgrounds"];
 
 export default function ProjectsPage() {
     return (
-        <div className="container mx-10 sm:mx-auto flex flex-col gap-8 pt-6">
+        <>
             <div className="flex justify-between">
                 <Breadcrumb>
                     <BreadcrumbList className="text-4xl">
@@ -113,6 +113,6 @@ export default function ProjectsPage() {
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     );
 }

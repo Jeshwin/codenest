@@ -45,7 +45,7 @@ export default function LoginPage() {
             });
             console.dir({isSignedIn, nextStep});
             if (isSignedIn || nextStep.signInStep === "DONE") {
-                router.push("/codespace");
+                router.push("/home");
             } else if (nextStep.signInStep === "CONFIRM_SIGN_UP") {
                 resendSignUpCode({
                     username: user.username,
