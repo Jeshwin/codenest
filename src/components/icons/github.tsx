@@ -1,11 +1,20 @@
-export default function GitHubLogo() {
+import {cn} from "@/lib/utils";
+
+export default function GitHubLogo({
+    className,
+    ...props
+}: React.HTMLAttributes<HTMLOrSVGElement>) {
     return (
         <svg
             version="1.1"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
-            className="size-4 fill-foreground strok-foreground"
             viewBox="0 0 97.6 96"
+            className={cn(
+                "size-4 fill-foreground stroke-foreground",
+                className
+            )}
+            {...props}
         >
             <path
                 d="M48.9,0C21.8,0,0,22,0,49.2C0,71,14,89.4,33.4,95.9c2.4,0.5,3.3-1.1,3.3-2.4c0-1.1-0.1-5.1-0.1-9.1

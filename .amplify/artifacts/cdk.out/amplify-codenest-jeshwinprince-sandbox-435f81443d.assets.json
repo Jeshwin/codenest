@@ -1,7 +1,7 @@
 {
   "version": "38.0.1",
   "files": {
-    "08c25d196013d60bc07653913b7e62cafa89dd962ae43e5616cda7ac9edaa51f": {
+    "0e42070f5fa868503feb246aabddf22b15613adf1566bbec2f47226ca2a0fb4e": {
       "source": {
         "path": "amplifycodenestjeshwinprincesandbox435f81443dauthA15C969E.nested.template.json",
         "packaging": "file"
@@ -9,12 +9,12 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "08c25d196013d60bc07653913b7e62cafa89dd962ae43e5616cda7ac9edaa51f.json",
+          "objectKey": "0e42070f5fa868503feb246aabddf22b15613adf1566bbec2f47226ca2a0fb4e.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }
     },
-    "7af5c74de74d429024ee944c2114ceae0459a1e200a5732604e9351907594fb8": {
+    "d7893a58c0bff32eb76d0cafbdd254d80458ccf3a4273554cdc01de28906af76": {
       "source": {
         "path": "amplify-codenest-jeshwinprince-sandbox-435f81443d.template.json",
         "packaging": "file"
@@ -22,7 +22,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "7af5c74de74d429024ee944c2114ceae0459a1e200a5732604e9351907594fb8.json",
+          "objectKey": "d7893a58c0bff32eb76d0cafbdd254d80458ccf3a4273554cdc01de28906af76.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

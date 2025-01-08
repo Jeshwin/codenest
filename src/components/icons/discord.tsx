@@ -1,9 +1,15 @@
-export default function DiscordLogo() {
+import {cn} from "@/lib/utils";
+
+export default function DiscordLogo({
+    className,
+    ...props
+}: React.HTMLAttributes<HTMLOrSVGElement>) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 127.14 96.36"
-            className="size-4"
+            className={cn("size-4", className)}
+            {...props}
         >
             <path
                 fill="#5865f2"
