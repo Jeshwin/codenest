@@ -25,28 +25,27 @@ export default function ProfilePage() {
 
     return (
         <div className="flex flex-1 flex-col gap-4">
-            <div className="relative min-h-80 rounded-xl border flex px-24 py-16 overflow-hidden">
-                <Avatar className="size-56 rounded-full border-4 border-background">
-                    <AvatarImage
-                        src={`https://api.toucanny.net/avatar?userid=${
-                            currentUser?.userId
-                        }&w=${256}`}
-                        alt={currentUser?.userId}
-                    />
-                    <AvatarFallback className="rounded-full">CN</AvatarFallback>
-                </Avatar>
-                <div className="ml-8 flex flex-col gap-4 py-8">
+            <div className="flex flex-col gap-4">
+                <div className="flex space-x-2 align-middle p-5 rounded-xl border">
+                    <Avatar className="size-20 rounded-full border-4 border-background">
+                        <AvatarImage
+                            src={`https://api.toucanny.net/avatar?userid=${
+                                currentUser?.userId
+                            }&w=${256}`}
+                            alt={currentUser?.userId}
+                        />
+                        <AvatarFallback className="rounded-full">
+                            CN
+                        </AvatarFallback>
+                    </Avatar>
                     <div>
-                        <div className="text-4xl font-semibold">
+                        <div className="text-5xl whitespace-nowrap">
                             Jeshwin Prince
                         </div>
-                        <div className="text-sm">@jeshwinprince</div>
+                        <div>@jeshwinprince</div>
                     </div>
-                    <div className="flex gap-2 items-center">
-                        <Calendar />
-                        Joined April 1, 1936
-                    </div>
-                    <div className="flex flex-wrap w-full gap-4">
+                    <div className="flex-1" />
+                    <div className="flex flex-wrap gap-4 pr-2">
                         <Link
                             href="https://github.com/"
                             className="flex gap-2 items-center"
