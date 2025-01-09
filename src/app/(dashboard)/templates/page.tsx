@@ -1,3 +1,4 @@
+import TemplateCard from "@/components/dashboard/templatecard";
 import {
     CppIcon,
     JavaIcon,
@@ -5,8 +6,16 @@ import {
     PythonIcon,
 } from "@/components/icons/languages/icons";
 import {Button} from "@/components/ui/button";
+import {Card} from "@/components/ui/card";
 import {Input} from "@/components/ui/input";
-import {ChevronDown, ListFilter, Search} from "lucide-react";
+import {
+    ChevronDown,
+    ListFilter,
+    PlusCircle,
+    Search,
+    ThumbsUp,
+} from "lucide-react";
+import Link from "next/link";
 
 // Sample Data
 const featuredTemplates = [
@@ -43,25 +52,12 @@ export default function TemplatesPage() {
                 </div>
             </div>
             <div>
-                <div className="flex justify-between mb-4">
-                    <div className="text-3xl ">Featured Templates</div>
+                <div className="h-10 flex justify-between mb-4">
+                    <div className="text-3xl">Featured Templates</div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {featuredTemplates.map((template, index) => (
-                        <div
-                            className="flex gap-2 align-middle rounded-md px-3 py-2 border"
-                            key={index}
-                        >
-                            <div className="size-10 p-2 rounded-md bg-primary">
-                                <template.language className="size-6 fill-background" />
-                            </div>
-                            <div className="flex flex-col justify-start">
-                                <div className="w-fit">{template.title}</div>
-                                <div className="text-xs text-nowrap overflow-hidden text-ellipsis">
-                                    {template.description}
-                                </div>
-                            </div>
-                        </div>
+                        <TemplateCard template={template} key={index} />
                     ))}
                 </div>
             </div>

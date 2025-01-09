@@ -1,16 +1,67 @@
 "use client";
 
+import ProjectCard from "@/components/dashboard/projectcard";
+import TemplateCard from "@/components/dashboard/templatecard";
 import BlueskyLogo from "@/components/icons/bluesky";
 import DiscordLogo from "@/components/icons/discord";
 import GitHubLogo from "@/components/icons/github";
+import {
+    CppIcon,
+    JavaIcon,
+    NodeJSIcon,
+    PythonIcon,
+} from "@/components/icons/languages/icons";
 import TwitterLogo from "@/components/icons/twitter";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {AuthUser, getCurrentUser} from "aws-amplify/auth";
-import {Calendar, LinkIcon, Youtube} from "lucide-react";
-import Image from "next/image";
+import {LinkIcon} from "lucide-react";
 import Link from "next/link";
 import {useEffect, useState} from "react";
+
+// Sample Data
+const projectData = [
+    {
+        title: "Sirexa",
+        language: PythonIcon,
+        lastUpdated: new Date("December 25, 2024"),
+        size: 4224216,
+    },
+    {
+        title: "Bitmap to PNG",
+        language: CppIcon,
+        lastUpdated: new Date("February 20, 2022"),
+        size: 167772,
+    },
+    {
+        title: "Valorant Lite",
+        language: NodeJSIcon,
+        lastUpdated: new Date("January 2, 2025"),
+        size: 25002048,
+    },
+];
+const templateData = [
+    {
+        title: "Python",
+        description: "A blank Python file",
+        language: PythonIcon,
+    },
+    {
+        title: "C++",
+        description: "Starter C++ project with Meson",
+        language: CppIcon,
+    },
+    {
+        title: "Node.js",
+        description: "Blank Node.js project",
+        language: NodeJSIcon,
+    },
+    {
+        title: "Surreal Engine",
+        description: "Physics engine for beginners",
+        language: JavaIcon,
+    },
+];
 
 export default function ProfilePage() {
     const [currentUser, setCurrentUser] = useState<AuthUser>();
@@ -26,7 +77,7 @@ export default function ProfilePage() {
     return (
         <div className="flex flex-1 flex-col gap-4">
             <div className="flex flex-col gap-4">
-                <div className="flex space-x-2 align-middle p-5 rounded-xl border">
+                <div className="flex space-x-2 align-middle">
                     <Avatar className="size-20 rounded-full border-4 border-background">
                         <AvatarImage
                             src={`https://api.toucanny.net/avatar?userid=${
@@ -56,7 +107,7 @@ export default function ProfilePage() {
                             </Button>
                         </Link>
                         <Link
-                            href="https://github.com/"
+                            href="https://discord.com/"
                             className="flex gap-2 items-center"
                         >
                             <Button variant="outline">
@@ -65,7 +116,7 @@ export default function ProfilePage() {
                             </Button>
                         </Link>
                         <Link
-                            href="https://github.com/"
+                            href="https://x.com/"
                             className="flex gap-2 items-center"
                         >
                             <Button variant="outline">
@@ -73,7 +124,7 @@ export default function ProfilePage() {
                             </Button>
                         </Link>
                         <Link
-                            href="https://github.com/"
+                            href="https://bsky.app/"
                             className="flex gap-2 items-center"
                         >
                             <Button variant="outline">
@@ -82,7 +133,7 @@ export default function ProfilePage() {
                             </Button>
                         </Link>
                         <Link
-                            href="https://github.com/"
+                            href="https://jeshwinprince.com/"
                             className="flex gap-2 items-center"
                         >
                             <Button variant="outline">
@@ -91,6 +142,18 @@ export default function ProfilePage() {
                             </Button>
                         </Link>
                     </div>
+                </div>
+                <div className="text-3xl mt-2">Public Projects</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {projectData.map((project, index) => (
+                        <ProjectCard key={index} project={project} />
+                    ))}
+                </div>
+                <div className="text-3xl mt-2">Public Templates</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {templateData.map((template, index) => (
+                        <TemplateCard template={template} key={index} />
+                    ))}
                 </div>
             </div>
         </div>

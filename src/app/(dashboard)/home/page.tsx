@@ -1,41 +1,36 @@
 import Greeting from "@/components/dashboard/home/greeting";
+import ProjectCard from "@/components/dashboard/projectcard";
 import {
     CppIcon,
     NodeJSIcon,
     PythonIcon,
 } from "@/components/icons/languages/icons";
 import {Button} from "@/components/ui/button";
-import {
-    Card,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
 import {BookOpen, PartyPopper, Plus, Users} from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 // Sample Data
 const projectData = [
     {
         title: "Sirexa",
-        description: "A personal chatbot",
-        image: "/projects/chatbot.jpg",
         language: PythonIcon,
+        lastUpdated: new Date("December 25, 2024"),
+        size: 4224216,
     },
     {
         title: "Bitmap to PNG",
-        description: "Exploring how computers process images",
-        image: "/projects/camera.jpg",
         language: CppIcon,
+        lastUpdated: new Date("February 20, 2022"),
+        size: 167772,
     },
     {
         title: "Valorant Lite",
-        description: "Entry for the 20xx CodeNest Game Jam",
-        image: "/projects/videogame.jpg",
         language: NodeJSIcon,
+        lastUpdated: new Date("January 2, 2025"),
+        size: 25002048,
     },
 ];
+
 const gettingStarted = [
     {
         action: "Join an event",
@@ -65,7 +60,7 @@ export default function HomePage() {
             </div>
             <div>
                 <div className="flex justify-between mb-4">
-                    <div className="text-3xl ">Recent Projects</div>
+                    <div className="text-3xl">Recent Projects</div>
                     <div className="flex space-x-4">
                         <Link href="/projects">
                             <Button variant="outline">See All</Button>
@@ -76,30 +71,9 @@ export default function HomePage() {
                         </Button>
                     </div>
                 </div>
-                <div className="flex gap-x-4 flex-wrap">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {projectData.map((project, index) => (
-                        <Card
-                            key={index}
-                            className="w-80 h-fit overflow-hidden"
-                        >
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                width={320}
-                                height={(320 * 9) / 16}
-                                className="aspect-video object-cover"
-                            />
-
-                            <CardHeader className="relative">
-                                <div className="absolute -top-6 left-6 rounded-md size-12 p-2 bg-primary border border-background">
-                                    <project.language className="size-8 fill-background" />
-                                </div>
-                                <CardTitle>{project.title}</CardTitle>
-                                <CardDescription className="w-full text-nowrap overflow-hidden text-ellipsis">
-                                    {project.description}
-                                </CardDescription>
-                            </CardHeader>
-                        </Card>
+                        <ProjectCard key={index} project={project} />
                     ))}
                 </div>
             </div>
