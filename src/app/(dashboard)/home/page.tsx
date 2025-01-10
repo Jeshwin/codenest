@@ -1,4 +1,5 @@
 import Greeting from "@/components/dashboard/home/greeting";
+import WelcomeDialog from "@/components/dashboard/home/welcomedialog";
 import ProjectCard from "@/components/dashboard/projectcard";
 import {
     CppIcon,
@@ -52,6 +53,7 @@ const gettingStarted = [
 export default function HomePage() {
     return (
         <>
+            <WelcomeDialog />
             <div>
                 <Greeting />
                 <div className="text-xl ml-1 mt-1">
