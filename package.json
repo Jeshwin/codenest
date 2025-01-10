@@ -28,7 +28,7 @@
         "@aws-amplify/adapter-nextjs": "^1.2.29-next-15.716cf28.0",
         "@codemirror/collab": "^6.1.1",
         "@codemirror/state": "^6.4.1",
-        "@hookform/resolvers": "^3.9.1",
+        "@hookform/resolvers": "^3.10.0",
         "@radix-ui/react-alert-dialog": "^1.1.4",
         "@radix-ui/react-avatar": "^1.1.2",
         "@radix-ui/react-collapsible": "^1.1.2",
@@ -57,7 +57,7 @@
         "react-dnd": "^16.0.1",
         "react-dnd-html5-backend": "^16.0.1",
         "react-dom": "^18.3.1",
-        "react-hook-form": "^7.53.2",
+        "react-hook-form": "^7.54.2",
         "react-layman": "^0.2.10",
         "sharp": "^0.33.5",
         "socket.io-client": "^4.8.1",
@@ -66,11 +66,12 @@
         "thememirror": "^2.0.1",
         "xterm": "^5.3.0",
         "xterm-addon-fit": "^0.8.0",
-        "zod": "^3.23.8"
+        "zod": "^3.24.1"
     },
     "devDependencies": {
         "@aws-amplify/backend": "^1.7.0",
         "@aws-amplify/backend-cli": "^1.4.2",
+        "@types/js-cookie": "^3.0.6",
         "@types/node": "22.9.0",
         "@types/react": "18.3.12",
         "autoprefixer": "^10",
