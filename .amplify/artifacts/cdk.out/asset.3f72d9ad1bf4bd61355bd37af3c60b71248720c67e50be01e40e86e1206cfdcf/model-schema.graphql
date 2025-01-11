@@ -1,0 +1,8 @@
+type UserInfo @model @auth(rules: [{allow: public, provider: apiKey}])
+{
+  username: String
+  firstName: String
+  lastName: String
+  bio: String
+  profilePhoto: String
+}

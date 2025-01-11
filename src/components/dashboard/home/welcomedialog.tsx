@@ -78,6 +78,12 @@ export default function WelcomeDialog() {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values);
+        console.log(
+            avatarUrl ||
+                `https://api.toucanny.net/avatar?userid=${
+                    currentUser?.userId
+                }&w=${256}`
+        );
     }
 
     useEffect(() => {
@@ -215,7 +221,9 @@ export default function WelcomeDialog() {
                                     name="lastName"
                                     render={({field}) => (
                                         <FormItem className="w-1/2">
-                                            <FormLabel>Last Name</FormLabel>
+                                            <FormLabel>
+                                                Last Name (optional)
+                                            </FormLabel>
                                             <FormControl>
                                                 <Input
                                                     placeholder="Doe"
@@ -232,7 +240,7 @@ export default function WelcomeDialog() {
                                 name="bio"
                                 render={({field}) => (
                                     <FormItem>
-                                        <FormLabel>Bio</FormLabel>
+                                        <FormLabel>Bio (optional)</FormLabel>
                                         <FormControl>
                                             <Textarea
                                                 placeholder="Tell us a little bit about yourself"

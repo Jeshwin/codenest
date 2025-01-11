@@ -301,7 +301,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02NwQ6CMAyGn4X7qIgaz4aTF2Iwng1uVQtjTdjQmGXv7ghBOfXr97f5c1jvN7BN6rdNpWpTTTfwJVqH6uxq2YoYXL3khyHH4C8W+xOzFsXd/HiGQhMat4z+5qgikPvMz8u9Yo0HF9ueXZRBUN2BH+V4OM4QRIWWh15OasEFG0WO2ARhWCE0dvXKM9hBljSWKO2HWNMhVNP8AvUffC/vAAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02NwQ6CMAyGn4X7qIImng0nL8ZgPBvcqha2NWFDY5a9uyME5dSv39/mL6HYbWCbNW+XS9Xlmm4Qjug8qrNvZCdScA2SH5Y8Q7g47E/MWlR3++MZKk1o/TL6m4NKQP4zPy/3mjXufWp7miSjoMZAGOV4OM4YRY2Oh15OasEVW0We2EZhWSG0bvUqCyhgnbWOKO+HVGMQ6ml+AT0nZ6HvAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/auth/CDKMetadata/Default"
@@ -589,6 +589,16 @@
   "amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthIdentityPool380C30D6Ref": {
    "Value": {
     "Ref": "amplifyAuthIdentityPool3FDE84CC"
+   }
+  },
+  "amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthauthenticatedUserRoleFA688C17Ref": {
+   "Value": {
+    "Ref": "amplifyAuthauthenticatedUserRoleD8DA3689"
+   }
+  },
+  "amplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthunauthenticatedUserRoleE65D85FARef": {
+   "Value": {
+    "Ref": "amplifyAuthunauthenticatedUserRole2B524D9E"
    }
   }
  }

@@ -1,0 +1,253 @@
+type UserInfo @aws_iam @aws_cognito_user_pools {
+  username: String!
+  firstName: String!
+  lastName: String
+  bio: String
+  profilePhoto: String
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+input AmplifyAIConversationTurnErrorInput {
+  errorType: String!
+  message: String!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelUserInfoConnection @aws_iam @aws_cognito_user_pools {
+  items: [UserInfo]!
+  nextToken: String
+}
+
+input ModelUserInfoFilterInput {
+  username: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  bio: ModelStringInput
+  profilePhoto: ModelStringInput
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelUserInfoFilterInput]
+  or: [ModelUserInfoFilterInput]
+  not: ModelUserInfoFilterInput
+  owner: ModelStringInput
+}
+
+type Query {
+  getUserInfo(id: ID!): UserInfo @aws_iam @aws_cognito_user_pools
+  listUserInfos(filter: ModelUserInfoFilterInput, limit: Int, nextToken: String): ModelUserInfoConnection @aws_iam @aws_cognito_user_pools
+}
+
+input ModelUserInfoConditionInput {
+  username: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  bio: ModelStringInput
+  profilePhoto: ModelStringInput
+  and: [ModelUserInfoConditionInput]
+  or: [ModelUserInfoConditionInput]
+  not: ModelUserInfoConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  owner: ModelStringInput
+}
+
+input CreateUserInfoInput {
+  username: String!
+  firstName: String!
+  lastName: String
+  bio: String
+  profilePhoto: String
+  id: ID
+}
+
+input UpdateUserInfoInput {
+  username: String
+  firstName: String
+  lastName: String
+  bio: String
+  profilePhoto: String
+  id: ID!
+}
+
+input DeleteUserInfoInput {
+  id: ID!
+}
+
+type Mutation {
+  createUserInfo(input: CreateUserInfoInput!, condition: ModelUserInfoConditionInput): UserInfo @aws_iam @aws_cognito_user_pools
+  updateUserInfo(input: UpdateUserInfoInput!, condition: ModelUserInfoConditionInput): UserInfo @aws_iam @aws_cognito_user_pools
+  deleteUserInfo(input: DeleteUserInfoInput!, condition: ModelUserInfoConditionInput): UserInfo @aws_iam @aws_cognito_user_pools
+}
+
+input ModelSubscriptionUserInfoFilterInput {
+  username: ModelSubscriptionStringInput
+  firstName: ModelSubscriptionStringInput
+  lastName: ModelSubscriptionStringInput
+  bio: ModelSubscriptionStringInput
+  profilePhoto: ModelSubscriptionStringInput
+  id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionUserInfoFilterInput]
+  or: [ModelSubscriptionUserInfoFilterInput]
+  owner: ModelStringInput
+}
+
+type Subscription {
+  onCreateUserInfo(filter: ModelSubscriptionUserInfoFilterInput, owner: String): UserInfo @aws_subscribe(mutations: ["createUserInfo"]) @aws_iam @aws_cognito_user_pools
+  onUpdateUserInfo(filter: ModelSubscriptionUserInfoFilterInput, owner: String): UserInfo @aws_subscribe(mutations: ["updateUserInfo"]) @aws_iam @aws_cognito_user_pools
+  onDeleteUserInfo(filter: ModelSubscriptionUserInfoFilterInput, owner: String): UserInfo @aws_subscribe(mutations: ["deleteUserInfo"]) @aws_iam @aws_cognito_user_pools
+}
