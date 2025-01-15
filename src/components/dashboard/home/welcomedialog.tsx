@@ -45,6 +45,23 @@ const userFormSchema = z.object({
         .regex(
             /^[a-zA-Z0-9_]+$/,
             "Username can only contain alphanumeric characters and underscores"
+        )
+        .refine(
+            async (username) => {
+                const {data: users, errors} = await client.models.UserInfo.list(
+                    {
+                        filter: {
+                            username: {
+                                eq: username,
+                            },
+                        },
+                    }
+                );
+                return users.length == 0;
+            },
+            {
+                message: "Username already exists",
+            }
         ),
     firstName: z
         .string()

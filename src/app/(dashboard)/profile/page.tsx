@@ -18,6 +18,12 @@ import {AuthUser, getCurrentUser} from "aws-amplify/auth";
 import {LinkIcon} from "lucide-react";
 import Link from "next/link";
 import {useEffect, useState} from "react";
+import {generateClient} from "aws-amplify/data";
+import {type Schema} from "@/../amplify/data/resource";
+
+const client = generateClient<Schema>({
+    authMode: "userPool",
+});
 
 // Sample Data
 const projectData = [
@@ -65,6 +71,8 @@ const templateData = [
 
 export default function ProfilePage() {
     const [currentUser, setCurrentUser] = useState<AuthUser>();
+    const [currentUserInfo, setCurrentUserInfo] =
+        useState<Schema["UserInfo"]["type"]>();
 
     useEffect(() => {
         const getData = async () => {
@@ -74,27 +82,59 @@ export default function ProfilePage() {
         getData();
     }, []);
 
+    useEffect(() => {
+        if (!currentUser) return;
+        // get a specific item
+        async function getUserInfo() {
+            const {data: userInfo, errors} = await client.models.UserInfo.list({
+                filter: {
+                    owner: {
+                        eq: currentUser.userId,
+                    },
+                },
+            });
+            /**
+             * {
+                filter: {
+                    owner: {
+                        eq: currentUser.userId,
+                    },
+                },
+            }
+             */
+            console.dir({data: userInfo, errors});
+            setCurrentUserInfo(userInfo[0]);
+        }
+        console.log(currentUser.userId);
+        getUserInfo();
+    }, [currentUser]);
+
     return (
         <div className="flex flex-1 flex-col gap-4">
             <div className="flex flex-col gap-4">
                 <div className="flex space-x-2 align-middle">
-                    <Avatar className="size-20 rounded-full border-4 border-background">
-                        <AvatarImage
-                            src={`https://api.toucanny.net/avatar?userid=${
-                                currentUser?.userId
-                            }&w=${256}`}
-                            alt={currentUser?.userId}
-                        />
-                        <AvatarFallback className="rounded-full">
-                            CN
-                        </AvatarFallback>
-                    </Avatar>
-                    <div>
-                        <div className="text-5xl whitespace-nowrap">
-                            Jeshwin Prince
-                        </div>
-                        <div>@jeshwinprince</div>
-                    </div>
+                    {currentUserInfo && (
+                        <>
+                            <Avatar className="size-20 rounded-full border-4 border-background">
+                                <AvatarImage
+                                    src={`https://api.toucanny.net/avatar?userid=${
+                                        currentUser?.userId
+                                    }&w=${256}`}
+                                    alt={currentUser?.userId}
+                                />
+                                <AvatarFallback className="rounded-full">
+                                    CN
+                                </AvatarFallback>
+                            </Avatar>
+                            <div>
+                                <div className="text-5xl whitespace-nowrap">
+                                    {currentUserInfo.firstName}{" "}
+                                    {currentUserInfo.lastName}
+                                </div>
+                                <div>@{currentUserInfo.username}</div>
+                            </div>
+                        </>
+                    )}
                     <div className="flex-1" />
                     <div className="flex flex-wrap gap-4 pr-2">
                         <Link
