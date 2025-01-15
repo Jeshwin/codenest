@@ -418,7 +418,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12OzQ6CQAyEn8X7UgVMPCtnDZEHMOtuNeVn12wLxhDeXRCjxlNnOt80TSDepLBe6DtHxlZRTWfoD8iCthBtKjUGp55T6HetqVBUdnFvNY/c12Qe3/XsB8XcQF9IIHfNddANCoaJ+phBkR6Rb//dHFTWsvjmiOzbYHCKfvVe327j0T8qD74ji2GnGdWWGWV8//riLi7zzpKQd4Ny3iKUvOySGGJYLUomikLrhBqE4zyftFIebhQBAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12OzQ6CQAyEn4X7Un/QeFbOGoIPYNbdaiqwa7ZFYwjvLggR46kznW+aLmGxSWAV6SfHxhZxSWdoDsiC9ijaFKoLTg0n0OxqU6Co9OJGNYzMl2Re03rwrWKuoDlKIHfNdNAVCoae+ppWke6QqT82W5XWLL7KkX0dDPbRr97r+707+kdlwT/IYthpRrVlRunev364i0u9syTkXauctwg3nj2Wc1jDPLoxURxqJ1Qh5MN8A3xqBeAUAQAA"
    },
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/storage/CDKMetadata/Default"
