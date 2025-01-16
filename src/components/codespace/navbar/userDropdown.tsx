@@ -17,9 +17,19 @@ import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Link from "next/link";
+import {generateClient} from "aws-amplify/data";
+import {type Schema} from "@/../amplify/data/resource";
+import {getUrl} from "aws-amplify/storage";
+
+const client = generateClient<Schema>({
+    authMode: "userPool",
+});
 
 export default function UserDropdown() {
     const [currentUser, setCurrentUser] = useState<AuthUser>();
+    const [currentUserInfo, setCurrentUserInfo] =
+        useState<Schema["UserInfo"]["type"]>();
+    const [avatarURL, setAvatarURL] = useState<string>();
 
     useEffect(() => {
         const getData = async () => {
@@ -29,6 +39,52 @@ export default function UserDropdown() {
         getData();
     }, []);
 
+    useEffect(() => {
+        if (!currentUser) return;
+        // get a specific item
+        async function getUserInfo() {
+            const {data: userInfo, errors} = await client.models.UserInfo.list({
+                filter: {
+                    owner: {
+                        contains: currentUser.userId,
+                    },
+                },
+            });
+            userInfo.forEach((info) => {
+                console.log(info.owner);
+                console.log(info.owner == currentUser.userId);
+            });
+            console.dir({data: userInfo, errors});
+            setCurrentUserInfo(userInfo[0]);
+        }
+        console.log(currentUser.userId);
+        getUserInfo();
+    }, [currentUser]);
+
+    useEffect(() => {
+        if (!currentUserInfo) return;
+        const profilePhotoPieces = currentUserInfo.profilePhoto.split("/");
+        if (profilePhotoPieces[0].includes("http")) {
+            setAvatarURL(
+                `https://api.toucanny.net/avatar?userid=${
+                    currentUser?.userId
+                }&w=${256}`
+            );
+        } else {
+            async function generateURL() {
+                const generatedURL = await getUrl({
+                    path: currentUserInfo.profilePhoto,
+                    options: {
+                        expiresIn: 86400,
+                    },
+                });
+                console.log(generatedURL.url.toString());
+                setAvatarURL(generatedURL.url.toString());
+            }
+            generateURL();
+        }
+    }, [currentUser?.userId, currentUserInfo]);
+
     const router = useRouter();
     const handleSignOut = async () => {
         await signOut();
@@ -37,15 +93,14 @@ export default function UserDropdown() {
     };
 
     return (
-        currentUser && (
+        currentUser &&
+        currentUserInfo && (
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="sm" className="size-10 p-2">
                         <Avatar className="size-6 rounded-full">
                             <AvatarImage
-                                src={`https://api.toucanny.net/avatar?userid=${
-                                    currentUser?.userId
-                                }&w=${256}`}
+                                src={avatarURL}
                                 alt={currentUser?.userId}
                             />
                             <AvatarFallback className="rounded-lg">
@@ -59,9 +114,7 @@ export default function UserDropdown() {
                         <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                             <Avatar className="size-8 rounded-full">
                                 <AvatarImage
-                                    src={`https://api.toucanny.net/avatar?userid=${
-                                        currentUser?.userId
-                                    }&w=${256}`}
+                                    src={avatarURL}
                                     alt={currentUser?.userId}
                                 />
                                 <AvatarFallback className="rounded-lg">
@@ -70,10 +123,11 @@ export default function UserDropdown() {
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {currentUser?.userId}
+                                    {currentUserInfo.firstName}{" "}
+                                    {currentUserInfo.lastName}
                                 </span>
                                 <span className="truncate text-xs">
-                                    {currentUser?.signInDetails?.loginId}
+                                    @{currentUserInfo.username}
                                 </span>
                             </div>
                         </div>
