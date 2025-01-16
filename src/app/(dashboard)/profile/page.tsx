@@ -20,6 +20,7 @@ import Link from "next/link";
 import {useEffect, useState} from "react";
 import {generateClient} from "aws-amplify/data";
 import {type Schema} from "@/../amplify/data/resource";
+import {getUrl} from "aws-amplify/storage";
 
 const client = generateClient<Schema>({
     authMode: "userPool",
@@ -73,6 +74,7 @@ export default function ProfilePage() {
     const [currentUser, setCurrentUser] = useState<AuthUser>();
     const [currentUserInfo, setCurrentUserInfo] =
         useState<Schema["UserInfo"]["type"]>();
+    const [avatarURL, setAvatarURL] = useState<string>();
 
     useEffect(() => {
         const getData = async () => {
@@ -89,25 +91,51 @@ export default function ProfilePage() {
             const {data: userInfo, errors} = await client.models.UserInfo.list({
                 filter: {
                     owner: {
-                        eq: currentUser.userId,
+                        contains: currentUser.userId,
                     },
                 },
             });
-            /**
-             * {
-                filter: {
-                    owner: {
-                        eq: currentUser.userId,
-                    },
-                },
-            }
-             */
+            userInfo.forEach((info) => {
+                console.log(info.owner);
+                console.log(info.owner == currentUser.userId);
+            });
             console.dir({data: userInfo, errors});
             setCurrentUserInfo(userInfo[0]);
         }
         console.log(currentUser.userId);
         getUserInfo();
     }, [currentUser]);
+
+    useEffect(() => {
+        if (!currentUserInfo) return;
+        const profilePhotoPieces = currentUserInfo.profilePhoto.split("/");
+        if (profilePhotoPieces[0].includes("http")) {
+            setAvatarURL(
+                `https://api.toucanny.net/avatar?userid=${
+                    currentUser?.userId
+                }&w=${256}`
+            );
+        } else {
+            async function generateURL() {
+                const generatedURL = await getUrl({
+                    path: currentUserInfo.profilePhoto,
+                    options: {
+                        expiresIn: 86400,
+                    },
+                });
+                console.log(generatedURL.url.toString());
+                setAvatarURL(generatedURL.url.toString());
+            }
+            generateURL();
+        }
+    }, [currentUser?.userId, currentUserInfo]);
+
+    const deleteUserData = async () => {
+        const {data: userInfo, errors} = await client.models.UserInfo.list();
+        userInfo.forEach(
+            async (info) => await client.models.UserInfo.delete({id: info.id})
+        );
+    };
 
     return (
         <div className="flex flex-1 flex-col gap-4">
@@ -117,9 +145,7 @@ export default function ProfilePage() {
                         <>
                             <Avatar className="size-20 rounded-full border-4 border-background">
                                 <AvatarImage
-                                    src={`https://api.toucanny.net/avatar?userid=${
-                                        currentUser?.userId
-                                    }&w=${256}`}
+                                    src={avatarURL}
                                     alt={currentUser?.userId}
                                 />
                                 <AvatarFallback className="rounded-full">
@@ -195,6 +221,13 @@ export default function ProfilePage() {
                         <TemplateCard template={template} key={index} />
                     ))}
                 </div>
+                <Button
+                    variant="destructive"
+                    size="lg"
+                    onClick={deleteUserData}
+                >
+                    DELETE ALL USER DATA
+                </Button>
             </div>
         </div>
     );

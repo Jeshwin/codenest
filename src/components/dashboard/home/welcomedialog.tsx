@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {
     AlertDialog,
@@ -89,7 +89,10 @@ const mimeToExtension = {
 export default function WelcomeDialog() {
     const [showDialog, setShowDialog] = useState(false);
     const [currentUser, setCurrentUser] = useState<AuthUser>();
-    const [avatarImage, setAvatarImage] = useState<string | null>(null);
+    const [avatarImage, setAvatarImage] = useState<File | null>(null);
+    const [avatarImagePreview, setAvatarImagePreview] = useState<string | null>(
+        null
+    );
     const [avatarImageType, setAvatarImageType] = useState<string | null>(null);
     const [defaultUsername, setDefaultUsername] = useState<string>();
 
@@ -121,7 +124,7 @@ export default function WelcomeDialog() {
         );
 
         // Get URL to profile photo
-        let profilePhotoURL;
+        let profilePhotoURL: string;
         if (avatarImage) {
             // Upload avatar to storage
             const result = await uploadData({
@@ -169,14 +172,31 @@ export default function WelcomeDialog() {
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = () => {
-                setAvatarImage(reader.result as string); // Set the uploaded image as the new avatar
-            };
-            reader.readAsDataURL(file);
+            setAvatarImage(file); // Set the uploaded image as the new avatar
             setAvatarImageType(mimeToExtension[file.type] || "unknown");
         }
     };
+
+    useEffect(() => {
+        if (!avatarImage) {
+            setAvatarImagePreview(
+                `https://api.toucanny.net/avatar?userid=${
+                    currentUser?.userId
+                }&w=${256}`
+            );
+            return;
+        }
+        const reader = new FileReader();
+        reader.readAsDataURL(avatarImage);
+        setAvatarImagePreview(reader.result as string);
+        reader.addEventListener("loadend", () => {
+            setAvatarImagePreview(reader.result as string);
+        });
+        return () =>
+            reader.removeEventListener("loadend", () => {
+                setAvatarImagePreview(reader.result as string);
+            });
+    }, [avatarImage, currentUser?.userId]);
 
     const handleRemoveImage = () => {
         // Reset to default avatar
@@ -209,16 +229,11 @@ export default function WelcomeDialog() {
                             Welcome to CodeNest!
                         </AlertDialogTitle>
                     </AlertDialogHeader>
-                    <AlertDialogDescription className="flex gap-4">
+                    <div className="flex gap-4">
                         <div className="relative size-36 w-fit overflow-hidden mt-2">
                             <Avatar className="size-36 rounded-full">
                                 <AvatarImage
-                                    src={
-                                        avatarImage ||
-                                        `https://api.toucanny.net/avatar?userid=${
-                                            currentUser?.userId
-                                        }&w=${256}`
-                                    }
+                                    src={avatarImagePreview}
                                     alt={currentUser?.userId}
                                     className="object-cover"
                                 />
@@ -322,7 +337,7 @@ export default function WelcomeDialog() {
                                 )}
                             />
                         </form>
-                    </AlertDialogDescription>
+                    </div>
                     <AlertDialogFooter>
                         <Button
                             onClick={() => {
