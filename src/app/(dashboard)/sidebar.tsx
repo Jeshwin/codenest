@@ -1,8 +1,9 @@
 "use client";
 
-import * as React from "react";
 import {
     BookOpen,
+    Check,
+    ChevronsUpDown,
     Feather,
     FileJson,
     Gauge,
@@ -28,6 +29,7 @@ import {
 } from "@/components/ui/sidebar";
 import Logo from "@/components/logo";
 import Link from "next/link";
+import CreateProjectButton from "@/components/dashboard/createproject";
 
 // This is sample data.
 const data = {
@@ -79,6 +81,7 @@ const data = {
 
 export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
     const {state: SidebarState} = useSidebar();
+
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -108,22 +111,10 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 <SidebarGroup>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton
-                                size="lg"
-                                tooltip="Create Project"
-                                className={`${
-                                    SidebarState === "expanded"
-                                        ? "flex justify-center gap-0"
-                                        : "pl-1"
-                                } bg-primary hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground`}
-                            >
-                                <div className="p-1 rounded-lg">
-                                    <Plus className="size-6" />
-                                </div>
-                                <span className="truncate font-semibold">
-                                    Create Project
-                                </span>
-                            </SidebarMenuButton>
+                            <CreateProjectButton
+                                sidebar
+                                SidebarState={SidebarState}
+                            />
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarGroup>

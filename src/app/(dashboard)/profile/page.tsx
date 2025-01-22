@@ -182,14 +182,6 @@ export default function ProfilePage() {
                             </Button>
                         </Link>
                         <Link
-                            href="https://x.com/"
-                            className="flex gap-2 items-center"
-                        >
-                            <Button variant="outline">
-                                <TwitterLogo />X
-                            </Button>
-                        </Link>
-                        <Link
                             href="https://bsky.app/"
                             className="flex gap-2 items-center"
                         >
