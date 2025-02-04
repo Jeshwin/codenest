@@ -1,3 +1,4 @@
+import CreateProjectButton from "@/components/dashboard/createproject";
 import Greeting from "@/components/dashboard/home/greeting";
 import WelcomeDialog from "@/components/dashboard/home/welcomedialog";
 import ProjectCard from "@/components/dashboard/projectcard";
@@ -67,10 +68,7 @@ export default function HomePage() {
                         <Link href="/projects">
                             <Button variant="outline">See All</Button>
                         </Link>
-                        <Button>
-                            <Plus className="size-6" />
-                            Create Project
-                        </Button>
+                        <CreateProjectButton />
                     </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

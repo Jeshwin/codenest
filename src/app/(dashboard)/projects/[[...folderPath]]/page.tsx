@@ -1,3 +1,4 @@
+import CreateProjectButton from "@/components/dashboard/createproject";
 import ProjectCard from "@/components/dashboard/projectcard";
 import Folders from "@/components/dashboard/projects/folders";
 import {
@@ -144,10 +145,7 @@ export default async function ProjectsPage({
                             ))}
                     </BreadcrumbList>
                 </Breadcrumb>
-                <Button size="lg">
-                    <Plus className="size-6" />
-                    Create Project
-                </Button>
+                <CreateProjectButton />
             </div>
 
             <div>

@@ -2,19 +2,26 @@
 
 import {useEffect, useState} from "react";
 
-import {Check, ChevronsUpDown, Heart, Plus} from "lucide-react";
+import {ChevronsUpDown, Heart, Plus} from "lucide-react";
 
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {
+    Popover,
+    PopoverContent,
+    PopoverPortal,
+    PopoverTrigger,
+} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
 import {
     Command,
@@ -24,11 +31,10 @@ import {
     CommandItem,
     CommandList,
 } from "@/components/ui/command";
-import {cn, formatNumber} from "@/lib/utils";
+import {formatNumber} from "@/lib/utils";
 import axios from "axios";
 import {SidebarMenuButton} from "../ui/sidebar";
 import Image from "next/image";
-import {Badge} from "../ui/badge";
 
 const templates = [
     {
@@ -36,9 +42,7 @@ const templates = [
         value: "237e99ce-9534-4004-aaba-007ac4f40ac6",
         icon: "https://img.icons8.com/?size=100&id=Fn8H17bDpgYI&format=png&color=000000",
         author: "CodeNest",
-        description: "It's Simple, C?",
         verified: true,
-        tags: ["Languages"],
         likes: 400,
         uses: 9000,
     },
@@ -47,9 +51,7 @@ const templates = [
         value: "8ff664d7-d6b4-4a99-a4ac-0629fa3136f7",
         icon: "https://img.icons8.com/?size=100&id=SQcfmIiaxhkx&format=png&color=000000",
         author: "CodeNest",
-        description: "Need to pass your class? Get a C++!",
         verified: true,
-        tags: ["Languages"],
         likes: 4,
         uses: 90,
     },
@@ -58,9 +60,7 @@ const templates = [
         value: "df562a12-9cff-4fb3-8de3-cb2f7bf59cb7",
         icon: "https://img.icons8.com/?size=100&id=h91o1gYEM6Ac&format=png&color=000000",
         author: "CodeNest",
-        description: "Programmers love coffee for a reason.",
         verified: false,
-        tags: ["Languages"],
         likes: 4000,
         uses: 90000,
     },
@@ -69,9 +69,7 @@ const templates = [
         value: "2c9625b0-04af-471b-b0a8-0c76c8f6a598",
         icon: "https://img.icons8.com/?size=100&id=phQ9SN4F3icL&format=png&color=000000",
         author: "Robert Cubeshorts",
-        description: "Who lives in a pineapple under the sea?",
         verified: true,
-        tags: ["Languages", "Web"],
         likes: 40000,
         uses: 9000000,
     },
@@ -79,11 +77,8 @@ const templates = [
         title: "Flutter",
         value: "d64d0a13-aa41-481f-83b9-b9add0dd6e99",
         icon: "https://img.icons8.com/?size=100&id=asj7t1w9cjIC&format=png&color=000000",
-        description:
-            "I don't have any jokes for this. I genuinely like Flutter!",
         author: "Google",
         verified: false,
-        tags: ["Frameworks", "Mobile"],
         likes: 4,
         uses: 9,
     },
@@ -97,9 +92,7 @@ function TemplateOption({
         value: string;
         icon: string;
         author: string;
-        description: string;
         verified: boolean;
-        tags: string[];
         likes: number;
         uses: number;
     };
@@ -111,27 +104,14 @@ function TemplateOption({
                 alt={template.title}
                 width={80}
                 height={80}
-                className="size-20"
+                className="size-12"
             />
-            <div className="flex flex-col gap-2 justify-between w-full h-16">
+            <div className="flex flex-col w-full">
                 <div className="flex items-center gap-1">
                     <div className="text-lg whitespace-nowrap">
                         {template.title}
                     </div>
-                    {template.tags.map((tag, index) => (
-                        <div
-                            className="flex items-center h-fit py-1 px-2 bg-primary rounded-full text-foreground"
-                            style={{
-                                fontSize: "0.75rem",
-                                lineHeight: "1rem",
-                            }}
-                            key={index}
-                        >
-                            {tag}
-                        </div>
-                    ))}
                 </div>
-                <div className="text-xs">{template.description}</div>
                 <div className="flex justify-between">
                     <div className="text-xs whitespace-nowrap flex gap-1">
                         <Image
@@ -160,16 +140,19 @@ function TemplateOption({
 }
 
 export default function CreateProjectButton({
-    sidebar,
+    sidebar = false,
     SidebarState = "",
 }: {
-    sidebar: boolean;
+    sidebar?: boolean;
     SidebarState?: "expanded" | "collapsed" | "";
 }) {
-    const [defaultName, setDefaultName] = useState<string>();
     const [openTemplateSelect, setOpenTemplateSelect] =
         useState<boolean>(false);
-    const [selectedTemplate, setSelectedTemplate] = useState<string>("");
+    const [placeholderName, setPlaceholderName] = useState("");
+    const [formData, setFormData] = useState({
+        projectName: "",
+        templateId: "",
+    });
 
     useEffect(() => {
         axios
@@ -177,10 +160,27 @@ export default function CreateProjectButton({
                 `https://api.toucanny.net/username?userid=${new Date().toString()}`
             )
             .then((res) => {
-                console.log(res);
-                setDefaultName(res.data.username);
+                setPlaceholderName(res.data.username);
             });
-    });
+    }, []);
+
+    function handleChangeProjectName(e) {
+        setFormData((prevState) => ({
+            ...prevState,
+            projectName: e.target.value,
+        }));
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        // !TODO
+        console.log(formData);
+        let submittedFormData = formData;
+        if (submittedFormData.projectName === "") {
+            submittedFormData.projectName = placeholderName;
+        }
+        console.dir(submittedFormData);
+    }
 
     return (
         <Dialog>
@@ -205,7 +205,7 @@ export default function CreateProjectButton({
                 ) : (
                     <Button>
                         <Plus className="size-6" />
-                        Create Project
+                        Create a new Project
                     </Button>
                 )}
             </DialogTrigger>
@@ -213,12 +213,10 @@ export default function CreateProjectButton({
                 <DialogHeader>
                     <DialogTitle>Create Project</DialogTitle>
                     <DialogDescription>
-                        Choose a language or a template and get started!
+                        Choose a template and get started!
                     </DialogDescription>
                 </DialogHeader>
-                <form className="flex flex-col gap-4">
-                    <Label htmlFor="project-name">Name</Label>
-                    <Input id="project-name" defaultValue={defaultName}></Input>
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                     <Label>Template</Label>
                     <Popover
                         modal
@@ -232,17 +230,18 @@ export default function CreateProjectButton({
                                 aria-expanded={openTemplateSelect}
                                 className="w-full justify-between"
                             >
-                                {selectedTemplate
+                                {formData.templateId
                                     ? templates.find(
                                           (framework) =>
                                               framework.value ===
-                                              selectedTemplate
+                                              formData.templateId
                                       )?.title
                                     : "Select framework..."}
                                 <ChevronsUpDown className="opacity-50" />
                             </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[480px] p-0">
+                        {/* <PopoverPortal> */}
+                        <PopoverContent className="w-[450px] p-0">
                             <Command>
                                 <CommandInput placeholder="Search templates..." />
                                 <CommandList>
@@ -253,20 +252,27 @@ export default function CreateProjectButton({
                                         {templates.map((template) => (
                                             <CommandItem
                                                 key={template.value}
-                                                value={template.value}
+                                                value={template.title}
                                                 onSelect={(currentValue) => {
-                                                    setSelectedTemplate(
-                                                        currentValue ===
-                                                            selectedTemplate
-                                                            ? ""
-                                                            : currentValue
+                                                    setFormData(
+                                                        (prevState) => ({
+                                                            ...prevState,
+                                                            templateId:
+                                                                templates.find(
+                                                                    (
+                                                                        framework
+                                                                    ) =>
+                                                                        framework.title ===
+                                                                        currentValue
+                                                                )?.value,
+                                                        })
                                                     );
                                                     setOpenTemplateSelect(
                                                         false
                                                     );
                                                 }}
                                                 className={` ${
-                                                    selectedTemplate ===
+                                                    formData.templateId ===
                                                     template.value
                                                         ? "border border-primary"
                                                         : ""
@@ -281,7 +287,23 @@ export default function CreateProjectButton({
                                 </CommandList>
                             </Command>
                         </PopoverContent>
+                        {/* </PopoverPortal> */}
                     </Popover>
+                    <Label htmlFor="project-name">Name</Label>
+                    <Input
+                        id="project-name"
+                        placeholder={placeholderName}
+                        value={formData.projectName}
+                        onChange={(e) => handleChangeProjectName(e)}
+                    ></Input>
+                    <DialogFooter>
+                        {/* <DialogClose asChild> */}
+                        <Button type="submit" className="w-full">
+                            <Plus />
+                            Create
+                        </Button>
+                        {/* </DialogClose> */}
+                    </DialogFooter>
                 </form>
             </DialogContent>
         </Dialog>

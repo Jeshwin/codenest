@@ -1,5 +1,5 @@
-import TopBar from "@/app/(general)/topbar";
-import Footer from "@/app/(general)/footer";
+import TopBar from "@/app/(account)/topbar";
+import Footer from "@/app/(account)/footer";
 
 export default function GeneralLayout({children}) {
     return (
