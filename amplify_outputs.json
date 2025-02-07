@@ -414,14 +414,11 @@
             "guest": [
               "get",
               "list"
-            ]
-          },
-          "template-icons/${cognito-identity.amazonaws.com:sub}/*": {
-            "entityidentity": [
+            ],
+            "authenticated": [
               "get",
               "list",
-              "write",
-              "delete"
+              "write"
             ]
           }
         }
