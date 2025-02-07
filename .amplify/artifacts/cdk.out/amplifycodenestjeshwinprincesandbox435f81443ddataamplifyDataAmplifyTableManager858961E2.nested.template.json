@@ -229,7 +229,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "ca9699b9a2845c45e80cba1111f95ae2ac773af7d87163ae9c808ec547e38e00.zip"
+     "S3Key": "04b5de95b8775c57ed0ecf5a82ed6d5cdf6bae3adc41781db2e698496816d503.zip"
     },
     "Description": "AmplifyManagedTable - onEvent (amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/AmplifyTableManager/TableManagerCustomProvider)",
     "Environment": {
@@ -271,7 +271,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/AmplifyTableManager/TableManagerCustomProvider/framework-onEvent/Resource",
-    "aws:asset:path": "asset.ca9699b9a2845c45e80cba1111f95ae2ac773af7d87163ae9c808ec547e38e00",
+    "aws:asset:path": "asset.04b5de95b8775c57ed0ecf5a82ed6d5cdf6bae3adc41781db2e698496816d503",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -283,7 +283,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "ca9699b9a2845c45e80cba1111f95ae2ac773af7d87163ae9c808ec547e38e00.zip"
+     "S3Key": "04b5de95b8775c57ed0ecf5a82ed6d5cdf6bae3adc41781db2e698496816d503.zip"
     },
     "Description": "AmplifyManagedTable - isComplete (amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/AmplifyTableManager/TableManagerCustomProvider)",
     "Handler": "amplify-table-manager-handler.isComplete",
@@ -317,7 +317,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/AmplifyTableManager/TableManagerCustomProvider/framework-isComplete/Resource",
-    "aws:asset:path": "asset.ca9699b9a2845c45e80cba1111f95ae2ac773af7d87163ae9c808ec547e38e00",
+    "aws:asset:path": "asset.04b5de95b8775c57ed0ecf5a82ed6d5cdf6bae3adc41781db2e698496816d503",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -443,7 +443,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWNzQqDMBCEn8V73Fpt6bkWeizFPoDEZCurMQE3aSnBd68/ePpm+GAmh+OlgFMiv5wq3aeGGogPZI/65aXqxSzqSHKAWDmD4va2K5/OkPotdUuTMHJotIR4D1Z5cnZxe54EF7VkRs9wXTB3KIPq0ZeScRIVsgujQrHa+bkl265nu5jzzVlN25x1GqHjwyfP4AxZ0jFROgbraUCoNv4BYKHextsAAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWOQQqDMBBFz9J9nFpLcV0LXZZiDyAxmcpoTMBJWkrw7o2Kq/c/D+ZPAaeyhPwgv5wpPWSGWogPZI/65aUaRBJNJDlCrJ1BcXvblU9nSP2WuqVZGDm2WkK8B6s8Obu4Pc+Cz41kRs9wXZA6VEEN6CvJOIsa2YVJoVhtWu7IduvYLlK+OatpO2edRuj5+ClyuKT3eybKpmA9jQj1xj9KGjh/2wAAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/AmplifyTableManager/CDKMetadata/Default"

@@ -1,0 +1,579 @@
+{
+ "Resources": {
+  "Templatesprojectsauth0FunctionTemplatesprojectsauth0FunctionAppSyncFunction2985BE0F": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPINONEDSC803D64EName"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "Templatesprojectsauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/726aee1a5b099c996d6df86ce0ab4679a737caa55bbbdb3a42e06a2139baae59.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/ConnectionStack/Templatesprojectsauth0Function/Templatesprojectsauth0Function.AppSyncFunction"
+   }
+  },
+  "TemplatesProjectsDataResolverFnTemplatesProjectsDataResolverFnAppSyncFunctionF99B4DE6": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataProjectsNestedStackProjectsNestedStackResourceBBFB4313Outputsamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataProjectsProjectsDataSource56815C64Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "TemplatesProjectsDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/270e3ba577d252c43c49715320280db4e71014576b96ba23229fd4687408a9f4.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/49e7a1f2fb4c809b82bed6b0242a2a3bcfa2c5276ebd2539ff330fee36f8fe18.vtl"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/ConnectionStack/TemplatesProjectsDataResolverFn/TemplatesProjectsDataResolverFn.AppSyncFunction"
+   }
+  },
+  "TemplatesprojectsResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId"
+    },
+    "FieldName": "projects",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "Templatesprojectsauth0FunctionTemplatesprojectsauth0FunctionAppSyncFunction2985BE0F",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "TemplatesProjectsDataResolverFnTemplatesProjectsDataResolverFnAppSyncFunctionF99B4DE6",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Templates\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"projects\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataProjectsNestedStackProjectsNestedStackResourceBBFB4313Outputsamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataProjectsProjectsTable7013754BTableArn"
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthauthenticatedUserRoleFA688C17Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthunauthenticatedUserRoleE65D85FARef"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthIdentityPool380C30D6Ref"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Templates"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/ConnectionStack/templatesProjectsResolver"
+   }
+  },
+  "Projectstemplateauth0FunctionProjectstemplateauth0FunctionAppSyncFunction3A01AEA4": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPINONEDSC803D64EName"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "Projectstemplateauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/726aee1a5b099c996d6df86ce0ab4679a737caa55bbbdb3a42e06a2139baae59.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/ConnectionStack/Projectstemplateauth0Function/Projectstemplateauth0Function.AppSyncFunction"
+   }
+  },
+  "ProjectsTemplateDataResolverFnProjectsTemplateDataResolverFnAppSyncFunction05688A22": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataTemplatesNestedStackTemplatesNestedStackResource2B0B7F69Outputsamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataTemplatesTemplatesDataSourceB4383C93Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "ProjectsTemplateDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/bd15314e9eb17993bcde3a7daaa5cd82585aa463e923c18382df051737a48beb.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/dcb70e4856bc9a423e02b8b9e9c2ab3f71479784572d4c04a02d1f5b61a9f9ac.vtl"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/ConnectionStack/ProjectsTemplateDataResolverFn/ProjectsTemplateDataResolverFn.AppSyncFunction"
+   }
+  },
+  "ProjectstemplateResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId"
+    },
+    "FieldName": "template",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "Projectstemplateauth0FunctionProjectstemplateauth0FunctionAppSyncFunction3A01AEA4",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "ProjectsTemplateDataResolverFnProjectsTemplateDataResolverFnAppSyncFunction05688A22",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Projects\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"template\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataTemplatesNestedStackTemplatesNestedStackResource2B0B7F69Outputsamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataTemplatesTemplatesTableC6436E54TableArn"
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthauthenticatedUserRoleFA688C17Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthunauthenticatedUserRoleE65D85FARef"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthIdentityPool380C30D6Ref"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Projects"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/ConnectionStack/projectsTemplateResolver"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWOwQ6CMBBEv8V7WRFiOAuJRw/4AaS2CynglnRbjCH8u63G08zkZSZTwKmqID/IF2dKT9lsHrDdkD3qu5dqEhF0G5edZEbPcEkiuIQ6qAl9LRmFXBZ+k4Kt6ekaSHljqbHUmyE4mYKIoEW284pu38V3I64PhoY/Ck5h8rGnTersgqxGGPm4Fjmc48WRjclcIG+eCO1PP0HXpxa/AAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/ConnectionStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Parameters": {
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPI3F860D56ApiId": {
+   "Type": "String"
+  },
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataGraphQLAPINONEDSC803D64EName": {
+   "Type": "String"
+  },
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataProjectsNestedStackProjectsNestedStackResourceBBFB4313Outputsamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataProjectsProjectsDataSource56815C64Name": {
+   "Type": "String"
+  },
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataProjectsNestedStackProjectsNestedStackResourceBBFB4313Outputsamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataProjectsProjectsTable7013754BTableArn": {
+   "Type": "String"
+  },
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthauthenticatedUserRoleFA688C17Ref": {
+   "Type": "String"
+  },
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthunauthenticatedUserRoleE65D85FARef": {
+   "Type": "String"
+  },
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443dauthNestedStackauthNestedStackResourceD6526632Outputsamplifycodenestjeshwinprincesandbox435f81443dauthamplifyAuthIdentityPool380C30D6Ref": {
+   "Type": "String"
+  },
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataTemplatesNestedStackTemplatesNestedStackResource2B0B7F69Outputsamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataTemplatesTemplatesDataSourceB4383C93Name": {
+   "Type": "String"
+  },
+  "referencetoamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataTemplatesNestedStackTemplatesNestedStackResource2B0B7F69Outputsamplifycodenestjeshwinprincesandbox435f81443ddataamplifyDataTemplatesTemplatesTableC6436E54TableArn": {
+   "Type": "String"
+  }
+ }
+}

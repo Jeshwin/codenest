@@ -2049,7 +2049,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WPQU/DMAyFf8vuqRkbiDNrxRFQx31yE7fK2iRV7AxNVf87aYeGOD0/+en58w4eX/bwtMFvLrTpi8E2ML0TC5mjoO5V2fpPjOhIKC6mDN5YscGrmjikqEmViSW4P9v6+5xrT5O5enTBNPCFzUAHZFIWHUx1GG7prLPCceSr1zBVa7xqKhQ83iv/u7fk9QKRaVrbpYgr0e/l4UJxVrw/ITMJw+si2cMh6Z5kAZiX7EeSMYla1/nZzvpuVj4YgjM/XHZbeIbt5szWFjF5sY6gvukPzwulJjUBAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQQWvDMAyFf8vujta1lJ7XhB23ke5eFFsJbhI7WHJHCfnvs9PRsdPThx7Sk7bwcjjA5gm/udCmLwbbwPxOLGROgrpXZes+MeBIQiFD6Z2xYr1TNbGPQZMqI4sf/7B1jzqNPc/m5nD0poEvbAY6IpOyOMJc++HuTroonCa+OQ1ztdqrpkLB02Pkf3qLTucQKU1ruxhwTfS7ebhSWBTvzshMwvCaJTEco+5JcoAlez+iTFHU2k7HdtZ1i3LeEFz4+brdwD495sLWFiE6sSNBfdcf7kLc4DUBAAA="
    },
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/data/amplifyData/UserInfo/CDKMetadata/Default"

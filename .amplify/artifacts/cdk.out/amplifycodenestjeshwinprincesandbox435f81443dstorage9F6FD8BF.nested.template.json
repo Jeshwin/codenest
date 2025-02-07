@@ -273,20 +273,36 @@
       {
        "Action": "s3:GetObject",
        "Effect": "Allow",
-       "Resource": {
-        "Fn::Join": [
-         "",
-         [
-          {
-           "Fn::GetAtt": [
-            "amplifyTeamDriveBucket28B5C701",
-            "Arn"
-           ]
-          },
-          "/profile-pictures/*"
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "amplifyTeamDriveBucket28B5C701",
+             "Arn"
+            ]
+           },
+           "/profile-pictures/*"
+          ]
          ]
-        ]
-       }
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "amplifyTeamDriveBucket28B5C701",
+             "Arn"
+            ]
+           },
+           "/template-icons/*"
+          ]
+         ]
+        }
+       ]
       },
       {
        "Action": "s3:ListBucket",
@@ -294,7 +310,9 @@
         "StringLike": {
          "s3:prefix": [
           "profile-pictures/*",
-          "profile-pictures/"
+          "profile-pictures/",
+          "template-icons/*",
+          "template-icons/"
          ]
         }
        },
@@ -330,20 +348,36 @@
       {
        "Action": "s3:GetObject",
        "Effect": "Allow",
-       "Resource": {
-        "Fn::Join": [
-         "",
-         [
-          {
-           "Fn::GetAtt": [
-            "amplifyTeamDriveBucket28B5C701",
-            "Arn"
-           ]
-          },
-          "/profile-pictures/${cognito-identity.amazonaws.com:sub}/*"
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "amplifyTeamDriveBucket28B5C701",
+             "Arn"
+            ]
+           },
+           "/profile-pictures/${cognito-identity.amazonaws.com:sub}/*"
+          ]
          ]
-        ]
-       }
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "amplifyTeamDriveBucket28B5C701",
+             "Arn"
+            ]
+           },
+           "/template-icons/*"
+          ]
+         ]
+        }
+       ]
       },
       {
        "Action": "s3:ListBucket",
@@ -351,7 +385,9 @@
         "StringLike": {
          "s3:prefix": [
           "profile-pictures/${cognito-identity.amazonaws.com:sub}/*",
-          "profile-pictures/${cognito-identity.amazonaws.com:sub}/"
+          "profile-pictures/${cognito-identity.amazonaws.com:sub}/",
+          "template-icons/*",
+          "template-icons/"
          ]
         }
        },
@@ -366,20 +402,36 @@
       {
        "Action": "s3:PutObject",
        "Effect": "Allow",
-       "Resource": {
-        "Fn::Join": [
-         "",
-         [
-          {
-           "Fn::GetAtt": [
-            "amplifyTeamDriveBucket28B5C701",
-            "Arn"
-           ]
-          },
-          "/profile-pictures/${cognito-identity.amazonaws.com:sub}/*"
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "amplifyTeamDriveBucket28B5C701",
+             "Arn"
+            ]
+           },
+           "/profile-pictures/${cognito-identity.amazonaws.com:sub}/*"
+          ]
          ]
-        ]
-       }
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "amplifyTeamDriveBucket28B5C701",
+             "Arn"
+            ]
+           },
+           "/template-icons/*"
+          ]
+         ]
+        }
+       ]
       },
       {
        "Action": "s3:DeleteObject",
@@ -418,7 +470,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12OzQ6CQAyEn4X7Un/QeFbOGoIPYNbdaiqwa7ZFYwjvLggR46kznW+aLmGxSWAV6SfHxhZxSWdoDsiC9ijaFKoLTg0n0OxqU6Co9OJGNYzMl2Re03rwrWKuoDlKIHfNdNAVCoae+ppWke6QqT82W5XWLL7KkX0dDPbRr97r+707+kdlwT/IYthpRrVlRunev364i0u9syTkXauctwg3nj2Wc1jDPLoxURxqJ1Qh5MN8A3xqBeAUAQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11PQQ7CMAx7C/eujCHEme0MmuABqLQBhbF2arIhVPXvFDYB4mQ7tqOkkIv1WuYzdadMmya74UmGHRCDObDSjUjGMdBShrLXDbCoznZiI9TuhvrxHY86CqJWhgN7tJdaedUCg3+lPiIKVCny7U/NKKqe2LV7INd7DS/rl29V16Wlf6nauwEN+FIRiA0RcDr/8s6dbeWsQUZno7DOgLzSfChyuUp/Xwkx871lbEHuR3wCWlEhIBQBAAA="
    },
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/storage/CDKMetadata/Default"

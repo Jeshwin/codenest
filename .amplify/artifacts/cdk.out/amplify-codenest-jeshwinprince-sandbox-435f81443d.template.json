@@ -1,5 +1,5 @@
 {
- "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"1.11.0\",\"stackType\":\"root\",\"metadata\":{}}",
+ "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"1.14.0\",\"stackType\":\"root\",\"metadata\":{}}",
  "Metadata": {
   "AWS::Amplify::Platform": {
    "version": "1",
@@ -237,7 +237,7 @@
       {
        "Ref": "AWS::Region"
       },
-      "\\\",\\\"paths\\\":{\\\"profile-pictures/*\\\":{\\\"guest\\\":[\\\"get\\\",\\\"list\\\"]},\\\"profile-pictures/${cognito-identity.amazonaws.com:sub}/*\\\":{\\\"entityidentity\\\":[\\\"get\\\",\\\"list\\\",\\\"write\\\",\\\"delete\\\"]}}}\"]"
+      "\\\",\\\"paths\\\":{\\\"profile-pictures/*\\\":{\\\"guest\\\":[\\\"get\\\",\\\"list\\\"]},\\\"profile-pictures/${cognito-identity.amazonaws.com:sub}/*\\\":{\\\"entityidentity\\\":[\\\"get\\\",\\\"list\\\",\\\"write\\\",\\\"delete\\\"]},\\\"template-icons/*\\\":{\\\"guest\\\":[\\\"get\\\",\\\"list\\\"],\\\"authenticated\\\":[\\\"get\\\",\\\"list\\\",\\\"write\\\"]}}}\"]"
      ]
     ]
    }
@@ -273,7 +273,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/65035bd2158d3383e64bb0a62c8163c29636a66f033848b1df7795bade1b99e0.json"
+       "/89b714af7b2d882392f412d77b353a86f0e9189496bdcebb4c590e265dcf8ab2.json"
       ]
      ]
     }
@@ -341,7 +341,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/5422b76aabaeaff8f4808471f76fa12e3d84e179921ca0d0e8c6ec4500ad23e5.json"
+       "/8169b7fc30e3d1fef9b00f57584c16ff9f1631af1332838ff116f1eb19b15f55.json"
       ]
      ]
     }
@@ -397,7 +397,7 @@
        {
         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
        },
-       "/f08dd365e7180b51aec268c08a705c5eba7006a99e2e93b23b2be4d26033c0dd.json"
+       "/07ab89510279284381d1c91561c98325f5bd2eabbac7b0f06fd7438720abfe79.json"
       ]
      ]
     }
@@ -413,7 +413,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzQ31jNRTCwv1k1OydbNyUzSqw4uSUzO1nFOy/MvLSkoLQGx4EJBqcX5pUXJqSC2c35eSmZJZn5erU5efkqqXlaxfpmRgZ6pnoFiVnFmpm5RaV5JZm6qXhCEBgCJb6ZNbAAAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzQ31zNQTCwv1k1OydbNyUzSqw4uSUzO1nFOy/MvLSkoLQGx4EJBqcX5pUXJqSC2c35eSmZJZn5erU5efkqqXlaxfpmRgZ4p0Lys4sxM3aLSvJLM3FS9IAgNAMr/bclsAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "amplify-codenest-jeshwinprince-sandbox-435f81443d/CDKMetadata/Default"

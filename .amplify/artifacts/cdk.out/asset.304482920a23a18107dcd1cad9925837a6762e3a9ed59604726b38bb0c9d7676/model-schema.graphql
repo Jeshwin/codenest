@@ -1,0 +1,31 @@
+type UserInfo @model @auth(rules: [{allow: private, operations: [read]},
+  {allow: owner, ownerField: "owner"}])
+{
+  username: String!
+  firstName: String!
+  lastName: String
+  bio: String
+  profilePhoto: String
+}
+
+type Projects @model @auth(rules: [{allow: private, operations: [read]},
+  {allow: owner, ownerField: "author"}])
+{
+  title: String!
+  description: String!
+  templateId: ID
+  template: Templates @belongsTo(references: ["templateId"])
+  author: String
+  icon: AWSURL
+}
+
+type Templates @model @auth(rules: [{allow: private, operations: [read]},
+  {allow: owner, ownerField: "author"}])
+{
+  title: String!
+  description: String!
+  templateId: ID
+  projects: [Projects] @hasMany(references: ["templateId"])
+  author: String
+  icon: AWSURL
+}

@@ -1,0 +1,19 @@
+type UserInfo @model @auth(rules: [{allow: private, operations: [read]},
+  {allow: owner, ownerField: "owner"}])
+{
+  username: String!
+  firstName: String!
+  lastName: String
+  bio: String
+  profilePhoto: String
+}
+
+type Project @model @auth(rules: [{allow: private, operations: [read]},
+  {allow: owner, ownerField: "owner"}])
+{
+  username: String!
+  firstName: String!
+  lastName: String
+  bio: String
+  profilePhoto: String
+}
