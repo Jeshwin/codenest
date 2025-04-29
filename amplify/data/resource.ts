@@ -6,8 +6,6 @@ const schema = a.schema({
             username: a.string().required(),
             firstName: a.string().required(),
             lastName: a.string(),
-            bio: a.string(),
-            profilePhoto: a.string(),
         })
         .authorization((allow) => [
             // Allow any signed in user to read anyone's user info.
@@ -23,7 +21,6 @@ const schema = a.schema({
             templateId: a.id(),
             template: a.belongsTo("Templates", "templateId"),
             author: a.string(), // Override with ownerDefinedIn
-            icon: a.url(),
         })
         .authorization((allow) => [
             allow.authenticated().to(["read"]),
@@ -35,7 +32,6 @@ const schema = a.schema({
             description: a.string(),
             projects: a.hasMany("Projects", "templateId"),
             author: a.string(), // Override with ownerDefinedIn
-            icon: a.url(),
             language: a.string(),
             usage: a.integer(),
             deleted: a.boolean(),

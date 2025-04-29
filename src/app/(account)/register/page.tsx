@@ -17,6 +17,7 @@ import GoogleLogo from "@/components/icons/google";
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
 import {useRouter} from "next/navigation";
 import CooldownButton from "@/components/login/cooldownButton";
+import Cookies from "js-cookie";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -75,6 +76,7 @@ export default function RegisterPage() {
         if (isSignUpComplete) {
             console.log("Verification code valid! Welcome!");
             await autoSignIn();
+            Cookies.set("hasSeenWelcomeDialog", "false", {expires: 365});
             router.push("/home");
         }
     };

@@ -1,35 +1,28 @@
 "use client";
 
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {
     AlertDialog,
     AlertDialogContent,
-    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
 } from "@/components/ui/alert-dialog";
 import {Button} from "@/components/ui/button";
 import {AlertDialogTitle} from "@radix-ui/react-alert-dialog";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {AuthUser, getCurrentUser} from "aws-amplify/auth";
 import {Input} from "@/components/ui/input";
-import {Textarea} from "@/components/ui/textarea";
-import {Camera, X} from "lucide-react";
-import {Label} from "@/components/ui/label";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import {uploadData} from "aws-amplify/storage";
 import {generateClient} from "aws-amplify/data";
 import {type Schema} from "@/../amplify/data/resource";
 
@@ -71,35 +64,20 @@ const userFormSchema = z.object({
         .string()
         .max(50, "Last Name must not exceed 50 characters")
         .optional(),
-    bio: z.string().max(200, "Bio must not exceed 200 characters").optional(),
 });
-
-// Convert image types into extensions
-const mimeToExtension = {
-    "image/png": "png",
-    "image/jpeg": "jpg",
-    "image/jpg": "jpg",
-    "image/gif": "gif",
-    "image/webp": "webp",
-    "image/svg+xml": "svg",
-    "image/avif": "avif",
-    "image/tiff": "tiff",
-};
 
 export default function WelcomeDialog() {
     const [showDialog, setShowDialog] = useState(false);
-    const [currentUser, setCurrentUser] = useState<AuthUser>();
-    const [avatarImage, setAvatarImage] = useState<File | null>(null);
-    const [avatarImagePreview, setAvatarImagePreview] = useState<string | null>(
-        null
-    );
-    const [avatarImageType, setAvatarImageType] = useState<string | null>(null);
     const [defaultUsername, setDefaultUsername] = useState<string>();
 
     useEffect(() => {
         const getData = async () => {
             const data = await getCurrentUser();
-            setCurrentUser(data);
+            const defaultUsernameResponse = await fetch(
+                `https://api.toucanny.net/username?userid=${data.userId}`
+            );
+            const newDefaultUsername = await defaultUsernameResponse.json();
+            setDefaultUsername(newDefaultUsername.username);
         };
         getData();
     }, []);
@@ -107,44 +85,23 @@ export default function WelcomeDialog() {
     const form = useForm<z.infer<typeof userFormSchema>>({
         resolver: zodResolver(userFormSchema),
         defaultValues: {
-            username: "",
+            username: defaultUsername,
             firstName: "",
         },
     });
 
     async function onSubmit(values: z.infer<typeof userFormSchema>) {
         // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values);
-        console.log(
-            avatarImage ||
-                `https://api.toucanny.net/avatar?userid=${
-                    currentUser?.userId
-                }&w=${256}`
-        );
+        // This will be type-safe and validated.
 
-        // Get URL to profile photo
-        let profilePhotoURL: string;
-        if (avatarImage) {
-            // Upload avatar to storage
-            const result = await uploadData({
-                path: ({identityId}) =>
-                    `profile-pictures/${identityId}/pfp.${avatarImageType}`,
-                data: avatarImage,
-            }).result;
-            profilePhotoURL = result.path;
-        } else {
-            profilePhotoURL = `https://api.toucanny.net/avatar?userid=${currentUser?.userId}`;
-        }
-
-        // Create user info item
         const {errors, data: newUserInfo} = await client.models.UserInfo.create(
             {
+                // @ts-ignore
                 username: values.username,
+                // @ts-ignore
                 firstName: values.firstName,
+                // @ts-ignore
                 lastName: values.lastName ?? "",
-                bio: values.bio ?? "",
-                profilePhoto: profilePhotoURL,
             }
         );
         console.log(newUserInfo);
@@ -152,57 +109,6 @@ export default function WelcomeDialog() {
             console.error(errors);
         }
     }
-
-    useEffect(() => {
-        async function setDefUsername() {
-            const defaultUsernameResponse = await fetch(
-                `https://api.toucanny.net/username?userid=${currentUser?.userId}`
-            );
-            const newDefaultUsername = await defaultUsernameResponse.json();
-            setDefaultUsername(newDefaultUsername.username);
-        }
-        setDefUsername();
-    }, [currentUser?.userId]);
-
-    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            if (file.size > 10 * 1024 * 1024) {
-                alert("Image must be less than 10 MB");
-                return;
-            }
-
-            setAvatarImage(file); // Set the uploaded image as the new avatar
-            setAvatarImageType(mimeToExtension[file.type] || "unknown");
-        }
-    };
-
-    useEffect(() => {
-        if (!avatarImage) {
-            setAvatarImagePreview(
-                `https://api.toucanny.net/avatar?userid=${
-                    currentUser?.userId
-                }&w=${256}`
-            );
-            return;
-        }
-        const reader = new FileReader();
-        reader.readAsDataURL(avatarImage);
-        setAvatarImagePreview(reader.result as string);
-        reader.addEventListener("loadend", () => {
-            setAvatarImagePreview(reader.result as string);
-        });
-        return () =>
-            reader.removeEventListener("loadend", () => {
-                setAvatarImagePreview(reader.result as string);
-            });
-    }, [avatarImage, currentUser?.userId]);
-
-    const handleRemoveImage = () => {
-        // Reset to default avatar
-        setAvatarImage(null);
-        setAvatarImageType(null);
-    };
 
     useEffect(() => {
         const hasSeenWelcomeDialog = Cookies.get("hasSeenWelcomeDialog");
@@ -230,38 +136,6 @@ export default function WelcomeDialog() {
                         </AlertDialogTitle>
                     </AlertDialogHeader>
                     <div className="flex gap-4">
-                        <div className="relative size-36 w-fit overflow-hidden mt-2">
-                            <Avatar className="size-36 rounded-full">
-                                <AvatarImage
-                                    src={avatarImagePreview}
-                                    alt={currentUser?.userId}
-                                    className="object-cover"
-                                />
-                                <AvatarFallback className="rounded-full">
-                                    CN
-                                </AvatarFallback>
-                            </Avatar>
-                            <div className="cursor-pointer absolute bottom-0 left-0 right-0 bg-background/50 flex justify-center align-middle p-2 gap-1">
-                                <label className="flex items-center gap-1 cursor-pointer">
-                                    <Camera className="size-4" />
-                                    Edit
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        className="hidden"
-                                        onChange={handleImageUpload}
-                                    />
-                                </label>
-                            </div>
-                            {avatarImage && (
-                                <button
-                                    onClick={handleRemoveImage}
-                                    className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full size-6"
-                                >
-                                    <X className="size-4" />
-                                </button>
-                            )}
-                        </div>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="w-fit flex flex-col gap-4"
@@ -318,24 +192,6 @@ export default function WelcomeDialog() {
                                     )}
                                 />
                             </div>
-                            <FormField
-                                control={form.control}
-                                name="bio"
-                                render={({field}) => (
-                                    <FormItem>
-                                        <FormLabel>Bio (optional)</FormLabel>
-                                        <FormControl>
-                                            <Textarea
-                                                placeholder="Tell us a little bit about yourself"
-                                                className="resize-none"
-                                                {...field}
-                                            />
-                                        </FormControl>
-
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
                         </form>
                     </div>
                     <AlertDialogFooter>
