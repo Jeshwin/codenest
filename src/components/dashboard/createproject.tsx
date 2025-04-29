@@ -6,7 +6,6 @@ import {ChevronsUpDown, Heart, Plus} from "lucide-react";
 
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
     DialogFooter,
@@ -16,12 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
-import {
-    Popover,
-    PopoverContent,
-    PopoverPortal,
-    PopoverTrigger,
-} from "@/components/ui/popover";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
 import {
     Command,

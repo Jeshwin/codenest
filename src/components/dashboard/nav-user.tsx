@@ -25,7 +25,6 @@ import {useEffect, useState} from "react";
 import Link from "next/link";
 import {generateClient} from "aws-amplify/data";
 import {type Schema} from "@/../amplify/data/resource";
-import {getUrl} from "aws-amplify/storage";
 
 const client = generateClient<Schema>({
     authMode: "userPool",
@@ -70,26 +69,11 @@ export default function NavUser() {
 
     useEffect(() => {
         if (!currentUserInfo) return;
-        const profilePhotoPieces = currentUserInfo.profilePhoto.split("/");
-        if (profilePhotoPieces[0].includes("http")) {
-            setAvatarURL(
-                `https://api.toucanny.net/avatar?userid=${
-                    currentUser?.userId
-                }&w=${256}`
-            );
-        } else {
-            async function generateURL() {
-                const generatedURL = await getUrl({
-                    path: currentUserInfo.profilePhoto,
-                    options: {
-                        expiresIn: 86400,
-                    },
-                });
-                console.log(generatedURL.url.toString());
-                setAvatarURL(generatedURL.url.toString());
-            }
-            generateURL();
-        }
+        setAvatarURL(
+            `https://api.toucanny.net/avatar?userid=${
+                currentUser?.userId
+            }&w=${256}`
+        );
     }, [currentUser?.userId, currentUserInfo]);
 
     const router = useRouter();

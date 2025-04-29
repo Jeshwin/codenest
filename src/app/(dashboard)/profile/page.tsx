@@ -16,10 +16,9 @@ import {Button} from "@/components/ui/button";
 import {AuthUser, getCurrentUser} from "aws-amplify/auth";
 import {LinkIcon} from "lucide-react";
 import Link from "next/link";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {generateClient} from "aws-amplify/data";
 import {type Schema} from "@/../amplify/data/resource";
-import {getUrl, uploadData} from "aws-amplify/storage";
 import CreateData from "@/components/debug/createData";
 
 const client = generateClient<Schema>({
@@ -117,17 +116,6 @@ const templates = [
         uses: 9,
     },
 ];
-// Convert image types into extensions
-const mimeToExtension = {
-    "image/png": "png",
-    "image/jpeg": "jpg",
-    "image/jpg": "jpg",
-    "image/gif": "gif",
-    "image/webp": "webp",
-    "image/svg+xml": "svg",
-    "image/avif": "avif",
-    "image/tiff": "tiff",
-};
 
 export default function ProfilePage() {
     const [currentUser, setCurrentUser] = useState<AuthUser>();
@@ -167,26 +155,11 @@ export default function ProfilePage() {
 
     useEffect(() => {
         if (!currentUserInfo) return;
-        const profilePhotoPieces = currentUserInfo.profilePhoto.split("/");
-        if (profilePhotoPieces[0].includes("http")) {
-            setAvatarURL(
-                `https://api.toucanny.net/avatar?userid=${
-                    currentUser?.userId
-                }&w=${256}`
-            );
-        } else {
-            async function generateURL() {
-                const generatedURL = await getUrl({
-                    path: currentUserInfo.profilePhoto,
-                    options: {
-                        expiresIn: 86400,
-                    },
-                });
-                console.log(generatedURL.url.toString());
-                setAvatarURL(generatedURL.url.toString());
-            }
-            generateURL();
-        }
+        setAvatarURL(
+            `https://api.toucanny.net/avatar?userid=${
+                currentUser?.userId
+            }&w=${256}`
+        );
     }, [currentUser?.userId, currentUserInfo]);
 
     const deleteUserData = async () => {

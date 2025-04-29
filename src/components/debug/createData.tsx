@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {ImagePlus} from "lucide-react";
-import Image from "next/image";
 import {v4 as uuidv4} from "uuid";
 import {useRef, useState} from "react";
 import {generateClient} from "aws-amplify/data";
@@ -47,7 +46,6 @@ export default function CreateData() {
     const [templateFormData, setTemplateFormData] = useState({
         title: "",
         description: "",
-        icon: "",
         language: "",
     });
     const [queryResults, setQueryResults] = useState<Object>({
@@ -74,6 +72,7 @@ export default function CreateData() {
         e.preventDefault();
         console.dir(projectFormData);
         const {errors, data} = await client.models.Projects.create(
+            // @ts-ignore
             projectFormData
         );
     };
@@ -142,6 +141,7 @@ export default function CreateData() {
         e.preventDefault();
         console.dir(templateFormData);
         const {errors, data} = await client.models.Templates.create(
+            // @ts-ignore
             templateFormData
         );
     };
@@ -273,14 +273,6 @@ export default function CreateData() {
                                         ? "Uploading..."
                                         : "Upload Icon"}
                                 </Button>
-                                {templateFormData.icon && (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img
-                                        src={templateFormData.icon}
-                                        alt="Template icon preview"
-                                        className="w-12 h-12 object-cover rounded-md"
-                                    />
-                                )}
                             </div>
                             <input
                                 ref={fileInputRef}

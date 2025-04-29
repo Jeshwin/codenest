@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import {Button} from "@/components/ui/button";
 import {AlertDialogTitle} from "@radix-ui/react-alert-dialog";
-import {AuthUser, getCurrentUser} from "aws-amplify/auth";
+import {getCurrentUser} from "aws-amplify/auth";
 import {Input} from "@/components/ui/input";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
