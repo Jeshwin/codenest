@@ -1,7 +1,8 @@
 # Custom
 .DS_Store
 tmp/
-# amplify/team-provider-info.json
+amplify/team-provider-info.json
+.amplify/
 
 # Logs
 logs

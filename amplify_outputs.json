@@ -66,20 +66,6 @@
               "isRequired": false,
               "attributes": []
             },
-            "bio": {
-              "name": "bio",
-              "isArray": false,
-              "type": "String",
-              "isRequired": false,
-              "attributes": []
-            },
-            "profilePhoto": {
-              "name": "profilePhoto",
-              "isArray": false,
-              "type": "String",
-              "isRequired": false,
-              "attributes": []
-            },
             "createdAt": {
               "name": "createdAt",
               "isArray": false,
@@ -189,13 +175,6 @@
               "isRequired": false,
               "attributes": []
             },
-            "icon": {
-              "name": "icon",
-              "isArray": false,
-              "type": "AWSURL",
-              "isRequired": false,
-              "attributes": []
-            },
             "createdAt": {
               "name": "createdAt",
               "isArray": false,
@@ -299,13 +278,6 @@
               "isRequired": false,
               "attributes": []
             },
-            "icon": {
-              "name": "icon",
-              "isArray": false,
-              "type": "AWSURL",
-              "isRequired": false,
-              "attributes": []
-            },
             "language": {
               "name": "language",
               "isArray": false,
@@ -386,44 +358,6 @@
       "enums": {},
       "nonModels": {}
     }
-  },
-  "storage": {
-    "aws_region": "us-west-1",
-    "bucket_name": "amplify-codenest-jeshwinp-amplifyteamdrivebucket28-og4pyv1mlgte",
-    "buckets": [
-      {
-        "name": "amplifyTeamDrive",
-        "bucket_name": "amplify-codenest-jeshwinp-amplifyteamdrivebucket28-og4pyv1mlgte",
-        "aws_region": "us-west-1",
-        "paths": {
-          "profile-pictures/*": {
-            "guest": [
-              "get",
-              "list"
-            ]
-          },
-          "profile-pictures/${cognito-identity.amazonaws.com:sub}/*": {
-            "entityidentity": [
-              "get",
-              "list",
-              "write",
-              "delete"
-            ]
-          },
-          "template-icons/*": {
-            "guest": [
-              "get",
-              "list"
-            ],
-            "authenticated": [
-              "get",
-              "list",
-              "write"
-            ]
-          }
-        }
-      }
-    ]
   },
   "version": "1.3"
 }
