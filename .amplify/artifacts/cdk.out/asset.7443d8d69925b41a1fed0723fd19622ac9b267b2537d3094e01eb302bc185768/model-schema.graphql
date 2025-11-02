@@ -1,9 +1,0 @@
-type UserInfo @model @auth(rules: [{allow: public, provider: apiKey, operations: [read]},
-  {allow: owner, ownerField: "owner"}])
-{
-  username: String
-  firstName: String
-  lastName: String
-  bio: String
-  profilePhoto: String
-}
